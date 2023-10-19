@@ -1,0 +1,39 @@
+﻿using NHibernate;
+using Persistence.Models;
+
+namespace Persistence.Repositories;
+
+public class ClientRepository : IRepository<Client>
+{
+
+    private ISession _session;
+
+    public ClientRepository(ISession session)
+    {
+        _session = session;
+    }
+    
+    public void Add(Client client)
+    {
+        _session.Save(client);
+    }
+
+    public Client Get(int id)
+    {
+        return _session.Get<Client>(id);
+    }
+    public IEnumerable<Client> GetAll()
+    {
+        return _session.Query<Client>().ToList();
+    }
+    public void Update(Client client)
+    {
+        _session.Update(client);
+    }
+
+    public void Delete(int id)
+    {
+        var item = Get(id);
+        _session.Delete(item);
+    }
+}

@@ -1,0 +1,1 @@
+make mapping file a resource  
