@@ -1,13 +1,16 @@
 ﻿using System.Windows;
 using FluentNHibernate.Cfg.Db;
 using FluentNHibernate.Cfg;
-using GUI.View;
+using GUI.Views;
 using GUI.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Persistence.Repositories;
 using Persistence.Mappings;
 using NHibernate;
+using System;
+using GUI.Core;
+using GUI.Services;
 
 namespace GUI;
 
@@ -37,9 +40,15 @@ public partial class App : Application
         _host = Host.CreateDefaultBuilder()
         .ConfigureServices((services) =>
         {
-            services.AddSingleton<MainWindow>();
             services.AddScoped(provider => new ClientRepository(_session));
-            services.AddSingleton<MainVM>();
+            services.AddSingleton<MainWindow>();
+            services.AddSingleton<MainViewModel>();
+            services.AddSingleton<HomeViewModel>();
+
+            services.AddSingleton<INavigationService, NavigationService>();
+            services.AddSingleton<Func<Type, ViewModel>>(serviceProvider => viewModelType => (ViewModel)serviceProvider.GetRequiredService(viewModelType));
+
+            services.AddSingleton<ClientsViewModel>();
         })
         .Build();
     }
@@ -58,6 +67,7 @@ public partial class App : Application
     {
         _host.StopAsync();
         _host.Dispose();
+        _session.Close();
 
         base.OnExit(e);
     }

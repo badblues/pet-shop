@@ -1,8 +1,17 @@
 ﻿<Application x:Class="GUI.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:GUI">
+             xmlns:viewModels="clr-namespace:GUI.ViewModels"
+             xmlns:views="clr-namespace:GUI.Views">
     <Application.Resources>
-         
+
+        <DataTemplate DataType="{x:Type viewModels:HomeViewModel}">
+            <views:HomeView/>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModels:ClientsViewModel}">
+            <views:ClientsView/>
+        </DataTemplate>
+
     </Application.Resources>
 </Application>
