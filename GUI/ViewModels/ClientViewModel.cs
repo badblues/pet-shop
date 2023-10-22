@@ -32,9 +32,6 @@ public class ClientsViewModel : ViewModel
     {
         _clientRepository = clientRepository;
         Clients = _clientRepository.GetAll();
-        IEnumerator<Client> enumerator = Clients.GetEnumerator();
-        enumerator.MoveNext();
-        SelectedClient = enumerator.Current;
     }
 
     public void OnSelectClient(Client client)
@@ -42,8 +39,30 @@ public class ClientsViewModel : ViewModel
         SelectedClient = client;
     }
 
+    public void OnAddClient()
+    {
+        if (_enteredName.Length > 0 && _enteredAddress.Length > 0)
+        {
+            Client newClient = new Client() {Name = _enteredName, Address = _enteredAddress};
+            _clientRepository.Add(newClient);
+            Clients = _clientRepository.GetAll();
+        }
+    }
+
+    public void OnNameTextChanged(string name)
+    {
+        _enteredName = name;
+    }
+
+    public void OnAddressTextChanged(string address)
+    {
+        _enteredAddress = address;
+    }
+
     private ClientRepository _clientRepository;
     private IEnumerable<Client> _clients;
     private Client _selectedClient;
+    private string _enteredName;
+    private string _enteredAddress;
 
 }

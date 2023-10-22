@@ -15,10 +15,8 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-
         <ItemsControl 
-            ItemsSource="{Binding Clients}"
-            Grid.RowSpan="2">
+            ItemsSource="{Binding Clients}">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <controls:ClientItem
@@ -27,6 +25,18 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
+
+        <StackPanel
+            Grid.Row="1"
+            Background="BurlyWood">
+            <Button 
+                Content="ADD CLIENT"
+                Click="AddClient_Click"/>
+            <Label Content="Name:"/>
+            <RichTextBox x:Name="richTextBoxName" TextChanged="RichTextBoxName_TextChanged"/>
+            <Label Content="Address:"/>
+            <RichTextBox x:Name="richTextBoxAddress" TextChanged="RichTextBoxAddress_TextChanged"/>
+        </StackPanel>
 
         <controls:ClientProfile
             Client="{Binding SelectedClient}"
