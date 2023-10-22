@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Input;
+using System.Windows.Media.Animation;
 using GUI.Core;
 using Persistence.Models;
 using Persistence.Repositories;
@@ -8,7 +9,7 @@ namespace GUI.ViewModels;
 
 public class ClientsViewModel : ViewModel
 {
-    public Client SelectedClient
+    public Client? SelectedClient
     {
         get => _selectedClient;
         set
@@ -34,29 +35,36 @@ public class ClientsViewModel : ViewModel
         Clients = _clientRepository.GetAll();
     }
 
-    public void OnSelectClient(Client client)
+    public void SelectClient(Client client)
     {
         SelectedClient = client;
     }
 
-    public void OnAddClient()
+    public void AddClient()
     {
         if (_enteredName.Length > 0 && _enteredAddress.Length > 0)
         {
-            Client newClient = new Client() {Name = _enteredName, Address = _enteredAddress};
+            Client newClient = new Client() { Name = _enteredName, Address = _enteredAddress };
             _clientRepository.Add(newClient);
             Clients = _clientRepository.GetAll();
         }
     }
 
-    public void OnNameTextChanged(string name)
+    public void ChangeNameText(string name)
     {
         _enteredName = name;
     }
 
-    public void OnAddressTextChanged(string address)
+    public void ChangeAddressText(string address)
     {
         _enteredAddress = address;
+    }
+
+    public void DeleteClient(Client client)
+    {
+        _clientRepository.Delete(client.Id);
+        Clients = _clientRepository.GetAll();
+        SelectedClient = null;
     }
 
     private ClientRepository _clientRepository;

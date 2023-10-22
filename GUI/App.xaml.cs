@@ -11,6 +11,7 @@ using NHibernate;
 using System;
 using GUI.Core;
 using GUI.Services;
+using System.Diagnostics;
 
 namespace GUI;
 
@@ -25,12 +26,19 @@ public partial class App : Application
     {
         var config = Fluently.Configure()
             .Database(PostgreSQLConfiguration.PostgreSQL82
-                .ConnectionString(_connectionString)
-                .ShowSql()) // Show SQL in the console (for debugging)
+                .ConnectionString(_connectionString))
             .Mappings(m =>
             {
                 m.FluentMappings
                     .Add<ClientMap>();
+            }).
+            ExposeConfiguration(cfg =>
+            {
+                // Create a custom SQL output listener that sends SQL statements to the debug output window.
+                cfg.SetProperty(NHibernate.Cfg.Environment.ShowSql, "true");
+                cfg.SetProperty(NHibernate.Cfg.Environment.FormatSql, "true");
+                cfg.SetProperty(NHibernate.Cfg.Environment.UseSqlComments, "true");
+                cfg.SetInterceptor(new DebugSqlStatementInterceptor());
             })
             .BuildConfiguration();
 
@@ -70,5 +78,14 @@ public partial class App : Application
         _session.Close();
 
         base.OnExit(e);
+    }
+
+    public class DebugSqlStatementInterceptor : EmptyInterceptor
+    {
+        public override NHibernate.SqlCommand.SqlString OnPrepareStatement(NHibernate.SqlCommand.SqlString sql)
+        {
+            Debug.WriteLine(sql.ToString());
+            return sql;
+        }
     }
 }

@@ -39,8 +39,8 @@
         </StackPanel>
 
         <controls:ClientProfile
-            Client="{Binding SelectedClient}"
-            DataContext="{Binding SelectedClient}"
+            Client="{Binding DataContext.SelectedClient, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+            DeleteClicked="ClientProfile_DeleteClicked"
             Grid.Column="1">
             <controls:ClientProfile.Style>
                 <Style TargetType="controls:ClientProfile">

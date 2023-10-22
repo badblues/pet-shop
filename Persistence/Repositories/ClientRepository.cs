@@ -1,4 +1,5 @@
-﻿using NHibernate;
+﻿using System.Diagnostics;
+using NHibernate;
 using Persistence.Models;
 
 namespace Persistence.Repositories;
@@ -20,10 +21,12 @@ public class ClientRepository : IRepository<Client>
 
     public Client Get(int id)
     {
+        _session.Flush();
         return _session.Get<Client>(id);
     }
     public IEnumerable<Client> GetAll()
     {
+        _session.Flush();
         return _session.Query<Client>().ToList();
     }
     public void Update(Client client)
@@ -34,6 +37,7 @@ public class ClientRepository : IRepository<Client>
     public void Delete(int id)
     {
         var item = Get(id);
+        Debug.WriteLine("ABOVOABOHIAOHJKSHDJKHFDLDJKSHFJKSDHLJKFHSDJKFJKHSLJKFHJKSDHFJKL");
         _session.Delete(item);
     }
 }
