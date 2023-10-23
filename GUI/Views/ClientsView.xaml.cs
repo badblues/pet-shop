@@ -51,4 +51,10 @@ public partial class ClientsView : UserControl
         var context = (ClientsViewModel)DataContext;
         context.DeleteClient(e.Client);
     }
+
+    private void ClientProfile_UpdateClicked(object sender, ClientEventArgs e)
+    {
+        var context = (ClientsViewModel)DataContext;
+        context.UpdateClient(e.Client);
+    }
 }

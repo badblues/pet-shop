@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" 
-             d:DesignHeight="250" d:DesignWidth="250">
+             d:DesignHeight="500" d:DesignWidth="700">
     <UserControl.DataContext>
         <Binding RelativeSource="{RelativeSource Self}" />
     </UserControl.DataContext>
@@ -16,23 +16,28 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="247*"/>
+            <RowDefinition Height="145*"/>
+            <RowDefinition Height="108*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel>
+        <StackPanel DataContext="{Binding Client}">
             <DockPanel Grid.Column="0" Grid.Row="0">
                 <TextBlock Text="Name: "/>
-                <TextBlock Text="{Binding Client.Name}"/>
+                <TextBlock Text="{Binding Name}"/>
             </DockPanel>
             <DockPanel>
                 <TextBlock Text="Address: "/>
-                <TextBlock Text="{Binding Client.Address}"/>
+                <TextBlock Text="{Binding Address}"/>
             </DockPanel>
         </StackPanel>
         <StackPanel Grid.Column="1">
             <Button Content="DELETE" Click="DeleteButton_Click"/>
+            <Label Content="New name:"/>
+            <RichTextBox x:Name="richTextBoxName" TextChanged="RichTextBoxName_TextChanged"/>
+            <Label Content="New address:"/>
+            <RichTextBox x:Name="richTextBoxAddress" TextChanged="RichTextBoxAddress_TextChanged"/>
+            <Button Content="Update profile" Click="UpdateButton_Click"/>
         </StackPanel>
     </Grid>
 </UserControl>

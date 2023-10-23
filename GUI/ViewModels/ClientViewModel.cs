@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 using GUI.Core;
@@ -67,10 +68,18 @@ public class ClientsViewModel : ViewModel
         SelectedClient = null;
     }
 
+    public void UpdateClient(Client client)
+    {
+        _clientRepository.Update(client);
+        Clients = _clientRepository.GetAll();
+        SelectedClient = null;
+        SelectedClient = _clientRepository.Get(client.Id);
+    }
+
     private ClientRepository _clientRepository;
     private IEnumerable<Client> _clients;
     private Client _selectedClient;
-    private string _enteredName;
-    private string _enteredAddress;
+    private string _enteredName = "";
+    private string _enteredAddress = "";
 
 }
