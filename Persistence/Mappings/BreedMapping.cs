@@ -3,15 +3,13 @@ using Persistence.Models;
 
 namespace Persistence.Mappings;
 
-public class ClientMap : ClassMap<Client>
+public class BreedMapping : ClassMap<Breed>
 {
-    public ClientMap()
+    public BreedMapping()
     {
-        Table("Clients");
+        Table("Breeds");
 
         Id(x => x.Id, "id").GeneratedBy.Identity();
         Map(x => x.Name, "name");
-        Map(x => x.Address, "address");
-
     }
 }
