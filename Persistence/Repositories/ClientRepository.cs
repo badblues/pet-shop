@@ -37,7 +37,6 @@ public class ClientRepository : IRepository<Client>
     public void Delete(int id)
     {
         var item = Get(id);
-        Debug.WriteLine("ABOVOABOHIAOHJKSHDJKHFDLDJKSHFJKSDHLJKFHSDJKFJKHSLJKFHJKSDHFJKL");
         _session.Delete(item);
     }
 }
