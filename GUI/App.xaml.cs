@@ -30,7 +30,8 @@ public partial class App : Application
             .Mappings(m =>
             {
                 m.FluentMappings
-                    .Add<ClientMap>();
+                    .Add<ClientMapping>()
+                    .Add<BreedMapping>();
             }).
             ExposeConfiguration(cfg =>
             {
@@ -49,6 +50,7 @@ public partial class App : Application
         .ConfigureServices((services) =>
         {
             services.AddScoped(provider => new ClientRepository(_session));
+            services.AddScoped(provider => new BreedRepository(_session));
             services.AddSingleton<MainWindow>();
             services.AddSingleton<MainViewModel>();
             services.AddSingleton<HomeViewModel>();
@@ -57,6 +59,7 @@ public partial class App : Application
             services.AddSingleton<Func<Type, ViewModel>>(serviceProvider => viewModelType => (ViewModel)serviceProvider.GetRequiredService(viewModelType));
 
             services.AddSingleton<ClientsViewModel>();
+            services.AddSingleton<BreedsViewModel>();
         })
         .Build();
     }

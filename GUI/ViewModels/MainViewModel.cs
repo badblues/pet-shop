@@ -20,11 +20,14 @@ public class MainViewModel : ViewModel
     public RelayCommand NavigateToHomeCommand { get; set; }
     public RelayCommand NavigateToClientsCommand { get; set; }
 
+    public RelayCommand NavigateToBreedsCommand { get; set; }
+
     public MainViewModel(INavigationService navigationService)
     {
         _navigationService = navigationService;
         NavigateToHomeCommand = new RelayCommand(o => NavigationService.NavigateTo<HomeViewModel>(), o => true);
         NavigateToClientsCommand = new RelayCommand(o => NavigationService.NavigateTo<ClientsViewModel>(), o => true);
+        NavigateToBreedsCommand = new RelayCommand(o => NavigationService.NavigateTo<BreedsViewModel>(), o => true);
         NavigateToHomeCommand.Execute(null);
     }
 }

@@ -7,10 +7,16 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Controls\BreedItem.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\ClientItem.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Controls\ClientProfile.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Views\BreedsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Views\ClientsView.xaml.cs">
@@ -21,10 +27,16 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Controls\BreedItem.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Controls\ClientItem.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\ClientProfile.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\BreedsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\ClientsView.xaml">

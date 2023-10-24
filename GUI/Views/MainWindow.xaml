@@ -16,9 +16,17 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.RowSpan="2">
             <Button Content="Home"
+                    Height="30"
+                    Margin="0,5,0,5"
                     Command="{Binding NavigateToHomeCommand}"/>
             <Button Content="Clients"
+                    Height="30"
+                    Margin="0,5,0,5"
                     Command="{Binding NavigateToClientsCommand}"/>
+            <Button Content="Breeds"
+                    Height="30"
+                    Margin="0,5,0,5"
+                    Command="{Binding NavigateToBreedsCommand}"/>
         </StackPanel>
         <ContentControl Grid.Column="1"  Grid.RowSpan="2" Content="{Binding NavigationService.CurrentView}"/>
     </Grid>
