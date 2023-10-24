@@ -1,7 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
-using System.Windows.Input;
-using System.Windows.Media.Animation;
 using GUI.Core;
 using Persistence.Models;
 using Persistence.Repositories;
@@ -77,8 +74,8 @@ public class ClientsViewModel : ViewModel
     }
 
     private ClientRepository _clientRepository;
-    private IEnumerable<Client> _clients;
-    private Client _selectedClient;
+    private IEnumerable<Client> _clients = new List<Client>();
+    private Client? _selectedClient;
     private string _enteredName = "";
     private string _enteredAddress = "";
 
