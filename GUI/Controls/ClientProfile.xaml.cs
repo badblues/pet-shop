@@ -12,8 +12,8 @@ public partial class ClientProfile : UserControl
     private string _enteredName = "";
     private string _enteredAddress = "";
 
-    public event EventHandler<ClientEventArgs> DeleteClicked;
-    public event EventHandler<ClientEventArgs> UpdateClicked;
+    public event EventHandler<ResourceEventArgs<Client>> DeleteClicked;
+    public event EventHandler<ResourceEventArgs<Client>> UpdateClicked;
     public static readonly DependencyProperty ClientProperty =
         DependencyProperty.Register("Client", typeof(Client), typeof(ClientProfile));
 
@@ -36,7 +36,7 @@ public partial class ClientProfile : UserControl
 
     private void DeleteButton_Click(object sender, RoutedEventArgs e)
     {
-        ClientEventArgs args = new ClientEventArgs(Client);
+        ResourceEventArgs<Client> args = new ResourceEventArgs<Client>(Client);
         DeleteClicked?.Invoke(this, args);
     }
 
@@ -49,7 +49,7 @@ public partial class ClientProfile : UserControl
             updatedClient.Name = _enteredName;
         if (_enteredAddress.Length > 0)
             updatedClient.Address = _enteredAddress;
-        ClientEventArgs args = new ClientEventArgs(updatedClient);
+        ResourceEventArgs<Client> args = new ResourceEventArgs<Client>(updatedClient);
         UpdateClicked?.Invoke(this, args);
         //TODO fix this bullshit
         richTextBoxName.Document = new FlowDocument(new Paragraph(new Run("")));

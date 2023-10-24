@@ -46,15 +46,15 @@ public partial class ClientsView : UserControl
         context.ChangeAddressText(text);
     }
 
-    private void ClientProfile_DeleteClicked(object sender, ClientEventArgs e)
+    private void ClientProfile_DeleteClicked(object sender, ResourceEventArgs<Client> e)
     {
         var context = (ClientsViewModel)DataContext;
-        context.DeleteClient(e.Client);
+        context.DeleteClient(e.Resource);
     }
 
-    private void ClientProfile_UpdateClicked(object sender, ClientEventArgs e)
+    private void ClientProfile_UpdateClicked(object sender, ResourceEventArgs<Client> e)
     {
         var context = (ClientsViewModel)DataContext;
-        context.UpdateClient(e.Client);
+        context.UpdateClient(e.Resource);
     }
 }
