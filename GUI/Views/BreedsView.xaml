@@ -21,9 +21,12 @@
                 ItemsSource="{Binding Breeds}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <controls:BreedItem
-                            Breed="{Binding}"
-                            MouseLeftButtonDown="Breeds_MouseLeftButton"/>
+                        <DockPanel
+                            Background="Aqua"
+                            MouseLeftButtonDown="Breeds_MouseLeftButton">
+                            <Label Content="Name: "/>
+                            <Label Content="{Binding Name}"/>
+                        </DockPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>

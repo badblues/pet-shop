@@ -2,7 +2,6 @@
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Input;
-using GUI.Controls;
 using GUI.CustomEventArgs;
 using GUI.ViewModels;
 using Persistence.Models;
@@ -20,8 +19,9 @@ public partial class ClientsView : UserControl
     private void Clients_MouseLeftButton(object sender, MouseButtonEventArgs e)
     {
         var context = (ClientsViewModel)DataContext;
-        var clientItem = (ClientItem)sender;
-        context.SelectClient(clientItem.Client);
+        var dockPanel = (DockPanel)sender;
+        var client = dockPanel.DataContext as Client;
+        context.SelectClient(client);
     } 
 
     private void AddClient_Click(object sender, RoutedEventArgs e)

@@ -17,12 +17,17 @@
         </Grid.RowDefinitions>
         <StackPanel>
             <ItemsControl 
-            ItemsSource="{Binding Clients}">
+                ItemsSource="{Binding Clients}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <controls:ClientItem
-                        Client="{Binding}"
-                        MouseLeftButtonDown="Clients_MouseLeftButton"/>
+                        <DockPanel
+                            Background="Aqua"
+                            MouseLeftButtonDown="Clients_MouseLeftButton">
+                            <Label Content="Name: "/>
+                            <Label Content="{Binding Name}"/>
+                            <Label Content="Address: "/>
+                            <Label Content="{Binding Address}"/>
+                        </DockPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
