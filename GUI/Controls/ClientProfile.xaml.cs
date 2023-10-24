@@ -1,11 +1,8 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using GUI.CustomEventArgs;
-using GUI.ViewModels;
 using Persistence.Models;
 
 namespace GUI.Controls;
@@ -15,6 +12,8 @@ public partial class ClientProfile : UserControl
     private string _enteredName = "";
     private string _enteredAddress = "";
 
+    public event EventHandler<ClientEventArgs> DeleteClicked;
+    public event EventHandler<ClientEventArgs> UpdateClicked;
     public static readonly DependencyProperty ClientProperty =
         DependencyProperty.Register("Client", typeof(Client), typeof(ClientProfile));
 
@@ -29,9 +28,6 @@ public partial class ClientProfile : UserControl
             SetValue(ClientProperty, value);
         }
     }
-
-    public event EventHandler<ClientEventArgs> DeleteClicked;
-    public event EventHandler<ClientEventArgs> UpdateClicked;
 
     public ClientProfile()
     {
@@ -73,4 +69,5 @@ public partial class ClientProfile : UserControl
         text = text.TrimEnd('\r', '\n');
         _enteredAddress = text;
     }
+
 }

@@ -19,7 +19,6 @@ public class MainViewModel : ViewModel
 
     public RelayCommand NavigateToHomeCommand { get; set; }
     public RelayCommand NavigateToClientsCommand { get; set; }
-
     public RelayCommand NavigateToBreedsCommand { get; set; }
 
     public MainViewModel(INavigationService navigationService)

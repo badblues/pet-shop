@@ -7,6 +7,8 @@ namespace GUI.ViewModels;
 
 public class BreedsViewModel : ViewModel
 {
+    private BreedRepository _breedRepository;
+    private IEnumerable<Breed> _breeds = new List<Breed>();
     public IEnumerable<Breed> Breeds
     {
         get => _breeds;
@@ -23,6 +25,4 @@ public class BreedsViewModel : ViewModel
         Breeds = _breedRepository.GetAll();
     }
 
-    private BreedRepository _breedRepository;
-    private IEnumerable<Breed> _breeds = new List<Breed>();
 }

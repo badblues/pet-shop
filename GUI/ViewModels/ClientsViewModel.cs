@@ -7,6 +7,11 @@ namespace GUI.ViewModels;
 
 public class ClientsViewModel : ViewModel
 {
+    private ClientRepository _clientRepository;
+    private IEnumerable<Client> _clients = new List<Client>();
+    private Client? _selectedClient;
+    private string _enteredName = "";
+    private string _enteredAddress = "";
     public Client? SelectedClient
     {
         get => _selectedClient;
@@ -73,10 +78,5 @@ public class ClientsViewModel : ViewModel
         SelectedClient = _clientRepository.Get(client.Id);
     }
 
-    private ClientRepository _clientRepository;
-    private IEnumerable<Client> _clients = new List<Client>();
-    private Client? _selectedClient;
-    private string _enteredName = "";
-    private string _enteredAddress = "";
 
 }

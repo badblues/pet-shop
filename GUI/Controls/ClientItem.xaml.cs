@@ -6,14 +6,14 @@ namespace GUI.Controls;
 
 public partial class ClientItem : UserControl
 {
+
+    public static readonly DependencyProperty ClientProperty =
+        DependencyProperty.Register("Client", typeof(Client), typeof(ClientItem));
     public Client Client
     {
         get { return (Client)GetValue(ClientProperty); }
         set { SetValue(ClientProperty, value); }
     }
-
-    public static readonly DependencyProperty ClientProperty =
-        DependencyProperty.Register("Client", typeof(Client), typeof(ClientItem));
 
     public ClientItem()
     {
