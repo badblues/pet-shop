@@ -10,6 +10,9 @@
     <Compile Update="Controls\BreedItem.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\BreedProfile.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\ClientItem.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -28,6 +31,9 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="Controls\BreedItem.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\BreedProfile.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\ClientItem.xaml">

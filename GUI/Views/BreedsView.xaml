@@ -22,10 +22,39 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <controls:BreedItem
-                            Breed="{Binding}"/>
+                            Breed="{Binding}"
+                            MouseLeftButtonDown="Breeds_MouseLeftButton"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </StackPanel>
+
+        <controls:BreedProfile
+            Breed="{Binding DataContext.SelectedBreed, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+            DeleteClicked="BreedProfile_DeleteClicked"
+            UpdateClicked="BreedProfile_UpdateClicked"
+            Grid.Column="1">
+            <controls:BreedProfile.Style>
+                <Style TargetType="controls:BreedProfile">
+                    <Setter Property="Visibility" Value="Visible" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding DataContext.SelectedBreed, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" Value="{x:Null}">
+                            <Setter Property="Visibility" Value="Hidden" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </controls:BreedProfile.Style>
+        </controls:BreedProfile>
+
+        <StackPanel
+            Grid.Row="1"
+            Background="DarkCyan">
+            <Button 
+                 Content="ADD BREED"
+                 Click="AddBreed_Click"/>
+            <Label Content="Name:"/>
+            <RichTextBox x:Name="richTextBoxName" TextChanged="RichTextBoxName_TextChanged"/>
+        </StackPanel>
+
     </Grid>
 </UserControl>
