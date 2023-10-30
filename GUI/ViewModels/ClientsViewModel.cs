@@ -7,7 +7,7 @@ namespace GUI.ViewModels;
 
 public class ClientsViewModel : ViewModel
 {
-    private ClientRepository _clientRepository;
+    private readonly ClientRepository _clientRepository;
     private IEnumerable<Client> _clients = new List<Client>();
     private Client? _selectedClient;
     private string _enteredName = "";
@@ -16,7 +16,7 @@ public class ClientsViewModel : ViewModel
     {
         get => _selectedClient;
         set
-        { 
+        {
             _selectedClient = value;
             OnPropertyChanged(nameof(SelectedClient));
         }
@@ -47,7 +47,7 @@ public class ClientsViewModel : ViewModel
     {
         if (_enteredName.Length > 0 && _enteredAddress.Length > 0)
         {
-            Client newClient = new Client() { Name = _enteredName, Address = _enteredAddress };
+            Client newClient = new() { Name = _enteredName, Address = _enteredAddress };
             _clientRepository.Add(newClient);
             Clients = _clientRepository.GetAll();
         }
@@ -77,6 +77,4 @@ public class ClientsViewModel : ViewModel
         SelectedClient = null;
         SelectedClient = _clientRepository.Get(client.Id);
     }
-
-
 }

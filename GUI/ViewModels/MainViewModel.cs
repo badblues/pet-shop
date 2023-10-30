@@ -8,7 +8,7 @@ public class MainViewModel : ViewModel
     private INavigationService _navigationService;
 
     public INavigationService NavigationService
-    { 
+    {
         get => _navigationService;
         set
         {

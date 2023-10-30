@@ -1,9 +1,9 @@
-﻿using System.Windows;
-using System;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using GUI.CustomEventArgs;
 using Persistence.Models;
-using System.Windows.Documents;
 
 namespace GUI.Controls;
 
@@ -19,14 +19,8 @@ public partial class BreedProfile : UserControl
 
     public Breed Breed
     {
-        get
-        {
-            return (Breed)GetValue(BreedProperty);
-        }
-        set
-        {
-            SetValue(BreedProperty, value);
-        }
+        get => (Breed)GetValue(BreedProperty);
+        set => SetValue(BreedProperty, value);
     }
 
     public BreedProfile()
@@ -36,18 +30,24 @@ public partial class BreedProfile : UserControl
 
     private void DeleteButton_Click(object sender, RoutedEventArgs e)
     {
-        ResourceEventArgs<Breed> args = new ResourceEventArgs<Breed>(Breed);
+        ResourceEventArgs<Breed> args = new(Breed);
         DeleteClicked?.Invoke(this, args);
     }
 
     private void UpdateButton_Click(object sender, RoutedEventArgs e)
     {
         if (_enteredName.Length == 0)
+        {
             return;
+        }
+
         Breed updatedBreed = Breed;
         if (_enteredName.Length > 0)
+        {
             updatedBreed.Name = _enteredName;
-        ResourceEventArgs<Breed> args = new ResourceEventArgs<Breed>(updatedBreed);
+        }
+
+        ResourceEventArgs<Breed> args = new(updatedBreed);
         UpdateClicked?.Invoke(this, args);
         richTextBoxName.Document = new FlowDocument(new Paragraph(new Run("")));
     }

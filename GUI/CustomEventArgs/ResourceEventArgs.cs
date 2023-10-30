@@ -4,7 +4,7 @@ namespace GUI.CustomEventArgs;
 
 public class ResourceEventArgs<T> : EventArgs
 {
-    public T Resource { get;  }
+    public T Resource { get; }
 
     public ResourceEventArgs(T resource)
     {

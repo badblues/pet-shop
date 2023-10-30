@@ -7,7 +7,7 @@ namespace GUI.ViewModels;
 
 public class BreedsViewModel : ViewModel
 {
-    private BreedRepository _breedRepository;
+    private readonly BreedRepository _breedRepository;
     private IEnumerable<Breed> _breeds = new List<Breed>();
     private Breed? _selectedBreed;
     private string _enteredName;
@@ -47,7 +47,7 @@ public class BreedsViewModel : ViewModel
     {
         if (_enteredName.Length > 0)
         {
-            Breed newBreed = new Breed() { Name = _enteredName };
+            Breed newBreed = new() { Name = _enteredName };
             _breedRepository.Add(newBreed);
             Breeds = _breedRepository.GetAll();
         }

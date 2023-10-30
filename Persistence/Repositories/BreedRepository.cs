@@ -7,7 +7,7 @@ namespace Persistence.Repositories;
 public class BreedRepository : IRepository<Breed>
 {
 
-    private ISession _session;
+    private readonly ISession _session;
 
     public BreedRepository(ISession session)
     {
@@ -16,7 +16,7 @@ public class BreedRepository : IRepository<Breed>
 
     public void Add(Breed breed)
     {
-        _session.Save(breed);
+        _ = _session.Save(breed);
     }
 
     public Breed Get(int id)
@@ -37,7 +37,7 @@ public class BreedRepository : IRepository<Breed>
     }
     public void Delete(int id)
     {
-        var item = Get(id);
+        Breed item = Get(id);
         _session.Delete(item);
     }
 }

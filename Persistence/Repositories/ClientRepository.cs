@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using NHibernate;
+﻿using NHibernate;
 using Persistence.Models;
 
 namespace Persistence.Repositories;
@@ -7,16 +6,16 @@ namespace Persistence.Repositories;
 public class ClientRepository : IRepository<Client>
 {
 
-    private ISession _session;
+    private readonly ISession _session;
 
     public ClientRepository(ISession session)
     {
         _session = session;
     }
-    
+
     public void Add(Client client)
     {
-        _session.Save(client);
+        _ = _session.Save(client);
     }
 
     public Client Get(int id)
@@ -24,11 +23,13 @@ public class ClientRepository : IRepository<Client>
         _session.Flush();
         return _session.Get<Client>(id);
     }
+
     public IEnumerable<Client> GetAll()
     {
         _session.Flush();
         return _session.Query<Client>().ToList();
     }
+
     public void Update(Client client)
     {
         _session.Update(client);
@@ -36,7 +37,7 @@ public class ClientRepository : IRepository<Client>
 
     public void Delete(int id)
     {
-        var item = Get(id);
+        Client item = Get(id);
         _session.Delete(item);
     }
 }

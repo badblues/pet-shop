@@ -1,6 +1,4 @@
-﻿using NHibernate;
-
-namespace Persistence.Repositories;
+﻿namespace Persistence.Repositories;
 
 internal interface IRepository<T>
 {

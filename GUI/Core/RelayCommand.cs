@@ -8,7 +8,6 @@ public class RelayCommand : ICommand
     private Action<object> _execute { get; set; }
     private Predicate<object> _canExecute { get; set; }
 
-
     public RelayCommand(Action<object> executeMethod, Predicate<object> canExecuteMethod)
     {
         _execute = executeMethod;

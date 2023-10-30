@@ -1,17 +1,17 @@
-﻿using System.Windows;
-using FluentNHibernate.Cfg.Db;
+﻿using System;
+using System.Diagnostics;
+using System.Windows;
 using FluentNHibernate.Cfg;
-using GUI.Views;
-using GUI.ViewModels;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Persistence.Repositories;
-using Persistence.Mappings;
-using NHibernate;
-using System;
+using FluentNHibernate.Cfg.Db;
 using GUI.Core;
 using GUI.Services;
-using System.Diagnostics;
+using GUI.ViewModels;
+using GUI.Views;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using NHibernate;
+using Persistence.Mappings;
+using Persistence.Repositories;
 
 namespace GUI;
 
@@ -20,46 +20,46 @@ public partial class App : Application
     private readonly IHost _host;
     private readonly ISession _session;
 
-    private string _connectionString = "User ID=postgres;Password=root;Host=localhost;Port=5432;Database=rpbd;";
+    private readonly string _connectionString = "User ID=postgres;Password=root;Host=localhost;Port=5432;Database=rpbd;";
 
     public App()
     {
-        var config = Fluently.Configure()
+        NHibernate.Cfg.Configuration config = Fluently.Configure()
             .Database(PostgreSQLConfiguration.PostgreSQL82
                 .ConnectionString(_connectionString))
             .Mappings(m =>
             {
-                m.FluentMappings
+                _ = m.FluentMappings
                     .Add<ClientMapping>()
                     .Add<BreedMapping>();
             }).
             ExposeConfiguration(cfg =>
             {
                 // Create a custom SQL output listener that sends SQL statements to the debug output window.
-                cfg.SetProperty(NHibernate.Cfg.Environment.ShowSql, "true");
-                cfg.SetProperty(NHibernate.Cfg.Environment.FormatSql, "true");
-                cfg.SetProperty(NHibernate.Cfg.Environment.UseSqlComments, "true");
-                cfg.SetInterceptor(new DebugSqlStatementInterceptor());
+                _ = cfg.SetProperty(NHibernate.Cfg.Environment.ShowSql, "true");
+                _ = cfg.SetProperty(NHibernate.Cfg.Environment.FormatSql, "true");
+                _ = cfg.SetProperty(NHibernate.Cfg.Environment.UseSqlComments, "true");
+                _ = cfg.SetInterceptor(new DebugSqlStatementInterceptor());
             })
             .BuildConfiguration();
 
-        var sessionFactory = config.BuildSessionFactory();
+        ISessionFactory sessionFactory = config.BuildSessionFactory();
         _session = sessionFactory.OpenSession();
 
         _host = Host.CreateDefaultBuilder()
         .ConfigureServices((services) =>
         {
-            services.AddScoped(provider => new ClientRepository(_session));
-            services.AddScoped(provider => new BreedRepository(_session));
-            services.AddSingleton<MainWindow>();
-            services.AddSingleton<MainViewModel>();
-            services.AddSingleton<HomeViewModel>();
+            _ = services.AddScoped(provider => new ClientRepository(_session));
+            _ = services.AddScoped(provider => new BreedRepository(_session));
+            _ = services.AddSingleton<MainWindow>();
+            _ = services.AddSingleton<MainViewModel>();
+            _ = services.AddSingleton<HomeViewModel>();
 
-            services.AddSingleton<INavigationService, NavigationService>();
-            services.AddSingleton<Func<Type, ViewModel>>(serviceProvider => viewModelType => (ViewModel)serviceProvider.GetRequiredService(viewModelType));
+            _ = services.AddSingleton<INavigationService, NavigationService>();
+            _ = services.AddSingleton<Func<Type, ViewModel>>(serviceProvider => viewModelType => (ViewModel)serviceProvider.GetRequiredService(viewModelType));
 
-            services.AddSingleton<ClientsViewModel>();
-            services.AddSingleton<BreedsViewModel>();
+            _ = services.AddSingleton<ClientsViewModel>();
+            _ = services.AddSingleton<BreedsViewModel>();
         })
         .Build();
     }
@@ -76,9 +76,9 @@ public partial class App : Application
 
     protected override void OnExit(ExitEventArgs e)
     {
-        _host.StopAsync();
+        _ = _host.StopAsync();
         _host.Dispose();
-        _session.Close();
+        _ = _session.Close();
 
         base.OnExit(e);
     }

@@ -6,9 +6,10 @@ namespace GUI.Services;
 public class NavigationService : ObservableObject, INavigationService
 {
     private ViewModel _currentView;
-    private Func<Type, ViewModel> _viewModelFactory;
+    private readonly Func<Type, ViewModel> _viewModelFactory;
 
-    public ViewModel CurrentView {
+    public ViewModel CurrentView
+    {
         get => _currentView;
         private set
         {

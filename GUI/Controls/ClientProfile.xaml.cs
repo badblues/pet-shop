@@ -19,14 +19,8 @@ public partial class ClientProfile : UserControl
 
     public Client Client
     {
-        get
-        {
-            return (Client)GetValue(ClientProperty);
-        }
-        set
-        {
-            SetValue(ClientProperty, value);
-        }
+        get => (Client)GetValue(ClientProperty);
+        set => SetValue(ClientProperty, value);
     }
 
     public ClientProfile()
@@ -36,20 +30,29 @@ public partial class ClientProfile : UserControl
 
     private void DeleteButton_Click(object sender, RoutedEventArgs e)
     {
-        ResourceEventArgs<Client> args = new ResourceEventArgs<Client>(Client);
+        ResourceEventArgs<Client> args = new(Client);
         DeleteClicked?.Invoke(this, args);
     }
 
     private void UpdateButton_Click(object sender, RoutedEventArgs e)
     {
         if (_enteredName.Length == 0 && _enteredAddress.Length == 0)
+        {
             return;
+        }
+
         Client updatedClient = Client;
         if (_enteredName.Length > 0)
+        {
             updatedClient.Name = _enteredName;
+        }
+
         if (_enteredAddress.Length > 0)
+        {
             updatedClient.Address = _enteredAddress;
-        ResourceEventArgs<Client> args = new ResourceEventArgs<Client>(updatedClient);
+        }
+
+        ResourceEventArgs<Client> args = new(updatedClient);
         UpdateClicked?.Invoke(this, args);
         //TODO fix this bullshit
         richTextBoxName.Document = new FlowDocument(new Paragraph(new Run("")));
@@ -69,5 +72,4 @@ public partial class ClientProfile : UserControl
         text = text.TrimEnd('\r', '\n');
         _enteredAddress = text;
     }
-
 }
