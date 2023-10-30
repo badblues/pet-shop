@@ -12,9 +12,9 @@ public class CompetitionRepository : IRepository<Competition>
         _session = session;
     }
 
-    public void Add(Competition participation)
+    public void Add(Competition competition)
     {
-        _ = _session.Save(participation);
+        _ = _session.Save(competition);
     }
 
     public Competition Get(int id)
@@ -29,14 +29,14 @@ public class CompetitionRepository : IRepository<Competition>
         return _session.Query<Competition>().ToList();
     }
 
-    public void Update(Competition participation)
+    public void Update(Competition competition)
     {
-        _session.Update(participation);
+        _session.Update(competition);
     }
 
     public void Delete(int id)
     {
-        Competition participation = Get(id);
-        _session.Delete(participation);
+        Competition competition = Get(id);
+        _session.Delete(competition);
     }
 }
