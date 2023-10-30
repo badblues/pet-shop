@@ -17,11 +17,11 @@
         </Grid.RowDefinitions>
         <StackPanel>
             <ItemsControl 
-        ItemsSource="{Binding Applications}">
+                ItemsSource="{Binding Applications}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <DockPanel
-                        Background="Aqua">
+                            Background="Aqua">
                             <Label Content="Client name: "/>
                             <Label Content="{Binding Client.Name}"/>
                             <Label Content="Breed: "/>
