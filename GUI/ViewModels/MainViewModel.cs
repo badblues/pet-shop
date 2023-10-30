@@ -22,6 +22,7 @@ public class MainViewModel : ViewModel
     public RelayCommand NavigateToBreedsCommand { get; set; }
     public RelayCommand NavigateToEmployeesCommand { get; set; }
     public RelayCommand NavigateToApplicationsCommand { get; set; }
+    public RelayCommand NavigateToAnimalsCommand { get; set; }
 
     public MainViewModel(INavigationService navigationService)
     {
@@ -31,6 +32,7 @@ public class MainViewModel : ViewModel
         NavigateToBreedsCommand = new RelayCommand(o => NavigationService.NavigateTo<BreedsViewModel>(), o => true);
         NavigateToEmployeesCommand = new RelayCommand(o => NavigationService.NavigateTo<EmployeesViewModel>(), o => true);
         NavigateToApplicationsCommand = new RelayCommand(o => NavigationService.NavigateTo<ApplicationsViewModel>(), o => true);
+        NavigateToAnimalsCommand = new RelayCommand(o => NavigationService.NavigateTo<AnimalsViewModel>(), o => true);
         NavigateToHomeCommand.Execute(null);
     }
 }

@@ -25,5 +25,9 @@
             <views:ApplicationsView/>
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type viewModels:AnimalsViewModel}">
+            <views:AnimalsView/>
+        </DataTemplate>
+
     </Application.Resources>
 </Application>

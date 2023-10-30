@@ -27,6 +27,10 @@
                     Height="30"
                     Margin="0,5,0,5"
                     Command="{Binding NavigateToEmployeesCommand}"/>
+            <Button Content="Animals"
+                    Height="30"
+                    Margin="0,5,0,5"
+                    Command="{Binding NavigateToAnimalsCommand}"/>
             <Button Content="Applications"
                     Height="30"
                     Margin="0,5,0,5"
