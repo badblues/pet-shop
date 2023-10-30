@@ -7,7 +7,7 @@ public class CompetitionMapping : ClassMap<Competition>
 {
     public CompetitionMapping()
     {
-        Table("Participations");
+        Table("Competitions");
 
         _ = Id(x => x.Id, "id").GeneratedBy.Identity();
 

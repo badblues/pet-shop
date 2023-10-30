@@ -14,5 +14,5 @@ public class Competition
     public virtual required string Location { get; set; }
 
     [Required]
-    public virtual DateOnly Date { get; set; }
+    public virtual DateTime Date { get; set; }
 }
