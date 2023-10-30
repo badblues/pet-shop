@@ -21,5 +21,9 @@
             <views:EmployeesView/>
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type viewModels:ApplicationsViewModel}">
+            <views:ApplicationsView/>
+        </DataTemplate>
+
     </Application.Resources>
 </Application>

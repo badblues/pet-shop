@@ -13,6 +13,9 @@
     <Compile Update="Controls\ClientProfile.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Views\ApplicationsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Views\BreedsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -31,6 +34,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\ClientProfile.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Views\ApplicationsView.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Views\BreedsView.xaml">

@@ -7,9 +7,14 @@ public class ApplicationRepository : IRepository<Application>
 {
     private readonly ISession _session;
 
+    public ApplicationRepository(ISession session)
+    {
+        _session = session;
+    }
+
     public void Add(Application application)
     {
-        _session.Save(application);
+        _ = _session.Save(application);
     }
 
     public Application Get(int id)

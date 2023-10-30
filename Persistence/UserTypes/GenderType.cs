@@ -16,19 +16,15 @@ public class GenderType : IUserType
 
     public bool IsMutable => false;
 
-    public object NullSafeGet(DbDataReader rs, string[] names, ISessionImplementor session, object owner)
+    public object? NullSafeGet(DbDataReader rs, string[] names, ISessionImplementor session, object owner)
     {
-        var value = (string)NHibernateUtil.String.NullSafeGet(rs, names, session, owner);
-        if (value == null)
-        {
-            return null;
-        }
-        return Enum.Parse(typeof(Gender), value);
+        string value = (string)NHibernateUtil.String.NullSafeGet(rs, names, session, owner);
+        return value == null ? null : Enum.Parse(typeof(Gender), value);
     }
 
     public void NullSafeSet(DbCommand cmd, object value, int index, ISessionImplementor session)
     {
-        var parameter = (IDataParameter)cmd.Parameters[index];
+        IDataParameter parameter = cmd.Parameters[index];
         parameter.Value = value;
     }
 
@@ -49,15 +45,7 @@ public class GenderType : IUserType
 
     public new bool Equals(object x, object y)
     {
-        if (ReferenceEquals(x, y))
-        {
-            return true;
-        }
-        if (x == null || y == null)
-        {
-            return false;
-        }
-        return x.Equals(y);
+        return ReferenceEquals(x, y) || (x != null && y != null && x.Equals(y));
     }
 
     public int GetHashCode(object x)

@@ -12,20 +12,20 @@ public class Application
 
     [Required]
     [ForeignKey("client_id")]
-    public int ClientId { get; set; }
+    public virtual int ClientId { get; set; }
 
-    public virtual Client Client { get; set; }
+    public virtual required Client Client { get; set; }
 
     [ForeignKey("employee_id")]
-    public int EmployeeID { get; set; }
+    public virtual int EmployeeID { get; set; }
 
-    public virtual Employee Employee { get; set; }
+    public virtual required Employee Employee { get; set; }
 
     [Required]
     [ForeignKey("breed_id")]
-    public int BreedId { get; set; }
+    public virtual int BreedId { get; set; }
 
-    public virtual Breed Breed { get; set; }
+    public virtual required Breed Breed { get; set; }
 
     public virtual Gender Gender { get; set; }
 
