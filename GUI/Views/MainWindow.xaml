@@ -35,6 +35,10 @@
                     Height="30"
                     Margin="0,5,0,5"
                     Command="{Binding NavigateToApplicationsCommand}"/>
+            <Button Content="Competitions"
+                    Height="30"
+                    Margin="0,5,0,5"
+                    Command="{Binding NavigateToCompetitionsCommand}"/>
             <Button Content="Breeds"
                     Height="30"
                     Margin="0,5,0,5"

@@ -28,6 +28,10 @@
         <DataTemplate DataType="{x:Type viewModels:AnimalsViewModel}">
             <views:AnimalsView/>
         </DataTemplate>
+        
+        <DataTemplate DataType="{x:Type viewModels:CompetitionsViewModel}">
+            <views:CompetitionsView/>
+        </DataTemplate>
 
     </Application.Resources>
 </Application>

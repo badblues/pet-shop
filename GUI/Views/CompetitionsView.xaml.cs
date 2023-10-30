@@ -2,9 +2,9 @@
 
 namespace GUI.Views;
 
-public partial class AnimalsView : UserControl
+public partial class CompetitionsView : UserControl
 {
-    public AnimalsView()
+    public CompetitionsView()
     {
         InitializeComponent();
     }

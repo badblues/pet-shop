@@ -5,7 +5,7 @@ using Persistence.Repositories;
 
 namespace GUI.ViewModels;
 
-class AnimalsViewModel : ViewModel
+internal class AnimalsViewModel : ViewModel
 {
     private readonly AnimalRepository _animalRepository;
     private IEnumerable<Animal> _animals = new List<Animal>();
