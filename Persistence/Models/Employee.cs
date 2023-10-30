@@ -3,11 +3,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Persistence.Models;
 
-[Table("Employees")]
 public class Employee
 {
-    [Key]
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+    [Required]
     public virtual int Id { get; set; }
 
     [Required]
