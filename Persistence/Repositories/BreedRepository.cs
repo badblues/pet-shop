@@ -37,7 +37,7 @@ public class BreedRepository : IRepository<Breed>
     }
     public void Delete(int id)
     {
-        Breed item = Get(id);
-        _session.Delete(item);
+        Breed breed = Get(id);
+        _session.Delete(breed);
     }
 }

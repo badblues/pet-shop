@@ -37,7 +37,7 @@ public class ClientRepository : IRepository<Client>
 
     public void Delete(int id)
     {
-        Client item = Get(id);
-        _session.Delete(item);
+        Client client = Get(id);
+        _session.Delete(client);
     }
 }
