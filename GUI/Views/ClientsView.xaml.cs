@@ -13,9 +13,7 @@ public partial class ClientsView : UserControl
 
     public ClientsView()
     {
-        ClientsViewModel context = (ClientsViewModel)DataContext;
         InitializeComponent();
-        context = (ClientsViewModel)DataContext;
     }
 
     private void Clients_MouseLeftButton(object sender, MouseButtonEventArgs e)

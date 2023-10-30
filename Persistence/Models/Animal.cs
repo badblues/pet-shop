@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Persistence.Models;
 
@@ -8,7 +7,7 @@ public class Animal
     public virtual int Id { get; set; }
 
     [Required]
-    public virtual string Name { get; set; }
+    public virtual required string Name { get; set; }
 
     public virtual int Age { get; set; }
 
@@ -19,15 +18,15 @@ public class Animal
     public virtual int BreedId { get; set; }
 
     [Required]
-    public virtual Breed Breed { get; set; }
+    public virtual required Breed Breed { get; set; }
 
-    public virtual string ExteriorDescription { get; set; }
+    public virtual required string ExteriorDescription { get; set; }
 
-    public virtual string Pedigree { get; set; }
+    public virtual required string Pedigree { get; set; }
 
-    public virtual string Veterinarian { get; set; }
+    public virtual required string Veterinarian { get; set; }
 
     public virtual int ClientId { get; set; }
 
-    public virtual  Client Client { get; set; }
+    public virtual required Client Client { get; set; }
 }
