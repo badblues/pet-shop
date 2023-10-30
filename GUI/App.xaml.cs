@@ -31,7 +31,8 @@ public partial class App : Application
             {
                 _ = m.FluentMappings
                     .Add<ClientMapping>()
-                    .Add<BreedMapping>();
+                    .Add<BreedMapping>()
+                    .Add<EmployeeMapping>();
             }).
             ExposeConfiguration(cfg =>
             {
@@ -51,15 +52,18 @@ public partial class App : Application
         {
             _ = services.AddScoped(provider => new ClientRepository(_session));
             _ = services.AddScoped(provider => new BreedRepository(_session));
+            _ = services.AddScoped(provider => new EmployeeRepository(_session));
+
             _ = services.AddSingleton<MainWindow>();
             _ = services.AddSingleton<MainViewModel>();
             _ = services.AddSingleton<HomeViewModel>();
+            _ = services.AddSingleton<ClientsViewModel>();
+            _ = services.AddSingleton<BreedsViewModel>();
+            _ = services.AddSingleton<EmployeesViewModel>();
 
             _ = services.AddSingleton<INavigationService, NavigationService>();
             _ = services.AddSingleton<Func<Type, ViewModel>>(serviceProvider => viewModelType => (ViewModel)serviceProvider.GetRequiredService(viewModelType));
 
-            _ = services.AddSingleton<ClientsViewModel>();
-            _ = services.AddSingleton<BreedsViewModel>();
         })
         .Build();
     }

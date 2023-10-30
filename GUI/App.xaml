@@ -17,5 +17,9 @@
             <views:BreedsView/>
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type viewModels:EmployeesViewModel}">
+            <views:EmployeesView/>
+        </DataTemplate>
+
     </Application.Resources>
 </Application>

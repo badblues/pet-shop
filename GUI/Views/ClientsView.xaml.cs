@@ -8,53 +8,49 @@ using Persistence.Models;
 
 namespace GUI.Views;
 
-//TODO context
 public partial class ClientsView : UserControl
 {
+    private readonly ClientsViewModel _context;
+
     public ClientsView()
     {
         InitializeComponent();
+        _context = (ClientsViewModel)DataContext;
     }
 
     private void Clients_MouseLeftButton(object sender, MouseButtonEventArgs e)
     {
-        ClientsViewModel context = (ClientsViewModel)DataContext;
         DockPanel dockPanel = (DockPanel)sender;
         Client? client = dockPanel.DataContext as Client;
-        context.SelectClient(client);
+        _context.SelectClient(client);
     }
 
     private void AddClient_Click(object sender, RoutedEventArgs e)
     {
-        ClientsViewModel context = (ClientsViewModel)DataContext;
-        context.AddClient();
+        _context.AddClient();
     }
 
     private void RichTextBoxName_TextChanged(object sender, TextChangedEventArgs e)
     {
-        ClientsViewModel context = (ClientsViewModel)DataContext;
         string text = new TextRange(richTextBoxName.Document.ContentStart, richTextBoxName.Document.ContentEnd).Text;
         text = text.TrimEnd('\r', '\n');
-        context.ChangeNameText(text);
+        _context.ChangeNameText(text);
     }
 
     private void RichTextBoxAddress_TextChanged(object sender, TextChangedEventArgs e)
     {
-        ClientsViewModel context = (ClientsViewModel)DataContext;
         string text = new TextRange(richTextBoxAddress.Document.ContentStart, richTextBoxAddress.Document.ContentEnd).Text;
         text = text.TrimEnd('\r', '\n');
-        context.ChangeAddressText(text);
+        _context.ChangeAddressText(text);
     }
 
     private void ClientProfile_DeleteClicked(object sender, ResourceEventArgs<Client> e)
     {
-        ClientsViewModel context = (ClientsViewModel)DataContext;
-        context.DeleteClient(e.Resource);
+        _context.DeleteClient(e.Resource);
     }
 
     private void ClientProfile_UpdateClicked(object sender, ResourceEventArgs<Client> e)
     {
-        ClientsViewModel context = (ClientsViewModel)DataContext;
-        context.UpdateClient(e.Resource);
+        _context.UpdateClient(e.Resource);
     }
 }
