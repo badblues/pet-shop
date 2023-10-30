@@ -9,6 +9,7 @@ public class Breed
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public virtual int Id { get; set; }
+
     [Required]
     public virtual string Name { get; set; } = string.Empty;
 }
