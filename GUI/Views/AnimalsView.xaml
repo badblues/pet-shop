@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:GUI.Views"
+             xmlns:controls="clr-namespace:GUI.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -12,8 +12,8 @@
             <ColumnDefinition Width="37*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="7*"/>
         </Grid.RowDefinitions>
         <StackPanel>
             <ItemsControl 
@@ -21,8 +21,9 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <DockPanel
-                            Background="Aqua">
-                            <Label Content="Client name: "/>
+                            Background="Aqua"
+                            MouseLeftButtonDown="Animals_MouseLeftButton">
+                            <Label Content="Animal name: "/>
                             <Label Content="{Binding Name}"/>
                             <Label Content="Breed: "/>
                             <Label Content="{Binding Breed.Name}"/>
@@ -31,5 +32,56 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </StackPanel>
+
+        <StackPanel
+            Grid.Row="1"
+            Background="BurlyWood">
+            <Button 
+                Content="ADD ANIMAL"
+                Command="{Binding AddAnimalCommand}"/>
+            <Label Content="*Name:"/>
+            <TextBox Text="{Binding EnteredName, Mode=TwoWay}" />
+            <Label Content="Age:"/>
+            <TextBox Text="{Binding EnteredAge, Mode=TwoWay}"
+                     PreviewTextInput="PositiveIntegerTextBox_PreviewTextInput"/>
+            <Label Content="*Gender:"/>
+            <ComboBox ItemsSource="{Binding Genders}"
+                      SelectedItem="{Binding EnteredGender, Mode=TwoWay}" />
+            <Label Content="*Breed:"/>
+            <ComboBox ItemsSource="{Binding Breeds}"
+                      DisplayMemberPath="Name"
+                      SelectedItem="{Binding EnteredBreed, Mode=TwoWay}" />
+            <Label Content="Exterior:"/>
+            <TextBox Text="{Binding EnteredExteriorDescription, Mode=TwoWay}" />
+            <Label Content="Pedigree:"/>
+            <TextBox Text="{Binding EnteredPedigree, Mode=TwoWay}" />
+            <Label Content="Veterinarian:"/>
+            <TextBox Text="{Binding EnteredVeterinarian, Mode=TwoWay}" />
+            <Label Content="Owner:"/>
+            <ComboBox ItemsSource="{Binding Clients}"
+                      DisplayMemberPath="Name"
+                      SelectedItem="{Binding EnteredOwner, Mode=TwoWay}" />
+        </StackPanel>
+
+        <controls:AnimalProfile
+            Animal="{Binding DataContext.SelectedAnimal, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+            DeleteCommand="{Binding DataContext.DeleteAnimalCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+            UpdateCommand="{Binding DataContext.UpdateAnimalCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+            Clients="{Binding DataContext.Clients, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+            Breeds="{Binding DataContext.Breeds, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+            Grid.Column="1"
+            Grid.Row="1">
+            <controls:AnimalProfile.Style>
+                <Style TargetType="controls:AnimalProfile">
+                    <Setter Property="Visibility" Value="Visible" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding DataContext.SelectedAnimal, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" Value="{x:Null}">
+                            <Setter Property="Visibility" Value="Hidden" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </controls:AnimalProfile.Style>
+        </controls:AnimalProfile>
+
     </Grid>
 </UserControl>

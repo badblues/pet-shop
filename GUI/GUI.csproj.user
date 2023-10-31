@@ -7,6 +7,9 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Controls\AnimalProfile.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\BreedProfile.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -36,6 +39,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Controls\AnimalProfile.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Controls\BreedProfile.xaml">
       <SubType>Designer</SubType>
     </Page>
