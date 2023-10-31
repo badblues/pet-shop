@@ -11,8 +11,6 @@ public class ClientsViewModel : ViewModel
     private readonly ClientRepository _clientRepository;
     private IEnumerable<Client> _clients = new List<Client>();
     private Client? _selectedClient;
-    private string _enteredName;
-    private string _enteredAddress;
 
     public ICommand AddClientCommand { get; set; }
     public ICommand UpdateClientCommand { get; set; }
@@ -38,25 +36,9 @@ public class ClientsViewModel : ViewModel
         }
     }
 
-    public string EnteredName
-    {
-        get => _enteredName;
-        set
-        {
-            _enteredName = value;
-            OnPropertyChanged(nameof(EnteredName));
-        }
-    }
+    public string EnteredName { get; set; }
 
-    public string EnteredAdress
-    {
-        get => _enteredAddress;
-        set
-        {
-            _enteredAddress = value;
-            OnPropertyChanged(nameof(EnteredAdress));
-        }
-    }
+    public string EnteredAddress { get; set; }
 
     public ClientsViewModel(ClientRepository clientRepository)
     {
@@ -76,9 +58,9 @@ public class ClientsViewModel : ViewModel
 
     public void AddClient(object? unused)
     {
-        if (EnteredName?.Length > 0 && EnteredAdress?.Length > 0)
+        if (EnteredName?.Length > 0 && EnteredAddress?.Length > 0)
         {
-            Client newClient = new() { Name = EnteredName, Address = EnteredAdress };
+            Client newClient = new() { Name = EnteredName, Address = EnteredAddress };
             _clientRepository.Add(newClient);
             Clients = _clientRepository.GetAll();
         }
