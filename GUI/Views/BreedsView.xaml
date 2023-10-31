@@ -38,7 +38,7 @@
             <Button 
                  Content="ADD BREED"
                  Command="{Binding AddBreedCommand}"/>
-            <Label Content="Name:"/>
+            <Label Content="*Name:"/>
             <TextBox Text="{Binding EnteredName, Mode=TwoWay}" />
         </StackPanel>
 

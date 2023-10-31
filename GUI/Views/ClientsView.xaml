@@ -39,9 +39,9 @@
             <Button 
                 Content="ADD CLIENT"
                 Command="{Binding AddClientCommand}"/>
-            <Label Content="Name:"/>
+            <Label Content="*Name:"/>
             <TextBox Text="{Binding EnteredName, Mode=TwoWay}" />
-            <Label Content="Address:"/>
+            <Label Content="*Address:"/>
             <TextBox Text="{Binding EnteredAddress, Mode=TwoWay}" />
         </StackPanel>
 
