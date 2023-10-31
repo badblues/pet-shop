@@ -1,27 +1,39 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
-using GUI.CustomEventArgs;
+using System.Windows.Input;
 using Persistence.Models;
 
 namespace GUI.Controls;
 
 public partial class ClientProfile : UserControl
 {
-    private string _enteredName = "";
-    private string _enteredAddress = "";
-
-    public event EventHandler<ResourceEventArgs<Client>> DeleteClicked;
-    public event EventHandler<ResourceEventArgs<Client>> UpdateClicked;
+    public static readonly DependencyProperty DeleteCommandProperty =
+        DependencyProperty.Register("DeleteCommand", typeof(ICommand), typeof(ClientProfile));
+    public static readonly DependencyProperty UpdateCommandProperty =
+        DependencyProperty.Register("UpdateCommand", typeof(ICommand), typeof(ClientProfile));
     public static readonly DependencyProperty ClientProperty =
         DependencyProperty.Register("Client", typeof(Client), typeof(ClientProfile));
+
+    public ICommand DeleteCommand
+    {
+        get => (ICommand)GetValue(DeleteCommandProperty);
+        set => SetValue(DeleteCommandProperty, value);
+    }
+
+    public ICommand UpdateCommand
+    {
+        get => (ICommand)GetValue(UpdateCommandProperty);
+        set => SetValue(UpdateCommandProperty, value);
+    }
 
     public Client Client
     {
         get => (Client)GetValue(ClientProperty);
         set => SetValue(ClientProperty, value);
     }
+
+    public string EnteredName { get; set; }
+    public string EnteredAddress { get; set; }
 
     public ClientProfile()
     {
@@ -30,46 +42,31 @@ public partial class ClientProfile : UserControl
 
     private void DeleteButton_Click(object sender, RoutedEventArgs e)
     {
-        ResourceEventArgs<Client> args = new(Client);
-        DeleteClicked?.Invoke(this, args);
+        if (DeleteCommand != null && DeleteCommand.CanExecute(null))
+        {
+            DeleteCommand.Execute(Client);
+        }
     }
 
     private void UpdateButton_Click(object sender, RoutedEventArgs e)
     {
-        if (_enteredName.Length == 0 && _enteredAddress.Length == 0)
+        if (EnteredName?.Length == 0 && EnteredAddress?.Length == 0)
         {
             return;
         }
 
-        Client updatedClient = Client;
-        if (_enteredName.Length > 0)
+        if (UpdateCommand != null && UpdateCommand.CanExecute(null))
         {
-            updatedClient.Name = _enteredName;
+            if (EnteredName?.Length > 0)
+            {
+                Client.Name = EnteredName;
+            }
+
+            if (EnteredAddress?.Length > 0)
+            {
+                Client.Address = EnteredAddress;
+            }
+            UpdateCommand.Execute(Client);
         }
-
-        if (_enteredAddress.Length > 0)
-        {
-            updatedClient.Address = _enteredAddress;
-        }
-
-        ResourceEventArgs<Client> args = new(updatedClient);
-        UpdateClicked?.Invoke(this, args);
-        //TODO fix this bullshit
-        richTextBoxName.Document = new FlowDocument(new Paragraph(new Run("")));
-        richTextBoxAddress.Document = new FlowDocument(new Paragraph(new Run("")));
-    }
-
-    private void RichTextBoxName_TextChanged(object sender, TextChangedEventArgs e)
-    {
-        string text = new TextRange(richTextBoxName.Document.ContentStart, richTextBoxName.Document.ContentEnd).Text;
-        text = text.TrimEnd('\r', '\n');
-        _enteredName = text;
-    }
-
-    private void RichTextBoxAddress_TextChanged(object sender, TextChangedEventArgs e)
-    {
-        string text = new TextRange(richTextBoxAddress.Document.ContentStart, richTextBoxAddress.Document.ContentEnd).Text;
-        text = text.TrimEnd('\r', '\n');
-        _enteredAddress = text;
     }
 }

@@ -22,7 +22,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel DataContext="{Binding Client}">
-            <DockPanel Grid.Column="0" Grid.Row="0">
+            <DockPanel>
                 <TextBlock Text="Name: "/>
                 <TextBlock Text="{Binding Name}"/>
             </DockPanel>
@@ -34,9 +34,21 @@
         <StackPanel Grid.Column="1">
             <Button Content="DELETE" Click="DeleteButton_Click"/>
             <Label Content="New name:"/>
-            <RichTextBox x:Name="richTextBoxName" TextChanged="RichTextBoxName_TextChanged"/>
+            <RichTextBox>
+                <FlowDocument>
+                    <Paragraph>
+                        <Run Text="{Binding EnteredName, Mode=TwoWay}" />
+                    </Paragraph>
+                </FlowDocument>
+            </RichTextBox>
             <Label Content="New address:"/>
-            <RichTextBox x:Name="richTextBoxAddress" TextChanged="RichTextBoxAddress_TextChanged"/>
+            <RichTextBox>
+                <FlowDocument>
+                    <Paragraph>
+                        <Run Text="{Binding EnteredAddress, Mode=TwoWay}" />
+                    </Paragraph>
+                </FlowDocument>
+            </RichTextBox>
             <Button Content="Update profile" Click="UpdateButton_Click"/>
         </StackPanel>
     </Grid>

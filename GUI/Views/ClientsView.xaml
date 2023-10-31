@@ -38,19 +38,31 @@
             Background="BurlyWood">
             <Button 
                 Content="ADD CLIENT"
-                Click="AddClient_Click"/>
+                Command="{Binding AddClientCommand}"/>
             <Label Content="Name:"/>
-            <RichTextBox x:Name="richTextBoxName" TextChanged="RichTextBoxName_TextChanged"/>
+            <RichTextBox>
+                <FlowDocument>
+                    <Paragraph>
+                        <Run Text="{Binding Name, Mode=TwoWay}" />
+                    </Paragraph>
+                </FlowDocument>
+            </RichTextBox>
             <Label Content="Address:"/>
-            <RichTextBox x:Name="richTextBoxAddress" TextChanged="RichTextBoxAddress_TextChanged"/>
+            <RichTextBox>
+                <FlowDocument>
+                    <Paragraph>
+                        <Run Text="{Binding Address, Mode=TwoWay}" />
+                    </Paragraph>
+                </FlowDocument>
+            </RichTextBox>
         </StackPanel>
 
         
         
         <controls:ClientProfile
             Client="{Binding DataContext.SelectedClient, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
-            DeleteClicked="ClientProfile_DeleteClicked"
-            UpdateClicked="ClientProfile_UpdateClicked"
+            UpdateCommand="{Binding DataContext.UpdateClientCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+            DeleteCommand="{Binding DataContext.DeleteClientCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
             Grid.Column="1">
             <controls:ClientProfile.Style>
                 <Style TargetType="controls:ClientProfile">

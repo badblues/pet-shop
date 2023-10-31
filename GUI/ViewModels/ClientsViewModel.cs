@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Windows.Input;
 using GUI.Core;
 using Persistence.Models;
 using Persistence.Repositories;
@@ -10,8 +11,13 @@ public class ClientsViewModel : ViewModel
     private readonly ClientRepository _clientRepository;
     private IEnumerable<Client> _clients = new List<Client>();
     private Client? _selectedClient;
-    private string _enteredName = "";
-    private string _enteredAddress = "";
+    private string _name;
+    private string _address;
+
+    public ICommand AddClientCommand { get; set; }
+    public ICommand UpdateClientCommand { get; set; }
+    public ICommand DeleteClientCommand { get; set; }
+
     public Client? SelectedClient
     {
         get => _selectedClient;
@@ -32,9 +38,33 @@ public class ClientsViewModel : ViewModel
         }
     }
 
+    public string Name
+    {
+        get => _name;
+        set
+        {
+            _name = value;
+            OnPropertyChanged(nameof(Name));
+        }
+    }
+
+    public string Address
+    {
+        get => _address;
+        set
+        {
+            _address = value;
+            OnPropertyChanged(nameof(Address));
+        }
+    }
+
     public ClientsViewModel(ClientRepository clientRepository)
     {
         _clientRepository = clientRepository;
+
+        AddClientCommand = new RelayCommand(AddClient, o => true);
+        UpdateClientCommand = new RelayCommand(UpdateClient, o => true);
+        DeleteClientCommand = new RelayCommand(DeleteClient, o => true);
         Clients = _clientRepository.GetAll();
     }
 
@@ -43,38 +73,34 @@ public class ClientsViewModel : ViewModel
         SelectedClient = client;
     }
 
-    public void AddClient()
+    public void AddClient(object? unused)
     {
-        if (_enteredName.Length > 0 && _enteredAddress.Length > 0)
+        if (Name.Length > 0 && Address.Length > 0)
         {
-            Client newClient = new() { Name = _enteredName, Address = _enteredAddress };
+            Client newClient = new() { Name = Name, Address = Address };
             _clientRepository.Add(newClient);
             Clients = _clientRepository.GetAll();
         }
     }
 
-    public void ChangeNameText(string name)
+    public void DeleteClient(object? parameter)
     {
-        _enteredName = name;
+        if (parameter is Client client)
+        {
+            _clientRepository.Delete(client.Id);
+            Clients = _clientRepository.GetAll();
+            SelectedClient = null;
+        }
     }
 
-    public void ChangeAddressText(string address)
+    public void UpdateClient(object? parameter)
     {
-        _enteredAddress = address;
-    }
-
-    public void DeleteClient(Client client)
-    {
-        _clientRepository.Delete(client.Id);
-        Clients = _clientRepository.GetAll();
-        SelectedClient = null;
-    }
-
-    public void UpdateClient(Client client)
-    {
-        _clientRepository.Update(client);
-        Clients = _clientRepository.GetAll();
-        SelectedClient = null;
-        SelectedClient = _clientRepository.Get(client.Id);
+        if (parameter is Client client)
+        {
+            _clientRepository.Update(client);
+            Clients = _clientRepository.GetAll();
+            SelectedClient = null;
+            SelectedClient = _clientRepository.Get(client.Id);
+        }
     }
 }
