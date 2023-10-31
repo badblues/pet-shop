@@ -31,6 +31,7 @@
                 <TextBlock Text="{Binding Address}"/>
             </DockPanel>
         </StackPanel>
+        
         <StackPanel Grid.Column="1">
             <Button Content="DELETE" Click="DeleteButton_Click"/>
             <Label Content="New name:"/>

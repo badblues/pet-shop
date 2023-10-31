@@ -42,7 +42,7 @@
             <RichTextBox>
                 <FlowDocument>
                     <Paragraph>
-                        <Run Text="{Binding Name, Mode=TwoWay}" />
+                        <Run Text="{Binding EnteredName, Mode=TwoWay}" />
                     </Paragraph>
                 </FlowDocument>
             </RichTextBox>

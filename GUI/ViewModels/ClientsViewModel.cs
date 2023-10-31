@@ -11,8 +11,8 @@ public class ClientsViewModel : ViewModel
     private readonly ClientRepository _clientRepository;
     private IEnumerable<Client> _clients = new List<Client>();
     private Client? _selectedClient;
-    private string _name;
-    private string _address;
+    private string _enteredName;
+    private string _enteredAddress;
 
     public ICommand AddClientCommand { get; set; }
     public ICommand UpdateClientCommand { get; set; }
@@ -38,23 +38,23 @@ public class ClientsViewModel : ViewModel
         }
     }
 
-    public string Name
+    public string EnteredName
     {
-        get => _name;
+        get => _enteredName;
         set
         {
-            _name = value;
-            OnPropertyChanged(nameof(Name));
+            _enteredName = value;
+            OnPropertyChanged(nameof(EnteredName));
         }
     }
 
-    public string Address
+    public string EnteredAdress
     {
-        get => _address;
+        get => _enteredAddress;
         set
         {
-            _address = value;
-            OnPropertyChanged(nameof(Address));
+            _enteredAddress = value;
+            OnPropertyChanged(nameof(EnteredAdress));
         }
     }
 
@@ -65,6 +65,7 @@ public class ClientsViewModel : ViewModel
         AddClientCommand = new RelayCommand(AddClient, o => true);
         UpdateClientCommand = new RelayCommand(UpdateClient, o => true);
         DeleteClientCommand = new RelayCommand(DeleteClient, o => true);
+
         Clients = _clientRepository.GetAll();
     }
 
@@ -75,9 +76,9 @@ public class ClientsViewModel : ViewModel
 
     public void AddClient(object? unused)
     {
-        if (Name.Length > 0 && Address.Length > 0)
+        if (EnteredName?.Length > 0 && EnteredAdress?.Length > 0)
         {
-            Client newClient = new() { Name = Name, Address = Address };
+            Client newClient = new() { EnteredName = EnteredName, EnteredAdress = EnteredAdress };
             _clientRepository.Add(newClient);
             Clients = _clientRepository.GetAll();
         }

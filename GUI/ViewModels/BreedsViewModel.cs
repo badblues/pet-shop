@@ -12,7 +12,7 @@ public class BreedsViewModel : ViewModel
     private readonly BreedRepository _breedRepository;
     private IEnumerable<Breed> _breeds = new List<Breed>();
     private Breed? _selectedBreed;
-    private string _name;
+    private string _enteredName;
 
     public ICommand AddBreedCommand { get; set; }
     public ICommand UpdateBreedCommand { get; set; }
@@ -38,13 +38,13 @@ public class BreedsViewModel : ViewModel
         }
     }
 
-    public string Name
+    public string EnteredName
     {
-        get => _name;
+        get => _enteredName;
         set
         {
-            _name = value;
-            OnPropertyChanged(nameof(Name));
+            _enteredName = value;
+            OnPropertyChanged(nameof(EnteredName));
         }
     }
 
@@ -66,9 +66,9 @@ public class BreedsViewModel : ViewModel
 
     public void AddBreed(object? unused)
     {
-        if (Name?.Length > 0)
+        if (EnteredName?.Length > 0)
         {
-            Breed newBreed = new() { Name = Name };
+            Breed newBreed = new() { EnteredName = EnteredName };
             _breedRepository.Add(newBreed);
             Breeds = _breedRepository.GetAll();
         }
