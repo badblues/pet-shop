@@ -9,8 +9,8 @@
         <Binding RelativeSource="{RelativeSource Self}" />
     </UserControl.DataContext>
     <Grid
-    RenderTransformOrigin="0.5,0.495"
-    Background="Bisque">
+        RenderTransformOrigin="0.5,0.495"
+        Background="Bisque">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
@@ -30,7 +30,13 @@
         <StackPanel Grid.Column="1">
             <Button Content="DELETE" Click="DeleteButton_Click"/>
             <Label Content="New name:"/>
-            <RichTextBox x:Name="richTextBoxName" TextChanged="RichTextBoxName_TextChanged"/>
+            <RichTextBox>
+                <FlowDocument>
+                    <Paragraph>
+                        <Run Text="{Binding EnteredName, Mode=TwoWay}" />
+                    </Paragraph>
+                </FlowDocument>
+            </RichTextBox>
             <Button Content="Update profile" Click="UpdateButton_Click"/>
         </StackPanel>
     </Grid>
