@@ -30,13 +30,7 @@
         <StackPanel Grid.Column="1">
             <Button Content="DELETE" Click="DeleteButton_Click"/>
             <Label Content="New name:"/>
-            <RichTextBox>
-                <FlowDocument>
-                    <Paragraph>
-                        <Run Text="{Binding EnteredName, Mode=TwoWay}" />
-                    </Paragraph>
-                </FlowDocument>
-            </RichTextBox>
+            <TextBox Text="{Binding EnteredName, Mode=TwoWay}" />
             <Button Content="Update profile" Click="UpdateButton_Click"/>
         </StackPanel>
     </Grid>

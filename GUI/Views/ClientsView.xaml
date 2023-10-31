@@ -40,21 +40,9 @@
                 Content="ADD CLIENT"
                 Command="{Binding AddClientCommand}"/>
             <Label Content="Name:"/>
-            <RichTextBox>
-                <FlowDocument>
-                    <Paragraph>
-                        <Run Text="{Binding EnteredName, Mode=TwoWay}" />
-                    </Paragraph>
-                </FlowDocument>
-            </RichTextBox>
+            <TextBox Text="{Binding EnteredName, Mode=TwoWay}" />
             <Label Content="Address:"/>
-            <RichTextBox>
-                <FlowDocument>
-                    <Paragraph>
-                        <Run Text="{Binding EnteredAddress, Mode=TwoWay}" />
-                    </Paragraph>
-                </FlowDocument>
-            </RichTextBox>
+            <TextBox Text="{Binding EnteredAddress, Mode=TwoWay}" />
         </StackPanel>
 
         

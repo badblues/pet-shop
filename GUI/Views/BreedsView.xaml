@@ -39,13 +39,7 @@
                  Content="ADD BREED"
                  Command="{Binding AddBreedCommand}"/>
             <Label Content="Name:"/>
-            <RichTextBox>
-                <FlowDocument>
-                    <Paragraph>
-                        <Run Text="{Binding EnteredName, Mode=TwoWay}" />
-                    </Paragraph>
-                </FlowDocument>
-            </RichTextBox>
+            <TextBox Text="{Binding EnteredName, Mode=TwoWay}" />
         </StackPanel>
 
         <controls:BreedProfile

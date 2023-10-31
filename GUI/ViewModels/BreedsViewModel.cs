@@ -68,7 +68,7 @@ public class BreedsViewModel : ViewModel
     {
         if (EnteredName?.Length > 0)
         {
-            Breed newBreed = new() { EnteredName = EnteredName };
+            Breed newBreed = new() { Name = EnteredName };
             _breedRepository.Add(newBreed);
             Breeds = _breedRepository.GetAll();
         }

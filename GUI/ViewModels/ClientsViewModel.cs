@@ -78,7 +78,7 @@ public class ClientsViewModel : ViewModel
     {
         if (EnteredName?.Length > 0 && EnteredAdress?.Length > 0)
         {
-            Client newClient = new() { EnteredName = EnteredName, EnteredAdress = EnteredAdress };
+            Client newClient = new() { Name = EnteredName, Address = EnteredAdress };
             _clientRepository.Add(newClient);
             Clients = _clientRepository.GetAll();
         }
