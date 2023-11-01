@@ -1,0 +1,72 @@
+﻿<UserControl x:Class="GUI.Controls.ApplicationProfile"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <Binding RelativeSource="{RelativeSource Self}" />
+    </UserControl.DataContext>
+    <Grid
+        Background="DarkKhaki">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="211*"/>
+            <RowDefinition Height="0*"/>
+            <RowDefinition Height="14*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel DataContext="{Binding Application}">
+            <DockPanel>
+                <TextBlock Text="Client name: "/>
+                <TextBlock Text="{Binding Client.Name}"/>
+            </DockPanel>
+            <DockPanel>
+                <TextBlock Text="Client address: "/>
+                <TextBlock Text="{Binding Client.Address}"/>
+            </DockPanel>
+            <DockPanel>
+                <TextBlock Text="Employee: "/>
+                <TextBlock Text="{Binding Employee.Name}"/>
+            </DockPanel>
+            <DockPanel>
+                <TextBlock Text="Breed: "/>
+                <TextBlock Text="{Binding Breed.Name}"/>
+            </DockPanel>
+            <DockPanel>
+                <TextBlock Text="Gender: "/>
+                <TextBlock Text="{Binding Gender}"/>
+            </DockPanel>
+            <DockPanel>
+                <TextBlock Text="Date: "/>
+                <TextBlock Text="{Binding ApplicationDate}"/>
+            </DockPanel>
+            <DockPanel>
+                <TextBlock Text="Completed: "/>
+                <TextBlock Text="{Binding Completed}"/>
+            </DockPanel>
+        </StackPanel>
+
+        <StackPanel Grid.Column="1">
+            <Button Content="DELETE" Click="DeleteButton_Click"/>
+            <Button Content="CHANGE STATUS" Click="ChangeStatusButton_Click"/>
+            <Label Content="New employee:"/>
+            <ComboBox ItemsSource="{Binding Employees}"
+                DisplayMemberPath="Name"
+                SelectedItem="{Binding EnteredEmployee, Mode=TwoWay}" />
+            <Label Content="New gender:"/>
+            <ComboBox ItemsSource="{Binding Genders}"
+                SelectedItem="{Binding EnteredGender, Mode=TwoWay}" />
+            <Label Content="New breed:"/>
+            <ComboBox ItemsSource="{Binding Breeds}"
+                DisplayMemberPath="Name"
+                SelectedItem="{Binding EnteredBreed, Mode=TwoWay}" />
+            <Button Content="Update profile" Click="UpdateButton_Click"/>
+        </StackPanel>
+
+    </Grid>
+</UserControl>
