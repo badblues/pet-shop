@@ -9,9 +9,13 @@ public class ClientMapping : ClassMap<Client>
     {
         Table("Clients");
 
-        _ = Id(x => x.Id, "id").GeneratedBy.Identity();
-        _ = Map(x => x.Name, "name");
-        _ = Map(x => x.Address, "address");
+        _ = Id(x => x.Id, "id")
+            .GeneratedBy.Identity()
+            .Not.Nullable();
+        _ = Map(x => x.Name, "name")
+            .Not.Nullable();
+        _ = Map(x => x.Address, "address")
+            .Not.Nullable();
 
     }
 }

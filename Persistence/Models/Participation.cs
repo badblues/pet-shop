@@ -1,21 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Persistence.Models;
+﻿namespace Persistence.Models;
 
 public class Participation
 {
-    [Required]
-    public virtual int AnimalId { get; set; }
+    public virtual required int AnimalId { get; set; }
 
-    [Required]
     public virtual required Animal Animal { get; set; }
 
-    [Required]
-    public virtual int CompetitionId { get; set; }
+    public virtual required int CompetitionId { get; set; }
 
-    [Required]
     public virtual required Competition Competition { get; set; }
 
-    [Required]
     public virtual required string Award { get; set; }
 }

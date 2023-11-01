@@ -1,24 +1,17 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Persistence.Models;
+﻿namespace Persistence.Models;
 
 public class Animal
 {
-    [Required]
     public virtual int Id { get; set; }
 
-    [Required]
     public virtual required string Name { get; set; }
 
     public virtual int? Age { get; set; }
 
-    [Required]
-    public virtual Gender Gender { get; set; }
+    public virtual required Gender Gender { get; set; }
 
-    [Required]
-    public virtual int BreedId { get; set; }
+    public virtual required int BreedId { get; set; }
 
-    [Required]
     public virtual required Breed Breed { get; set; }
 
     public virtual string? ExteriorDescription { get; set; }

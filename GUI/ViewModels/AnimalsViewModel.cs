@@ -48,7 +48,7 @@ internal class AnimalsViewModel : ViewModel
     public Breed EnteredBreed { get; set; }
     public string EnteredExteriorDescription { get; set; }
     public string EnteredPedigree { get; set; }
-    public string EnteredVeterinarian{ get; set; }
+    public string EnteredVeterinarian { get; set; }
     public Client EnteredOwner { get; set; }
 
     public AnimalsViewModel(
@@ -79,7 +79,8 @@ internal class AnimalsViewModel : ViewModel
     {
         if (EnteredName?.Length > 0 && EnteredBreed is not null)
         {
-            Animal newAnimal = new() {
+            Animal newAnimal = new()
+            {
                 Name = EnteredName,
                 Gender = EnteredGender,
                 BreedId = EnteredBreed.Id,
@@ -91,7 +92,10 @@ internal class AnimalsViewModel : ViewModel
                 Client = EnteredOwner
             };
             if (EnteredAge?.Length > 0)
+            {
                 newAnimal.Age = int.Parse(EnteredAge);
+            }
+
             _animalRepository.Add(newAnimal);
             Animals = _animalRepository.GetAll();
         }

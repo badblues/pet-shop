@@ -9,10 +9,16 @@ public class EmployeeMapping : ClassMap<Employee>
     {
         Table("Employees");
 
-        _ = Id(x => x.Id, "id").GeneratedBy.Identity();
-        _ = Map(x => x.Name, "name");
-        _ = Map(x => x.Address, "address");
-        _ = Map(x => x.Position, "position");
-        _ = Map(x => x.salary, "salary");
+        _ = Id(x => x.Id, "id")
+            .GeneratedBy.Identity()
+            .Not.Nullable();
+        _ = Map(x => x.Name, "name")
+            .Not.Nullable();
+        _ = Map(x => x.Address, "address")
+            .Not.Nullable();
+        _ = Map(x => x.Position, "position")
+            .Not.Nullable();
+        _ = Map(x => x.salary, "salary")
+            .Not.Nullable();
     }
 }

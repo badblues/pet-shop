@@ -9,7 +9,10 @@ public class BreedMapping : ClassMap<Breed>
     {
         Table("Breeds");
 
-        _ = Id(x => x.Id, "id").GeneratedBy.Identity();
-        _ = Map(x => x.Name, "name");
+        _ = Id(x => x.Id, "id")
+            .GeneratedBy.Identity()
+            .Not.Nullable();
+        _ = Map(x => x.Name, "name")
+            .Not.Nullable();
     }
 }

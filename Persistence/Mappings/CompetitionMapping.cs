@@ -9,10 +9,15 @@ public class CompetitionMapping : ClassMap<Competition>
     {
         Table("Competitions");
 
-        _ = Id(x => x.Id, "id").GeneratedBy.Identity();
+        _ = Id(x => x.Id, "id")
+            .GeneratedBy.Identity()
+            .Not.Nullable();
 
-        _ = Map(x => x.Name, "name");
-        _ = Map(x => x.Location, "location");
-        _ = Map(x => x.Date, "date");
+        _ = Map(x => x.Name, "name")
+            .Not.Nullable();
+        _ = Map(x => x.Location, "location")
+            .Not.Nullable();
+        _ = Map(x => x.Date, "date")
+            .Not.Nullable();
     }
 }

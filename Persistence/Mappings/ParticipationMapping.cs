@@ -13,6 +13,7 @@ public class ParticipationMapping : ClassMap<Participation>
            .KeyReference(x => x.Animal, "animal_id")
            .KeyReference(x => x.Competition, "competition_id");
 
-        _ = Map(x => x.Award, "award").Not.Nullable();
+        _ = Map(x => x.Award, "award")
+            .Not.Nullable();
     }
 }
