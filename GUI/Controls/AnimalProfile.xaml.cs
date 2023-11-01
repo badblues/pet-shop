@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using NHibernate.Loader.Custom;
 using Persistence.Models;
-using Persistence.Repositories;
 
 namespace GUI.Controls;
 
@@ -18,7 +15,7 @@ public partial class AnimalProfile : UserControl
     public static readonly DependencyProperty AnimalProperty =
         DependencyProperty.Register("Animal", typeof(Animal), typeof(AnimalProfile));
     public static readonly DependencyProperty ClientsProperty =
-        DependencyProperty.Register("Clients",typeof(IEnumerable<Client>), typeof(AnimalProfile));
+        DependencyProperty.Register("Clients", typeof(IEnumerable<Client>), typeof(AnimalProfile));
     public static readonly DependencyProperty BreedsProperty =
         DependencyProperty.Register("Breeds", typeof(IEnumerable<Breed>), typeof(AnimalProfile));
 
@@ -40,11 +37,13 @@ public partial class AnimalProfile : UserControl
         set => SetValue(AnimalProperty, value);
     }
     public IEnumerable<Gender> Genders { get; set; }
-    public IEnumerable<Breed> Breeds {
+    public IEnumerable<Breed> Breeds
+    {
         get => (IEnumerable<Breed>)GetValue(BreedsProperty);
         set => SetValue(BreedsProperty, value);
     }
-    public IEnumerable<Client> Clients {
+    public IEnumerable<Client> Clients
+    {
         get => (IEnumerable<Client>)GetValue(ClientsProperty);
         set => SetValue(ClientsProperty, value);
     }
@@ -87,21 +86,36 @@ public partial class AnimalProfile : UserControl
         if (UpdateCommand != null && UpdateCommand.CanExecute(null))
         {
             if (EnteredName?.Length > 0)
+            {
                 Animal.Name = EnteredName;
+            }
+
             Animal.Gender = EnteredGender;
             if (EnteredAge?.Length > 0)
+            {
                 Animal.Age = int.Parse(EnteredAge);
+            }
+
             if (EnteredBreed is not null)
             {
                 Animal.BreedId = EnteredBreed.Id;
                 Animal.Breed = EnteredBreed;
             }
             if (EnteredExteriorDescription?.Length > 0)
+            {
                 Animal.ExteriorDescription = EnteredExteriorDescription;
+            }
+
             if (EnteredPedigree?.Length > 0)
-                Animal.Pedigree= EnteredPedigree;
+            {
+                Animal.Pedigree = EnteredPedigree;
+            }
+
             if (EnteredVeterinarian?.Length > 0)
+            {
                 Animal.Veterinarian = EnteredVeterinarian;
+            }
+
             if (EnteredOwner is not null)
             {
                 Animal.ClientId = EnteredOwner.Id;

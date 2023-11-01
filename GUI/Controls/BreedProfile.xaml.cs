@@ -1,9 +1,6 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
 using System.Windows.Input;
-using GUI.CustomEventArgs;
 using Persistence.Models;
 
 namespace GUI.Controls;
