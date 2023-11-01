@@ -77,8 +77,7 @@ internal class AnimalsViewModel : ViewModel
 
     public void AddAnimal(object? unused)
     {
-        if (EnteredName is null
-            || EnteredName.Length == 0
+        if (string.IsNullOrWhiteSpace(EnteredName)
             || EnteredBreed is null
             || EnteredGender is null)
         {

@@ -1,8 +1,8 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
-using Persistence.Models;
 using System.Windows.Input;
-using System;
+using Persistence.Models;
 
 namespace GUI.Controls;
 

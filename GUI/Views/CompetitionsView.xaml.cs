@@ -1,7 +1,7 @@
 ﻿using System.Windows.Controls;
+using System.Windows.Input;
 using GUI.ViewModels;
 using Persistence.Models;
-using System.Windows.Input;
 
 namespace GUI.Views;
 

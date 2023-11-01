@@ -59,10 +59,8 @@ internal class CompetitionsViewModel : ViewModel
 
     public void AddCompetition(object? unused)
     {
-        if (EnteredName is null
-            || EnteredName.Length == 0
-            || EnteredLocation is null
-            || EnteredLocation.Length == 0
+        if (string.IsNullOrWhiteSpace(EnteredName)
+            || string.IsNullOrWhiteSpace(EnteredLocation)
             || EnteredDate is null)
         {
             return;
