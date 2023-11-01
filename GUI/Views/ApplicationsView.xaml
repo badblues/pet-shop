@@ -41,15 +41,15 @@
             <Button 
                 Content="ADD APPLICATION"
                 Command="{Binding AddApplicationCommand}"/>
-            <Label Content="Client:"/>
+            <Label Content="*Client:"/>
             <ComboBox ItemsSource="{Binding Clients}"
                 DisplayMemberPath="Name"
                 SelectedItem="{Binding EnteredClient, Mode=TwoWay}" />
-            <Label Content="Employee:"/>
+            <Label Content="*Employee:"/>
             <ComboBox ItemsSource="{Binding Employees}"
                 DisplayMemberPath="Name"
                 SelectedItem="{Binding EnteredEmployee, Mode=TwoWay}" />
-            <Label Content="Breed:"/>
+            <Label Content="*Breed:"/>
             <ComboBox ItemsSource="{Binding Breeds}"
                 DisplayMemberPath="Name"
                 SelectedItem="{Binding EnteredBreed, Mode=TwoWay}" />
