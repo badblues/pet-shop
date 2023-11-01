@@ -44,7 +44,7 @@ internal class AnimalsViewModel : ViewModel
 
     public string EnteredName { get; set; }
     public string EnteredAge { get; set; }
-    public Gender EnteredGender { get; set; }
+    public Gender? EnteredGender { get; set; }
     public Breed EnteredBreed { get; set; }
     public string EnteredExteriorDescription { get; set; }
     public string EnteredPedigree { get; set; }
@@ -77,28 +77,29 @@ internal class AnimalsViewModel : ViewModel
 
     public void AddAnimal(object? unused)
     {
-        if (EnteredName?.Length > 0 && EnteredBreed is not null)
+        if (EnteredName is null
+            || EnteredName.Length == 0
+            || EnteredBreed is null
+            || EnteredGender is null)
         {
-            Animal newAnimal = new()
-            {
-                Name = EnteredName,
-                Gender = EnteredGender,
-                BreedId = EnteredBreed.Id,
-                Breed = EnteredBreed,
-                ExteriorDescription = EnteredExteriorDescription,
-                Pedigree = EnteredPedigree,
-                Veterinarian = EnteredVeterinarian,
-                ClientId = EnteredOwner?.Id,
-                Client = EnteredOwner
-            };
-            if (EnteredAge?.Length > 0)
-            {
-                newAnimal.Age = int.Parse(EnteredAge);
-            }
-
-            _animalRepository.Add(newAnimal);
-            Animals = _animalRepository.GetAll();
+            return;
         }
+        Animal newAnimal = new()
+        {
+            Name = EnteredName,
+            Age = EnteredAge is null ? null : int.Parse(EnteredAge),
+            Gender = (Gender)EnteredGender,
+            BreedId = EnteredBreed.Id,
+            Breed = EnteredBreed,
+            ExteriorDescription = EnteredExteriorDescription,
+            Pedigree = EnteredPedigree,
+            Veterinarian = EnteredVeterinarian,
+            ClientId = EnteredOwner?.Id,
+            Client = EnteredOwner
+        };
+
+        _animalRepository.Add(newAnimal);
+        Animals = _animalRepository.GetAll();
     }
 
     public void DeleteAnimal(object? parameter)

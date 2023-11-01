@@ -50,7 +50,7 @@ public partial class AnimalProfile : UserControl
 
     public string EnteredName { get; set; }
     public string EnteredAge { get; set; }
-    public Gender EnteredGender { get; set; }
+    public Gender? EnteredGender { get; set; }
     public Breed EnteredBreed { get; set; }
     public string EnteredExteriorDescription { get; set; }
     public string EnteredPedigree { get; set; }
@@ -79,6 +79,7 @@ public partial class AnimalProfile : UserControl
             && string.IsNullOrWhiteSpace(EnteredExteriorDescription)
             && string.IsNullOrWhiteSpace(EnteredPedigree)
             && string.IsNullOrWhiteSpace(EnteredVeterinarian)
+            && EnteredGender is null
             && EnteredOwner is null)
         {
             return;
@@ -90,7 +91,11 @@ public partial class AnimalProfile : UserControl
                 Animal.Name = EnteredName;
             }
 
-            Animal.Gender = EnteredGender;
+            if (EnteredGender is not null)
+            {
+                Animal.Gender = (Gender)EnteredGender;
+            }
+
             if (EnteredAge?.Length > 0)
             {
                 Animal.Age = int.Parse(EnteredAge);
