@@ -25,7 +25,7 @@ public class GenderType : IUserType
     public void NullSafeSet(DbCommand cmd, object value, int index, ISessionImplementor session)
     {
         IDataParameter parameter = cmd.Parameters[index];
-        parameter.Value = value?.ToString();
+        parameter.Value = value == null ? DBNull.Value : value.ToString();
     }
 
     public object Assemble(object cached, object owner)
