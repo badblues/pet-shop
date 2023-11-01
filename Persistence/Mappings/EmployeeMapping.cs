@@ -18,7 +18,7 @@ public class EmployeeMapping : ClassMap<Employee>
             .Not.Nullable();
         _ = Map(x => x.Position, "position")
             .Not.Nullable();
-        _ = Map(x => x.salary, "salary")
+        _ = Map(x => x.Salary, "salary")
             .Not.Nullable();
     }
 }

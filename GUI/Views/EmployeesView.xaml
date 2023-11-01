@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:GUI.Views"
+             xmlns:controls="clr-namespace:GUI.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid Background="Azure">
@@ -21,7 +21,8 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <DockPanel
-                        Background="Chartreuse">
+                            Background="Chartreuse"
+                            MouseLeftButtonDown="Employees_MouseLeftButton">
                             <Label Content="Name: "/>
                             <Label Content="{Binding Name}"/>
                             <Label Content="Position: "/>
@@ -31,5 +32,41 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
         </StackPanel>
+
+        <StackPanel
+            Grid.Row="1"
+            Background="BurlyWood">
+            <Button 
+                Content="ADD EMPLOYEE"
+                Command="{Binding AddEmployeeCommand}"/>
+            <Label Content="Name:"/>
+            <TextBox Text="{Binding EnteredName, Mode=TwoWay}" />
+            <Label Content="Address:"/>
+            <TextBox Text="{Binding EnteredAddress, Mode=TwoWay}" />
+            <Label Content="Position:"/>
+            <TextBox Text="{Binding EnteredPosition, Mode=TwoWay}" />
+            <Label Content="Salary:"/>
+            <TextBox Text="{Binding EnteredSalary, Mode=TwoWay}"
+                PreviewTextInput="PositiveDoubleTextBox_PreviewTextInput"/>
+        </StackPanel>
+
+        <controls:EmployeeProfile
+            Employee="{Binding DataContext.SelectedEmployee, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+            DeleteCommand="{Binding DataContext.DeleteEmployeeCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+            UpdateCommand="{Binding DataContext.UpdateEmployeeCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+            Grid.Column="1"
+            Grid.Row="1">
+            <controls:EmployeeProfile.Style>
+                <Style TargetType="controls:EmployeeProfile">
+                    <Setter Property="Visibility" Value="Visible" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding DataContext.SelectedEmployee, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" Value="{x:Null}">
+                            <Setter Property="Visibility" Value="Hidden" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </controls:EmployeeProfile.Style>
+        </controls:EmployeeProfile>
+        
     </Grid>
 </UserControl>

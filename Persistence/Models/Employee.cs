@@ -10,5 +10,5 @@ public class Employee
 
     public virtual required string Position { get; set; } = string.Empty;
 
-    public virtual required double salary { get; set; }
+    public virtual required double Salary { get; set; }
 }
