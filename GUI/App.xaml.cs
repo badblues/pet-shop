@@ -35,7 +35,8 @@ public partial class App : Application
                     .Add<EmployeeMapping>()
                     .Add<ApplicationMapping>()
                     .Add<AnimalMapping>()
-                    .Add<CompetitionMapping>();
+                    .Add<CompetitionMapping>()
+                    .Add<ParticipationMapping>();
             }).
             ExposeConfiguration(cfg =>
             {
@@ -59,6 +60,7 @@ public partial class App : Application
             _ = services.AddScoped(provider => new ApplicationRepository(_session));
             _ = services.AddScoped(provider => new AnimalRepository(_session));
             _ = services.AddScoped(provider => new CompetitionRepository(_session));
+            _ = services.AddScoped(provider => new ParticipationRepository(_session));
 
             _ = services.AddSingleton<MainWindow>();
             _ = services.AddSingleton<MainViewModel>();
