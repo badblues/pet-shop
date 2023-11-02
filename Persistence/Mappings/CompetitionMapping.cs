@@ -19,5 +19,8 @@ public class CompetitionMapping : ClassMap<Competition>
             .Not.Nullable();
         _ = Map(x => x.Date, "date")
             .Not.Nullable();
+
+        _ = HasMany(x => x.Participations)
+            .KeyColumn("competition_id");
     }
 }

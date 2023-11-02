@@ -9,4 +9,6 @@ public class Competition
     public virtual required string Location { get; set; }
 
     public virtual required DateTime Date { get; set; }
+
+    public virtual ICollection<Participation> Participations { get; set; } = new List<Participation>();
 }

@@ -20,5 +20,8 @@ public class EmployeeMapping : ClassMap<Employee>
             .Not.Nullable();
         _ = Map(x => x.Salary, "salary")
             .Not.Nullable();
+
+        _ = HasMany(x => x.Applications)
+            .KeyColumn("employee_id");
     }
 }

@@ -17,5 +17,10 @@ public class ClientMapping : ClassMap<Client>
         _ = Map(x => x.Address, "address")
             .Not.Nullable();
 
+        _ = HasMany(x => x.Animals)
+            .KeyColumn("owner_id");
+        _ = HasMany(x => x.Applications)
+            .KeyColumn("client_id");
+
     }
 }

@@ -24,7 +24,7 @@ public class ClientRepository : IRepository<Client>
         return _session.Get<Client>(id);
     }
 
-    public IEnumerable<Client> GetAll()
+    public ICollection<Client> GetAll()
     {
         _session.Flush();
         return _session.Query<Client>().ToList();

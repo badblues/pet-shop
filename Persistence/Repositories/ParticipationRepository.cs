@@ -20,17 +20,17 @@ public class ParticipationRepository : IRepository<Participation>
     public Participation Get(int animalId, int competitionId)
     {
         _session.Flush();
-        IEnumerable<Participation> participations = _session.Query<Participation>().ToList();
+        ICollection<Participation> participations = _session.Query<Participation>().ToList();
         return participations.First(p => p.Animal.Id == animalId && p.Competition.Id == competitionId);
     }
 
-    public IEnumerable<Participation> GetAll()
+    public ICollection<Participation> GetAll()
     {
         _session.Flush();
         return _session.Query<Participation>().ToList();
     }
 
-    public IEnumerable<Participation> GetByAnimalId(int animalId)
+    public ICollection<Participation> GetByAnimalId(int animalId)
     {
         _session.Flush();
         return _session.Query<Participation>()
@@ -38,7 +38,7 @@ public class ParticipationRepository : IRepository<Participation>
                        .ToList();
     }
 
-    public IEnumerable<Participation> GetByCompetitionId(int competitionId)
+    public ICollection<Participation> GetByCompetitionId(int competitionId)
     {
         _session.Flush();
         return _session.Query<Participation>()

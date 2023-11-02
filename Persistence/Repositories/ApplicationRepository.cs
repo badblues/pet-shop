@@ -23,7 +23,7 @@ public class ApplicationRepository : IRepository<Application>
         return _session.Get<Application>(id);
     }
 
-    public IEnumerable<Application> GetAll()
+    public ICollection<Application> GetAll()
     {
         _session.Flush();
         return _session.Query<Application>().ToList();

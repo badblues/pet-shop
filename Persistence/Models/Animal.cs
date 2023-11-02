@@ -19,4 +19,6 @@ public class Animal
     public virtual string? Veterinarian { get; set; }
 
     public virtual Client? Client { get; set; }
+
+    public virtual ICollection<Participation> Participations { get; set; } = new List<Participation>();
 }

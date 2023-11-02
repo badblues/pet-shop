@@ -32,6 +32,8 @@ public class AnimalMapping : ClassMap<Animal>
             .CustomType<GenderType>()
             .Not.Nullable();
 
+        _ = HasMany(x => x.Participations)
+            .KeyColumn("animal_id");
     }
 }
 

@@ -24,7 +24,7 @@ public class EmployeeRepository : IRepository<Employee>
         return _session.Get<Employee>(id);
     }
 
-    public IEnumerable<Employee> GetAll()
+    public ICollection<Employee> GetAll()
     {
         _session.Flush();
         return _session.Query<Employee>().ToList();

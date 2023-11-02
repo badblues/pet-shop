@@ -25,7 +25,7 @@ public class BreedRepository : IRepository<Breed>
         return _session.Get<Breed>(id);
     }
 
-    public IEnumerable<Breed> GetAll()
+    public ICollection<Breed> GetAll()
     {
         _session.Flush();
         return _session.Query<Breed>().ToList();

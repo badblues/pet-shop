@@ -23,7 +23,7 @@ public class CompetitionRepository : IRepository<Competition>
         return _session.Get<Competition>(id);
     }
 
-    public IEnumerable<Competition> GetAll()
+    public ICollection<Competition> GetAll()
     {
         _session.Flush();
         return _session.Query<Competition>().ToList();

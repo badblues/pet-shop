@@ -23,7 +23,7 @@ public class AnimalRepository : IRepository<Animal>
         return _session.Get<Animal>(id);
     }
 
-    public IEnumerable<Animal> GetAll()
+    public ICollection<Animal> GetAll()
     {
         _session.Flush();
         return _session.Query<Animal>().ToList();
