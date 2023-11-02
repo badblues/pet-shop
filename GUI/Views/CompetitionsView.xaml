@@ -83,6 +83,9 @@
                             <Label Content="{Binding Animal.Name}"/>
                             <Label Content="Award:"/>
                             <Label Content="{Binding Award}"/>
+                            <Button Content="DELETE"
+                                    Command="{Binding DataContext.DeleteParticipationCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                    CommandParameter="{Binding}"/>
                         </DockPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>

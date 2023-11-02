@@ -23,6 +23,7 @@ internal class AnimalsViewModel : ViewModel
     public ICommand AddParticipationCommand { get; set; }
     public ICommand UpdateAnimalCommand { get; set; }
     public ICommand DeleteAnimalCommand { get; set; }
+    public ICommand DeleteParticipationCommand { get; set; }
 
     public Animal? SelectedAnimal
     {
@@ -95,6 +96,7 @@ internal class AnimalsViewModel : ViewModel
         AddParticipationCommand = new RelayCommand(AddParticipation, o => true);
         UpdateAnimalCommand = new RelayCommand(UpdateAnimal, o => true);
         DeleteAnimalCommand = new RelayCommand(DeleteAnimal, o => true);
+        DeleteParticipationCommand = new RelayCommand(DeleteParticipation, o => true);
 
         Animals = _animalRepository.GetAll();
         Clients = _clientRepository.GetAll();
@@ -172,5 +174,18 @@ internal class AnimalsViewModel : ViewModel
         _participationRepository.Add(newParticipation);
         Participations = _participationRepository.GetAll();
         AvailableCompetitions = AvailableCompetitions.Except(Participations.Select(p => p.Competition));
+    }
+
+    public void DeleteParticipation(object parameter)
+    {
+        if (parameter is Participation participation)
+        {
+            _participationRepository.Delete(participation.Animal.Id, participation.Competition.Id);
+            if (SelectedAnimal is not null)
+            {
+                Participations = _participationRepository.GetByAnimalId(SelectedAnimal.Id);
+                AvailableCompetitions = _competitionRepository.GetAll().Except(Participations.Select(p => p.Competition));
+            }
+        }
     }
 }
