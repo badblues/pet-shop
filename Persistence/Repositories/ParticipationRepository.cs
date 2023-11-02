@@ -29,6 +29,22 @@ public class ParticipationRepository : IRepository<Participation>
         return _session.Query<Participation>().ToList();
     }
 
+    public IEnumerable<Participation> GetByAnimalId(int animalId)
+    {
+        _session.Flush();
+        return _session.Query<Participation>()
+                       .Where(p => p.Animal.Id == animalId)
+                       .ToList();
+    }
+
+    public IEnumerable<Participation> GetByCompetitionId(int competitionId)
+    {
+        _session.Flush();
+        return _session.Query<Participation>()
+                       .Where(p => p.Competition.Id == competitionId)
+                       .ToList();
+    }
+
     public void Update(Participation participation)
     {
         _session.Update(participation);
