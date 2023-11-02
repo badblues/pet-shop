@@ -20,7 +20,8 @@ public class ParticipationRepository : IRepository<Participation>
     public Participation Get(int animalId, int competitionId)
     {
         _session.Flush();
-        return _session.Get<Participation>((animalId, competitionId));
+        IEnumerable<Participation> participations = _session.Query<Participation>().ToList();
+        return participations.First(p => p.Animal.Id == animalId && p.Competition.Id == competitionId);
     }
 
     public IEnumerable<Participation> GetAll()
