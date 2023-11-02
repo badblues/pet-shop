@@ -89,11 +89,8 @@ internal class ApplicationsViewModel : ViewModel
         }
         Application newApplication = new()
         {
-            ClientId = EnteredClient.Id,
             Client = EnteredClient,
-            EmployeeId = EnteredEmployee.Id,
             Employee = EnteredEmployee,
-            BreedId = EnteredBreed.Id,
             Breed = EnteredBreed,
             Gender = EnteredGender,
             ApplicationDate = DateTime.Now,

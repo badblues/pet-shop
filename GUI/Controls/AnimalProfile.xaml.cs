@@ -103,7 +103,6 @@ public partial class AnimalProfile : UserControl
 
             if (EnteredBreed is not null)
             {
-                Animal.BreedId = EnteredBreed.Id;
                 Animal.Breed = EnteredBreed;
             }
             if (EnteredExteriorDescription?.Length > 0)
@@ -123,7 +122,6 @@ public partial class AnimalProfile : UserControl
 
             if (EnteredOwner is not null)
             {
-                Animal.ClientId = EnteredOwner.Id;
                 Animal.Client = EnteredOwner;
             }
             UpdateCommand.Execute(Animal);

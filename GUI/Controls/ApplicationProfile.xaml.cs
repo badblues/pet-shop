@@ -88,13 +88,11 @@ public partial class ApplicationProfile : UserControl
         {
             if (EnteredEmployee is not null)
             {
-                Application.EmployeeId = EnteredEmployee.Id;
                 Application.Employee = EnteredEmployee;
             }
 
             if (EnteredBreed is not null)
             {
-                Application.BreedId = EnteredBreed.Id;
                 Application.Breed = EnteredBreed;
             }
 

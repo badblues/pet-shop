@@ -47,6 +47,48 @@
             <DatePicker SelectedDate="{Binding EnteredDate, Mode=TwoWay}"/>
         </StackPanel>
 
+        <StackPanel
+            Background="HotPink"
+            Grid.Row="0"
+            Grid.Column="1">
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
+                    <Setter Property="Visibility" Value="Visible" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding DataContext.SelectedCompetition, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" Value="{x:Null}">
+                            <Setter Property="Visibility" Value="Hidden" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
+            <Label Content="Award:"/>
+            <TextBox Text="{Binding EnteredAward, Mode=TwoWay}"/>
+            <Label Content="Animal:"/>
+            <ComboBox 
+                ItemsSource="{Binding AvailableAnimals}"
+                DisplayMemberPath="Name"
+                SelectedItem="{Binding EnteredAnimal}"/>
+            <Button
+                Content="ADD PARTICIPATION"
+                Command="{Binding AddParticipationCommand}"/>
+
+            <Label Content="PARTICIPANTS:"/>
+            <ItemsControl 
+                ItemsSource="{Binding Participations}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <DockPanel
+                            Background="LawnGreen">
+                            <Label Content="Animal name:"/>
+                            <Label Content="{Binding Animal.Name}"/>
+                            <Label Content="Award:"/>
+                            <Label Content="{Binding Award}"/>
+                        </DockPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+
         <controls:CompetitionProfile
             Competition="{Binding DataContext.SelectedCompetition, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
             DeleteCommand="{Binding DataContext.DeleteCompetitionCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"

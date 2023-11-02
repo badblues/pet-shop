@@ -63,14 +63,56 @@
                       SelectedItem="{Binding EnteredOwner, Mode=TwoWay}" />
         </StackPanel>
 
+        <StackPanel
+            Background="HotPink"
+            Grid.Row="0"
+            Grid.Column="1">
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
+                    <Setter Property="Visibility" Value="Visible" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding DataContext.SelectedAnimal, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" Value="{x:Null}">
+                            <Setter Property="Visibility" Value="Hidden" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
+            <Label Content="Award:"/>
+            <TextBox Text="{Binding EnteredAward, Mode=TwoWay}"/>
+            <Label Content="Competition:"/>
+            <ComboBox 
+                ItemsSource="{Binding AvailableCompetitions}"
+                DisplayMemberPath="Name"
+                SelectedItem="{Binding EnteredCompetition}"/>
+            <Button
+                Content="ADD PARTICIPATION"
+                Command="{Binding AddParticipationCommand}"/>
+            
+            <Label Content="PARTICIPATIONS:"/>
+            <ItemsControl 
+                ItemsSource="{Binding Participations}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <DockPanel
+                            Background="LawnGreen">
+                            <Label Content="Competition name:"/>
+                            <Label Content="{Binding Competition.Name}"/>
+                            <Label Content="Award:"/>
+                            <Label Content="{Binding Award}"/>
+                        </DockPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+
         <controls:AnimalProfile
+            Grid.Column="1"
+            Grid.Row="1"
             Animal="{Binding DataContext.SelectedAnimal, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
             DeleteCommand="{Binding DataContext.DeleteAnimalCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
             UpdateCommand="{Binding DataContext.UpdateAnimalCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
             Clients="{Binding DataContext.Clients, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
-            Breeds="{Binding DataContext.Breeds, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
-            Grid.Column="1"
-            Grid.Row="1">
+            Breeds="{Binding DataContext.Breeds, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
             <controls:AnimalProfile.Style>
                 <Style TargetType="controls:AnimalProfile">
                     <Setter Property="Visibility" Value="Visible" />
