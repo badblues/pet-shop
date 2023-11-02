@@ -9,14 +9,14 @@ namespace GUI.ViewModels;
 public class BreedsViewModel : ViewModel
 {
     private readonly BreedRepository _breedRepository;
-    private IEnumerable<Breed> _breeds = new List<Breed>();
+    private ICollection<Breed> _breeds = new List<Breed>();
     private Breed? _selectedBreed;
 
     public ICommand AddBreedCommand { get; set; }
     public ICommand UpdateBreedCommand { get; set; }
     public ICommand DeleteBreedCommand { get; set; }
 
-    public IEnumerable<Breed> Breeds
+    public ICollection<Breed> Breeds
     {
         get => _breeds;
         set

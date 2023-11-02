@@ -13,7 +13,7 @@ internal class ApplicationsViewModel : ViewModel
     private readonly ClientRepository _clientRepository;
     private readonly BreedRepository _breedRepository;
     private readonly EmployeeRepository _employeeRepository;
-    private IEnumerable<Application> _applications = new List<Application>();
+    private ICollection<Application> _applications = new List<Application>();
     private Application? _selectedApplication;
 
     public ICommand AddApplicationCommand { get; set; }
@@ -31,7 +31,7 @@ internal class ApplicationsViewModel : ViewModel
         }
     }
 
-    public IEnumerable<Application> Applications
+    public ICollection<Application> Applications
     {
         get => _applications;
         set
@@ -41,10 +41,10 @@ internal class ApplicationsViewModel : ViewModel
         }
     }
 
-    public IEnumerable<Gender> Genders { get; set; }
-    public IEnumerable<Breed> Breeds { get; set; }
-    public IEnumerable<Client> Clients { get; set; }
-    public IEnumerable<Employee> Employees { get; set; }
+    public ICollection<Gender> Genders { get; set; }
+    public ICollection<Breed> Breeds { get; set; }
+    public ICollection<Client> Clients { get; set; }
+    public ICollection<Employee> Employees { get; set; }
 
     public Client EnteredClient { get; set; }
     public Employee EnteredEmployee { get; set; }

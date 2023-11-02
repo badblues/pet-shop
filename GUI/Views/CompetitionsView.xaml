@@ -55,7 +55,7 @@
                 <Style TargetType="StackPanel">
                     <Setter Property="Visibility" Value="Visible" />
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding DataContext.SelectedCompetition, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" Value="{x:Null}">
+                        <DataTrigger Binding="{Binding SelectedCompetition}" Value="{x:Null}">
                             <Setter Property="Visibility" Value="Hidden" />
                         </DataTrigger>
                     </Style.Triggers>
@@ -74,7 +74,7 @@
 
             <Label Content="PARTICIPANTS:"/>
             <ItemsControl 
-                ItemsSource="{Binding Participations}">
+                ItemsSource="{Binding SelectedCompetition.Participations}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <DockPanel

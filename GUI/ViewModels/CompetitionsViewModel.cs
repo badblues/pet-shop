@@ -13,9 +13,8 @@ internal class CompetitionsViewModel : ViewModel
     private readonly CompetitionRepository _competitionRepository;
     private readonly ParticipationRepository _participationRepository;
     private readonly AnimalRepository _animalRepository;
-    private IEnumerable<Competition> _competitions = new List<Competition>();
+    private ICollection<Competition> _competitions = new List<Competition>();
     private Competition? _selectedCompetition;
-    private IEnumerable<Participation> _participations = new List<Participation>();
     private IEnumerable<Animal> _availableAnimals = new List<Animal>();
 
     public ICommand AddCompetitionCommand { get; set; }
@@ -34,23 +33,13 @@ internal class CompetitionsViewModel : ViewModel
         }
     }
 
-    public IEnumerable<Competition> Competitions
+    public ICollection<Competition> Competitions
     {
         get => _competitions;
         set
         {
             _competitions = value;
             OnPropertyChanged(nameof(Competitions));
-        }
-    }
-
-    public IEnumerable<Participation> Participations
-    {
-        get => _participations;
-        set
-        {
-            _participations = value;
-            OnPropertyChanged(nameof(Participations));
         }
     }
 
@@ -90,8 +79,7 @@ internal class CompetitionsViewModel : ViewModel
     public void SelectCompetition(Competition competition)
     {
         SelectedCompetition = competition;
-        Participations = _participationRepository.GetByCompetitionId(SelectedCompetition.Id);
-        AvailableAnimals = _animalRepository.GetAll().Except(Participations.Select(p => p.Animal));
+        AvailableAnimals = _animalRepository.GetAll().Except(SelectedCompetition.Participations.Select(p => p.Animal));
     }
 
     public void AddCompetition(object? unused)
@@ -150,8 +138,8 @@ internal class CompetitionsViewModel : ViewModel
         };
 
         _participationRepository.Add(newParticipation);
-        Participations = _participationRepository.GetAll();
-        AvailableAnimals = AvailableAnimals.Except(Participations.Select(p => p.Animal));
+        SelectedCompetition.Participations.Add(newParticipation);
+        AvailableAnimals = AvailableAnimals.Except(SelectedCompetition.Participations.Select(p => p.Animal));
     }
 
     public void DeleteParticipation(object parameter)
@@ -161,8 +149,8 @@ internal class CompetitionsViewModel : ViewModel
             _participationRepository.Delete(participation.Animal.Id, participation.Competition.Id);
             if (SelectedCompetition is not null)
             {
-                Participations = _participationRepository.GetByCompetitionId(SelectedCompetition.Id);
-                AvailableAnimals = _animalRepository.GetAll().Except(Participations.Select(p => p.Animal));
+                SelectedCompetition.Participations.Remove(participation);
+                AvailableAnimals = _animalRepository.GetAll().Except(SelectedCompetition.Participations.Select(p => p.Animal));
             }
         }
     }

@@ -9,7 +9,7 @@ namespace GUI.ViewModels;
 public class EmployeesViewModel : ViewModel
 {
     private readonly EmployeeRepository _employeeRepository;
-    private IEnumerable<Employee> _employees = new List<Employee>();
+    private ICollection<Employee> _employees = new List<Employee>();
     private Employee? _selectedEmployee;
 
     public ICommand AddEmployeeCommand { get; set; }
@@ -26,7 +26,7 @@ public class EmployeesViewModel : ViewModel
         }
     }
 
-    public IEnumerable<Employee> Employees
+    public ICollection<Employee> Employees
     {
         get => _employees;
         set

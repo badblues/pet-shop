@@ -9,7 +9,7 @@ namespace GUI.ViewModels;
 public class ClientsViewModel : ViewModel
 {
     private readonly ClientRepository _clientRepository;
-    private IEnumerable<Client> _clients = new List<Client>();
+    private ICollection<Client> _clients = new List<Client>();
     private Client? _selectedClient;
 
     public ICommand AddClientCommand { get; set; }
@@ -26,7 +26,7 @@ public class ClientsViewModel : ViewModel
         }
     }
 
-    public IEnumerable<Client> Clients
+    public ICollection<Client> Clients
     {
         get => _clients;
         set

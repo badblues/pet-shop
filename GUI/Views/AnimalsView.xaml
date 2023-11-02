@@ -71,7 +71,7 @@
                 <Style TargetType="StackPanel">
                     <Setter Property="Visibility" Value="Visible" />
                     <Style.Triggers>
-                        <DataTrigger Binding="{Binding DataContext.SelectedAnimal, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}" Value="{x:Null}">
+                        <DataTrigger Binding="{Binding SelectedAnimal}" Value="{x:Null}">
                             <Setter Property="Visibility" Value="Hidden" />
                         </DataTrigger>
                     </Style.Triggers>
@@ -90,7 +90,7 @@
             
             <Label Content="PARTICIPATIONS:"/>
             <ItemsControl 
-                ItemsSource="{Binding Participations}">
+                ItemsSource="{Binding SelectedAnimal.Participations}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <DockPanel

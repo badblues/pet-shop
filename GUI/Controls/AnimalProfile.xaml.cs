@@ -15,9 +15,9 @@ public partial class AnimalProfile : UserControl
     public static readonly DependencyProperty AnimalProperty =
         DependencyProperty.Register("Animal", typeof(Animal), typeof(AnimalProfile));
     public static readonly DependencyProperty ClientsProperty =
-        DependencyProperty.Register("Clients", typeof(IEnumerable<Client>), typeof(AnimalProfile));
+        DependencyProperty.Register("Clients", typeof(ICollection<Client>), typeof(AnimalProfile));
     public static readonly DependencyProperty BreedsProperty =
-        DependencyProperty.Register("Breeds", typeof(IEnumerable<Breed>), typeof(AnimalProfile));
+        DependencyProperty.Register("Breeds", typeof(ICollection<Breed>), typeof(AnimalProfile));
 
     public ICommand DeleteCommand
     {
@@ -36,15 +36,15 @@ public partial class AnimalProfile : UserControl
         get => (Animal)GetValue(AnimalProperty);
         set => SetValue(AnimalProperty, value);
     }
-    public IEnumerable<Gender> Genders { get; set; }
-    public IEnumerable<Breed> Breeds
+    public ICollection<Gender> Genders { get; set; }
+    public ICollection<Breed> Breeds
     {
-        get => (IEnumerable<Breed>)GetValue(BreedsProperty);
+        get => (ICollection<Breed>)GetValue(BreedsProperty);
         set => SetValue(BreedsProperty, value);
     }
-    public IEnumerable<Client> Clients
+    public ICollection<Client> Clients
     {
-        get => (IEnumerable<Client>)GetValue(ClientsProperty);
+        get => (ICollection<Client>)GetValue(ClientsProperty);
         set => SetValue(ClientsProperty, value);
     }
 
