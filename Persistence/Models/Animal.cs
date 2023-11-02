@@ -10,8 +10,6 @@ public class Animal
 
     public virtual required Gender Gender { get; set; }
 
-    public virtual required int BreedId { get; set; }
-
     public virtual required Breed Breed { get; set; }
 
     public virtual string? ExteriorDescription { get; set; }
@@ -19,8 +17,6 @@ public class Animal
     public virtual string? Pedigree { get; set; }
 
     public virtual string? Veterinarian { get; set; }
-
-    public virtual int? ClientId { get; set; }
 
     public virtual Client? Client { get; set; }
 }

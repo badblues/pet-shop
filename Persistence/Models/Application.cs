@@ -4,15 +4,9 @@ public class Application
 {
     public virtual int Id { get; set; }
 
-    public virtual required int ClientId { get; set; }
-
     public virtual required Client Client { get; set; }
 
-    public virtual int? EmployeeId { get; set; }
-
     public virtual Employee? Employee { get; set; }
-
-    public virtual required int BreedId { get; set; }
 
     public virtual required Breed Breed { get; set; }
 
