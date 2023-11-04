@@ -14,7 +14,9 @@ internal class ApplicationsViewModel : ViewModel
     private readonly BreedRepository _breedRepository;
     private readonly EmployeeRepository _employeeRepository;
     private ICollection<Application> _applications = new List<Application>();
+    private ICollection<Application> _filteredApplications = new List<Application>();
     private Application? _selectedApplication;
+    private string _searchText;
 
     public ICommand AddApplicationCommand { get; set; }
     public ICommand UpdateApplicationCommand { get; set; }
@@ -40,6 +42,16 @@ internal class ApplicationsViewModel : ViewModel
             OnPropertyChanged(nameof(Applications));
         }
     }
+    
+    public ICollection<Application> FilteredApplications
+    {
+        get => _filteredApplications;
+        set
+        {
+            _filteredApplications = value;
+            OnPropertyChanged(nameof(FilteredApplications));
+        }
+    }
 
     public ICollection<Gender> Genders { get; set; }
     public ICollection<Breed> Breeds { get; set; }
@@ -50,6 +62,20 @@ internal class ApplicationsViewModel : ViewModel
     public Employee EnteredEmployee { get; set; }
     public Breed EnteredBreed { get; set; }
     public Gender? EnteredGender { get; set; }
+
+    public string SearchText
+    {
+        get => _searchText;
+        set
+        {
+            if (_searchText != value)
+            {
+                _searchText = value;
+                OnPropertyChanged(nameof(SearchText));
+                FilterApplications();
+            }
+        }
+    }
 
     public ApplicationsViewModel(
         ApplicationRepository applicationRepository,
@@ -72,6 +98,7 @@ internal class ApplicationsViewModel : ViewModel
         Employees = _employeeRepository.GetAll();
         Genders = new List<Gender>() { Gender.Male, Gender.Female };
         Applications = _applicationRepository.GetAll();
+        FilterApplications();
     }
 
     public void SelectApplication(Application application)
@@ -132,5 +159,31 @@ internal class ApplicationsViewModel : ViewModel
             SelectedApplication = null;
             SelectedApplication = _applicationRepository.Get(application.Id);
         }
+    }
+
+    private void FilterApplications()
+    {
+        ICollection<Application> filteredApplications = new List<Application>();
+
+        if (string.IsNullOrWhiteSpace(SearchText))
+        {
+            foreach (Application application in Applications)
+            {
+                filteredApplications.Add(application);
+            }
+        }
+        else
+        {
+            string searchTextLower = SearchText.ToLower();
+            foreach (Application application in Applications)
+            {
+                if (application.Breed.Name.ToLower().Contains(searchTextLower))
+                {
+                    filteredApplications.Add(application);
+                }
+            }
+        }
+
+        FilteredApplications = filteredApplications;
     }
 }
