@@ -101,16 +101,6 @@ internal class CompetitionsViewModel : ViewModel
         Competitions = _competitionRepository.GetAll();
     }
 
-    public void DeleteCompetition(object? parameter)
-    {
-        if (parameter is Competition competition)
-        {
-            _competitionRepository.Delete(competition.Id);
-            Competitions = _competitionRepository.GetAll();
-            SelectedCompetition = null;
-        }
-    }
-
     public void UpdateCompetition(object? parameter)
     {
         if (parameter is Competition competition)
@@ -119,6 +109,18 @@ internal class CompetitionsViewModel : ViewModel
             Competitions = _competitionRepository.GetAll();
             SelectedCompetition = null;
             SelectedCompetition = _competitionRepository.Get(competition.Id);
+        }
+    }
+
+    public void DeleteCompetition(object? parameter)
+    {
+        if (parameter is Competition competition)
+        {
+            foreach (Participation participation in competition.Participations)
+                _participationRepository.Delete(participation.Animal.Id, participation.Competition.Id);
+            _competitionRepository.Delete(competition.Id);
+            Competitions = _competitionRepository.GetAll();
+            SelectedCompetition = null;
         }
     }
 

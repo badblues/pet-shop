@@ -124,16 +124,6 @@ internal class AnimalsViewModel : ViewModel
         Animals = _animalRepository.GetAll();
     }
 
-    public void DeleteAnimal(object? parameter)
-    {
-        if (parameter is Animal animal)
-        {
-            _animalRepository.Delete(animal.Id);
-            Animals = _animalRepository.GetAll();
-            SelectedAnimal = null;
-        }
-    }
-
     public void UpdateAnimal(object? parameter)
     {
         if (parameter is Animal animal)
@@ -142,6 +132,18 @@ internal class AnimalsViewModel : ViewModel
             Animals = _animalRepository.GetAll();
             SelectedAnimal = null;
             SelectedAnimal = _animalRepository.Get(animal.Id);
+        }
+    }
+
+    public void DeleteAnimal(object? parameter)
+    {
+        if (parameter is Animal animal)
+        {
+            foreach (Participation participation in animal.Participations)
+                _participationRepository.Delete(participation.Animal.Id, participation.Competition.Id);
+            _animalRepository.Delete(animal.Id);
+            Animals = _animalRepository.GetAll();
+            SelectedAnimal = null;
         }
     }
 

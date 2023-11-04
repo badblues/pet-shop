@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Input;
 using GUI.Core;
 using Persistence.Models;
@@ -79,9 +81,17 @@ public class BreedsViewModel : ViewModel
     {
         if (parameter is Breed breed)
         {
-            _breedRepository.Delete(breed.Id);
-            Breeds = _breedRepository.GetAll();
-            SelectedBreed = null;
+            try
+            {
+                _breedRepository.Delete(breed.Id);
+                Breeds = _breedRepository.GetAll();
+                SelectedBreed = null;
+            }
+            catch(Exception e)
+            {
+                string message = "Could not delete breed. There are animals or applications with that breed.";
+                MessageBox.Show(message, "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
     }
 }

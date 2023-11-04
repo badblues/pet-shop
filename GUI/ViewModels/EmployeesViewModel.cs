@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Windows;
 using System.Windows.Input;
 using GUI.Core;
 using Persistence.Models;
@@ -78,15 +80,6 @@ public class EmployeesViewModel : ViewModel
         Employees = _employeeRepository.GetAll();
     }
 
-    public void DeleteEmployee(object? parameter)
-    {
-        if (parameter is Employee employee)
-        {
-            _employeeRepository.Delete(employee.Id);
-            Employees = _employeeRepository.GetAll();
-            SelectedEmployee = null;
-        }
-    }
 
     public void UpdateEmployee(object? parameter)
     {
@@ -96,6 +89,23 @@ public class EmployeesViewModel : ViewModel
             Employees = _employeeRepository.GetAll();
             SelectedEmployee = null;
             SelectedEmployee = _employeeRepository.Get(employee.Id);
+        }
+    }
+    public void DeleteEmployee(object? parameter)
+    {
+        if (parameter is Employee employee)
+        {
+            try
+            {
+                _employeeRepository.Delete(employee.Id);
+                Employees = _employeeRepository.GetAll();
+                SelectedEmployee = null;
+            }
+            catch(Exception e)
+            {
+                string message = "Could not delete employee. There are applications with that employee.";
+                MessageBox.Show(message, "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
     }
 }
