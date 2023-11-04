@@ -17,6 +17,10 @@
         </Grid.RowDefinitions>
         <StackPanel>
             <TextBox Text="{Binding SearchText, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}"/>
+            <DockPanel>
+                <Label Content="Filter completed"/>
+                <CheckBox IsChecked="{Binding FilterCompleted, Mode=TwoWay}"/>
+            </DockPanel>
             <ItemsControl 
                 ItemsSource="{Binding FilteredApplications}">
                 <ItemsControl.ItemTemplate>

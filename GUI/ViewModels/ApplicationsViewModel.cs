@@ -17,6 +17,7 @@ internal class ApplicationsViewModel : ViewModel
     private ICollection<Application> _filteredApplications = new List<Application>();
     private Application? _selectedApplication;
     private string _searchText;
+    private bool _filterCompleted = false;
 
     public ICommand AddApplicationCommand { get; set; }
     public ICommand UpdateApplicationCommand { get; set; }
@@ -40,6 +41,7 @@ internal class ApplicationsViewModel : ViewModel
         {
             _applications = value;
             OnPropertyChanged(nameof(Applications));
+            FilterApplications();
         }
     }
     
@@ -72,6 +74,20 @@ internal class ApplicationsViewModel : ViewModel
             {
                 _searchText = value;
                 OnPropertyChanged(nameof(SearchText));
+                FilterApplications();
+            }
+        }
+    }
+
+    public bool FilterCompleted
+    {
+        get => _filterCompleted;
+        set
+        {
+            if (_filterCompleted != value)
+            {
+                _filterCompleted = value;
+                OnPropertyChanged(nameof(FilterCompleted));
                 FilterApplications();
             }
         }
@@ -169,7 +185,8 @@ internal class ApplicationsViewModel : ViewModel
         {
             foreach (Application application in Applications)
             {
-                filteredApplications.Add(application);
+                if (FilterCompleted && application.Completed || !FilterCompleted)
+                    filteredApplications.Add(application);
             }
         }
         else
@@ -177,7 +194,8 @@ internal class ApplicationsViewModel : ViewModel
             string searchTextLower = SearchText.ToLower();
             foreach (Application application in Applications)
             {
-                if (application.Breed.Name.ToLower().Contains(searchTextLower))
+                if (application.Breed.Name.ToLower().Contains(searchTextLower)
+                    && (FilterCompleted && application.Completed || !FilterCompleted))
                 {
                     filteredApplications.Add(application);
                 }
