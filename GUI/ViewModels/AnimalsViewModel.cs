@@ -15,8 +15,10 @@ internal class AnimalsViewModel : ViewModel
     private readonly ParticipationRepository _participationRepository;
     private readonly CompetitionRepository _competitionRepository;
     private ICollection<Animal> _animals = new List<Animal>();
-    private Animal? _selectedAnimal;
+    private ICollection<Animal> _filteredAnimals = new List<Animal>();
     private IEnumerable<Competition> _availableCompetitions = new List<Competition>();
+    private Animal? _selectedAnimal;
+    private string _searchText;
 
     public ICommand AddAnimalCommand { get; set; }
     public ICommand AddParticipationCommand { get; set; }
@@ -41,6 +43,16 @@ internal class AnimalsViewModel : ViewModel
         {
             _animals = value;
             OnPropertyChanged(nameof(Animals));
+        }
+    }
+
+    public ICollection<Animal> FilteredAnimals
+    {
+        get => _filteredAnimals;
+        set
+        {
+            _filteredAnimals = value;
+            OnPropertyChanged(nameof(FilteredAnimals));
         }
     }
 
@@ -69,6 +81,20 @@ internal class AnimalsViewModel : ViewModel
     public Competition EnteredCompetition { get; set; }
     public string EnteredAward { get; set; }
 
+    public string SearchText
+    {
+        get => _searchText;
+        set
+        {
+            if (_searchText != value)
+            {
+                _searchText = value;
+                OnPropertyChanged(nameof(SearchText));
+                FilterAnimals();
+            }
+        }
+    }
+
     public AnimalsViewModel(
         AnimalRepository animalRepository,
         ClientRepository clientRepository,
@@ -92,6 +118,7 @@ internal class AnimalsViewModel : ViewModel
         Clients = _clientRepository.GetAll();
         Breeds = _breedRepository.GetAll();
         Genders = new List<Gender>() { Gender.Male, Gender.Female };
+        FilterAnimals();
     }
 
     public void SelectAnimal(Animal animal)
@@ -178,5 +205,32 @@ internal class AnimalsViewModel : ViewModel
                 AvailableCompetitions = _competitionRepository.GetAll().Except(SelectedAnimal.Participations.Select(p => p.Competition));
             }
         }
+    }
+
+    private void FilterAnimals()
+    {
+        ICollection<Animal> filteredAnimals = new List<Animal>();
+
+        if (string.IsNullOrWhiteSpace(SearchText))
+        {
+            foreach (Animal animal in Animals)
+            {
+                filteredAnimals.Add(animal);
+            }
+        }
+        else
+        {
+            string searchTextLower = SearchText.ToLower();
+            foreach (Animal animal in Animals)
+            {
+                if (animal.Name.ToLower().Contains(searchTextLower)
+                    || animal.Breed.Name.ToLower().Contains(searchTextLower))
+                {
+                    filteredAnimals.Add(animal);
+                }
+            }
+        }
+
+        FilteredAnimals = filteredAnimals;
     }
 }
