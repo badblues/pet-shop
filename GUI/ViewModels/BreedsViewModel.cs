@@ -27,6 +27,7 @@ public class BreedsViewModel : ViewModel
         {
             _breeds = value;
             OnPropertyChanged(nameof(Breeds));
+            FilterBreeds();
         }
     }
 
