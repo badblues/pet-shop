@@ -17,7 +17,9 @@ public class ClientsViewModel : ViewModel
     private readonly ApplicationRepository _applicationRepository;
     private readonly ParticipationRepository _participationRepository;
     private ICollection<Client> _clients = new List<Client>();
+    private ICollection<Client> _filteredClients = new List<Client>();
     private Client? _selectedClient;
+    private string _searchText;
 
     public ICommand AddClientCommand { get; set; }
     public ICommand UpdateClientCommand { get; set; }
@@ -40,12 +42,38 @@ public class ClientsViewModel : ViewModel
         {
             _clients = value;
             OnPropertyChanged(nameof(Clients));
+            FilterClients();
         }
     }
+
+    public ICollection<Client> FilteredClients
+    {
+        get => _filteredClients;
+        set
+        {
+            _filteredClients = value;
+            OnPropertyChanged(nameof(FilteredClients));
+        }
+    }
+
 
     public string EnteredName { get; set; }
 
     public string EnteredAddress { get; set; }
+
+    public string SearchText
+    {
+        get => _searchText;
+        set
+        {
+            if (_searchText != value)
+            {
+                _searchText = value;
+                OnPropertyChanged(nameof(SearchText));
+                FilterClients();
+            }
+        }
+    }
 
     public ClientsViewModel(
         ClientRepository clientRepository,
@@ -63,6 +91,7 @@ public class ClientsViewModel : ViewModel
         DeleteClientCommand = new RelayCommand(DeleteClient, o => true);
 
         Clients = _clientRepository.GetAll();
+        FilterClients();
     }
 
     public void SelectClient(Client client)
@@ -114,5 +143,31 @@ public class ClientsViewModel : ViewModel
             Clients = _clientRepository.GetAll();
             SelectedClient = null;
         }
+    }
+
+    private void FilterClients()
+    {
+        ICollection<Client> filteredClients = new List<Client>();
+
+        if (string.IsNullOrWhiteSpace(SearchText))
+        {
+            foreach (Client client in Clients)
+            {
+                filteredClients.Add(client);
+            }
+        }
+        else
+        {
+            string searchTextLower = SearchText.ToLower();
+            foreach (Client client in Clients)
+            {
+                if (client.Name.ToLower().Contains(searchTextLower))
+                {
+                    filteredClients.Add(client);
+                }
+            }
+        }
+
+        FilteredClients = filteredClients;
     }
 }
