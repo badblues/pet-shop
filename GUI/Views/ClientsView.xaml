@@ -45,8 +45,53 @@
             <TextBox Text="{Binding EnteredAddress, Mode=TwoWay}" />
         </StackPanel>
 
-        
-        
+        <StackPanel
+            Background="HotPink"
+            Grid.Column="1"
+            Grid.Row="1">
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
+                    <Setter Property="Visibility" Value="Visible" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding SelectedClient}" Value="{x:Null}">
+                            <Setter Property="Visibility" Value="Hidden" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
+            <Label Content="ANIMALS:"/>
+            <ItemsControl 
+                ItemsSource="{Binding SelectedClient.Animals}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <DockPanel
+                            Background="LawnGreen">
+                            <Label Content="Name:"/>
+                            <Label Content="{Binding Name}"/>
+                            <Label Content="Breed:"/>
+                            <Label Content="{Binding Breed.Name}"/>
+                        </DockPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <Label Content="APPLICATIONS:"/>
+            <ItemsControl 
+                ItemsSource="{Binding SelectedClient.Applications}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <DockPanel
+                            Background="LawnGreen">
+                            <Label Content="Breed:"/>
+                            <Label Content="{Binding Breed.Name}"/>
+                            <Label Content="Gender:"/>
+                            <Label Content="{Binding Gender}"/>
+                        </DockPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+
         <controls:ClientProfile
             Client="{Binding DataContext.SelectedClient, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
             UpdateCommand="{Binding DataContext.UpdateClientCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"

@@ -50,6 +50,40 @@
                 PreviewTextInput="PositiveDoubleTextBox_PreviewTextInput"/>
         </StackPanel>
 
+        <StackPanel
+            Background="HotPink"
+            Grid.Column="1"
+            Grid.Row="0">
+            <StackPanel.Style>
+                <Style TargetType="StackPanel">
+                    <Setter Property="Visibility" Value="Visible" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding SelectedEmployee}" Value="{x:Null}">
+                            <Setter Property="Visibility" Value="Hidden" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </StackPanel.Style>
+            
+            <Label Content="APPLICATIONS:"/>
+            <ItemsControl 
+                ItemsSource="{Binding SelectedEmployee.Applications}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <DockPanel
+                            Background="LawnGreen">
+                            <Label Content="Client:"/>
+                            <Label Content="{Binding Client.Name}"/>
+                            <Label Content="Breed:"/>
+                            <Label Content="{Binding Breed.Name}"/>
+                            <Label Content="Gender:"/>
+                            <Label Content="{Binding Gender}"/>
+                        </DockPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+
         <controls:EmployeeProfile
             Employee="{Binding DataContext.SelectedEmployee, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
             DeleteCommand="{Binding DataContext.DeleteEmployeeCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
