@@ -43,6 +43,7 @@ internal class AnimalsViewModel : ViewModel
         {
             _animals = value;
             OnPropertyChanged(nameof(Animals));
+            FilterAnimals();
         }
     }
 

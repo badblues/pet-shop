@@ -42,6 +42,7 @@ internal class CompetitionsViewModel : ViewModel
         {
             _competitions = value;
             OnPropertyChanged(nameof(Competitions));
+            FilterCompetitions();
         }
     }
 
