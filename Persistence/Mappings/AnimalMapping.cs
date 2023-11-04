@@ -15,11 +15,9 @@ public class AnimalMapping : ClassMap<Animal>
             .Not.Nullable();
 
         _ = References(x => x.Breed, "breed_id")
-            .Cascade.SaveUpdate()
             .Not.Nullable();
 
-        _ = References(x => x.Client, "owner_id")
-            .Cascade.SaveUpdate();
+        _ = References(x => x.Client, "owner_id");
 
         _ = Map(x => x.Name, "name")
             .Not.Nullable();

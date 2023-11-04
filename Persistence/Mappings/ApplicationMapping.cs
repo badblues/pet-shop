@@ -16,14 +16,11 @@ public class ApplicationMapping : ClassMap<Application>
             .Not.Nullable();
 
         _ = References(x => x.Client, "client_id")
-            .Cascade.SaveUpdate()
             .Not.Nullable();
 
-        _ = References(x => x.Employee, "employee_id")
-            .Cascade.SaveUpdate();
+        _ = References(x => x.Employee, "employee_id");
 
         _ = References(x => x.Breed, "breed_id")
-            .Cascade.SaveUpdate()
             .Not.Nullable();
 
         _ = Map(x => x.Gender)
