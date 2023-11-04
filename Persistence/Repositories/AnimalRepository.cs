@@ -37,6 +37,7 @@ public class AnimalRepository : IRepository<Animal>
     public void Delete(int id)
     {
         Animal animal = _session.Get<Animal>(id);
+        _session.Flush();
         _session.Delete(animal);
     }
 }
