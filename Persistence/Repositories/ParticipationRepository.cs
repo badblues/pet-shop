@@ -32,19 +32,20 @@ public class ParticipationRepository : IRepository<Participation>
 
     public ICollection<Participation> GetByAnimalId(int animalId)
     {
-        _session.Flush();
-        return _session.Query<Participation>()
-                       .Where(p => p.Animal.Id == animalId)
-                       .ToList();
+        string hql = "FROM Participation p WHERE p.Animal.Id = :animalId";
+        return _session.CreateQuery(hql)
+                       .SetParameter("animalId", animalId)
+                       .List<Participation>();
     }
 
     public ICollection<Participation> GetByCompetitionId(int competitionId)
     {
-        _session.Flush();
-        return _session.Query<Participation>()
-                       .Where(p => p.Competition.Id == competitionId)
-                       .ToList();
+        string hql = "FROM Participation p WHERE p.Competition.Id = :competitionId";
+        return _session.CreateQuery(hql)
+                       .SetParameter("competitionId", competitionId)
+                       .List<Participation>();
     }
+
 
     public void Update(Participation participation)
     {
