@@ -14,8 +14,10 @@ internal class CompetitionsViewModel : ViewModel
     private readonly ParticipationRepository _participationRepository;
     private readonly AnimalRepository _animalRepository;
     private ICollection<Competition> _competitions = new List<Competition>();
-    private Competition? _selectedCompetition;
+    private ICollection<Competition> _filteredCompetitions = new List<Competition>();
     private IEnumerable<Animal> _availableAnimals = new List<Animal>();
+    private Competition? _selectedCompetition;
+    private string _searchText;
 
     public ICommand AddCompetitionCommand { get; set; }
     public ICommand AddParticipationCommand { get; set; }
@@ -43,6 +45,16 @@ internal class CompetitionsViewModel : ViewModel
         }
     }
 
+    public ICollection<Competition> FilteredCompetitions
+    {
+        get => _filteredCompetitions;
+        set
+        {
+            _filteredCompetitions = value;
+            OnPropertyChanged(nameof(FilteredCompetitions));
+        }
+    }
+
     public IEnumerable<Animal> AvailableAnimals
     {
         get => _availableAnimals;
@@ -59,6 +71,20 @@ internal class CompetitionsViewModel : ViewModel
     public Animal EnteredAnimal { get; set; }
     public string EnteredAward { get; set; }
 
+    public string SearchText
+    {
+        get => _searchText;
+        set
+        {
+            if (_searchText != value)
+            {
+                _searchText = value;
+                OnPropertyChanged(nameof(SearchText));
+                FilterCompetitions();
+            }
+        }
+    }
+
     public CompetitionsViewModel(CompetitionRepository competitionRepository,
         AnimalRepository animalRepository,
         ParticipationRepository participationRepository)
@@ -74,6 +100,7 @@ internal class CompetitionsViewModel : ViewModel
         DeleteParticipationCommand = new RelayCommand(DeleteParticipation, o => true);
 
         Competitions = _competitionRepository.GetAll();
+        FilterCompetitions();
     }
 
     public void SelectCompetition(Competition competition)
@@ -155,5 +182,32 @@ internal class CompetitionsViewModel : ViewModel
                 AvailableAnimals = _animalRepository.GetAll().Except(SelectedCompetition.Participations.Select(p => p.Animal));
             }
         }
+    }
+
+    private void FilterCompetitions()
+    {
+        ICollection<Competition> filteredCompetitions = new List<Competition>();
+
+        if (string.IsNullOrWhiteSpace(SearchText))
+        {
+            foreach (Competition competition in Competitions)
+            {
+                filteredCompetitions.Add(competition);
+            }
+        }
+        else
+        {
+            string searchTextLower = SearchText.ToLower();
+            foreach (Competition competition in Competitions)
+            {
+                if (competition.Name.ToLower().Contains(searchTextLower)
+                    || competition.Location.ToLower().Contains(searchTextLower))
+                {
+                    filteredCompetitions.Add(competition);
+                }
+            }
+        }
+
+        FilteredCompetitions = filteredCompetitions;
     }
 }

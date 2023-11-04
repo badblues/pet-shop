@@ -16,8 +16,9 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <StackPanel>
+            <TextBox Text="{Binding SearchText, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}"/>
             <ItemsControl 
-                ItemsSource="{Binding Competitions}">
+                ItemsSource="{Binding FilteredCompetitions}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <DockPanel
