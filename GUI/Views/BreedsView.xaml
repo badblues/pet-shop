@@ -17,8 +17,9 @@
         </Grid.RowDefinitions>
 
         <StackPanel>
-            <ItemsControl 
-                ItemsSource="{Binding Breeds}">
+            <TextBox Text="{Binding SearchText, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}"/>
+            <ItemsControl
+                ItemsSource="{Binding FilteredBreeds}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <DockPanel

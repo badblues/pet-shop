@@ -12,7 +12,9 @@ public class BreedsViewModel : ViewModel
 {
     private readonly BreedRepository _breedRepository;
     private ICollection<Breed> _breeds = new List<Breed>();
+    private ICollection<Breed>  _filteredBreeds = new List<Breed>();
     private Breed? _selectedBreed;
+    private string _searchText;
 
     public ICommand AddBreedCommand { get; set; }
     public ICommand UpdateBreedCommand { get; set; }
@@ -28,6 +30,16 @@ public class BreedsViewModel : ViewModel
         }
     }
 
+    public ICollection<Breed> FilteredBreeds
+    {
+        get => _filteredBreeds;
+        set
+        {
+            _filteredBreeds = value;
+            OnPropertyChanged(nameof(FilteredBreeds));
+        }
+    }
+
     public Breed? SelectedBreed
     {
         get => _selectedBreed;
@@ -40,6 +52,20 @@ public class BreedsViewModel : ViewModel
 
     public string EnteredName { get; set; }
 
+    public string SearchText
+    {
+        get => _searchText;
+        set
+        {
+            if (_searchText != value)
+            {
+                _searchText = value;
+                OnPropertyChanged(nameof(SearchText));
+                FilterBreeds();
+            }
+        }
+    }
+
     public BreedsViewModel(BreedRepository breedRepository)
     {
         _breedRepository = breedRepository;
@@ -49,6 +75,7 @@ public class BreedsViewModel : ViewModel
         DeleteBreedCommand = new RelayCommand(DeleteBreed, o => true);
 
         Breeds = _breedRepository.GetAll();
+        FilterBreeds();
     }
 
     public void SelectBreed(Breed breed)
@@ -93,5 +120,31 @@ public class BreedsViewModel : ViewModel
                 MessageBox.Show(message, "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
+    }
+
+    private void FilterBreeds()
+    {
+        ICollection<Breed> filteredBreeds = new List<Breed>();
+
+        if (string.IsNullOrWhiteSpace(SearchText))
+        {
+            foreach (Breed breed in Breeds)
+            {
+                filteredBreeds.Add(breed);
+            }
+        }
+        else
+        {
+            string searchTextLower = SearchText.ToLower();
+            foreach (Breed breed in Breeds)
+            {
+                if (breed.Name.ToLower().Contains(searchTextLower))
+                {
+                    filteredBreeds.Add(breed);
+                }
+            }
+        }
+
+        FilteredBreeds = filteredBreeds;
     }
 }
