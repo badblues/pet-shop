@@ -91,7 +91,7 @@
             
             <Label Content="PARTICIPATIONS:"/>
             <ItemsControl 
-                ItemsSource="{Binding SelectedAnimal.Participations}">
+                ItemsSource="{Binding Participations}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <DockPanel

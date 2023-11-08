@@ -18,6 +18,7 @@ internal class AnimalsViewModel : ViewModel
     private ICollection<Animal> _filteredAnimals = new List<Animal>();
     private IEnumerable<Competition> _availableCompetitions = new List<Competition>();
     private Animal? _selectedAnimal;
+    private ICollection<Participation> _participations = new List<Participation>();
     private string _searchText;
 
     public ICommand AddAnimalCommand { get; set; }
@@ -33,6 +34,16 @@ internal class AnimalsViewModel : ViewModel
         {
             _selectedAnimal = value;
             OnPropertyChanged(nameof(SelectedAnimal));
+        }
+    }
+
+    public ICollection<Participation> Participations
+    {
+        get => _participations;
+        set
+        {
+            _participations = value;
+            OnPropertyChanged(nameof(Participations));
         }
     }
 
@@ -125,6 +136,7 @@ internal class AnimalsViewModel : ViewModel
     public void SelectAnimal(Animal animal)
     {
         SelectedAnimal = animal;
+        Participations = _participationRepository.GetByAnimalId(animal.Id);
         AvailableCompetitions = _competitionRepository.GetAll().Except(SelectedAnimal.Participations.Select(p => p.Competition));
     }
 
@@ -191,7 +203,7 @@ internal class AnimalsViewModel : ViewModel
         };
 
         _participationRepository.Add(newParticipation);
-        SelectedAnimal.Participations.Add(newParticipation);
+        Participations.Add(newParticipation);
         AvailableCompetitions = AvailableCompetitions.Except(SelectedAnimal.Participations.Select(p => p.Competition));
     }
 
@@ -202,7 +214,7 @@ internal class AnimalsViewModel : ViewModel
             _participationRepository.Delete(participation.Animal.Id, participation.Competition.Id);
             if (SelectedAnimal is not null)
             {
-                SelectedAnimal.Participations.Remove(participation);
+                Participations.Remove(participation);
                 AvailableCompetitions = _competitionRepository.GetAll().Except(SelectedAnimal.Participations.Select(p => p.Competition));
             }
         }

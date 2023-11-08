@@ -75,7 +75,7 @@
 
             <Label Content="PARTICIPANTS:"/>
             <ItemsControl 
-                ItemsSource="{Binding SelectedCompetition.Participations}">
+                ItemsSource="{Binding Participations}">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <DockPanel

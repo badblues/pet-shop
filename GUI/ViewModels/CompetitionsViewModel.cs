@@ -17,6 +17,7 @@ internal class CompetitionsViewModel : ViewModel
     private ICollection<Competition> _filteredCompetitions = new List<Competition>();
     private IEnumerable<Animal> _availableAnimals = new List<Animal>();
     private Competition? _selectedCompetition;
+    private ICollection<Participation> _participations = new List<Participation>();
     private string _searchText;
 
     public ICommand AddCompetitionCommand { get; set; }
@@ -32,6 +33,16 @@ internal class CompetitionsViewModel : ViewModel
         {
             _selectedCompetition = value;
             OnPropertyChanged(nameof(SelectedCompetition));
+        }
+    }
+
+    public ICollection<Participation> Participations
+    {
+        get => _participations;
+        set
+        {
+            _participations = value;
+            OnPropertyChanged(nameof(Participations));
         }
     }
 
@@ -107,6 +118,7 @@ internal class CompetitionsViewModel : ViewModel
     public void SelectCompetition(Competition competition)
     {
         SelectedCompetition = competition;
+        Participations = _participationRepository.GetByCompetitionId(competition.Id);
         AvailableAnimals = _animalRepository.GetAll().Except(SelectedCompetition.Participations.Select(p => p.Animal));
     }
 
@@ -168,7 +180,7 @@ internal class CompetitionsViewModel : ViewModel
         };
 
         _participationRepository.Add(newParticipation);
-        SelectedCompetition.Participations.Add(newParticipation);
+        Participations.Add(newParticipation);
         AvailableAnimals = AvailableAnimals.Except(SelectedCompetition.Participations.Select(p => p.Animal));
     }
 
@@ -179,7 +191,7 @@ internal class CompetitionsViewModel : ViewModel
             _participationRepository.Delete(participation.Animal.Id, participation.Competition.Id);
             if (SelectedCompetition is not null)
             {
-                SelectedCompetition.Participations.Remove(participation);
+                Participations.Remove(participation);
                 AvailableAnimals = _animalRepository.GetAll().Except(SelectedCompetition.Participations.Select(p => p.Animal));
             }
         }
