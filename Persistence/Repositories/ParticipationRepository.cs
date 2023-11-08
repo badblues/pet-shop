@@ -56,6 +56,7 @@ public class ParticipationRepository : IRepository<Participation>
     {
         Participation participation = Get(animalId, competitionId);
         _session.Delete(participation);
+        _session.Flush();
     }
 
     public Participation Get(int id)
