@@ -8,38 +8,37 @@
     <UserControl.DataContext>
         <Binding RelativeSource="{RelativeSource Self}" />
     </UserControl.DataContext>
-    <Grid
-        Background="DarkKhaki">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="211*"/>
-            <RowDefinition Height="14*"/>
-        </Grid.RowDefinitions>
+
 
         <StackPanel DataContext="{Binding Employee}">
             <DockPanel>
-                <TextBlock Text="Name: "/>
-                <TextBlock Text="{Binding Name}"/>
+                <TextBlock Style="{StaticResource ProfileText}" Text="Name: "/>
+                <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Name}"/>
             </DockPanel>
             <DockPanel>
-                <TextBlock Text="Address: "/>
-                <TextBlock Text="{Binding Address}"/>
+                <TextBlock Style="{StaticResource ProfileText}" Text="Address: "/>
+                <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Address}"/>
             </DockPanel>
             <DockPanel>
-                <TextBlock Text="Position: "/>
-                <TextBlock Text="{Binding Position}"/>
+                <TextBlock Style="{StaticResource ProfileText}" Text="Position: "/>
+                <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Position}"/>
             </DockPanel>
             <DockPanel>
-                <TextBlock Text="Salary: "/>
-                <TextBlock Text="{Binding Salary}"/>
+                <TextBlock Style="{StaticResource ProfileText}" Text="Salary: "/>
+                <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Salary}"/>
             </DockPanel>
         </StackPanel>
 
         <StackPanel Grid.Column="1">
-            <Button Content="DELETE" Click="DeleteButton_Click"/>
+            <Button
+                Content="DELETE"
+                Click="DeleteButton_Click"
+                Style="{StaticResource SmallButton}"/>
             <Label Content="New name:"/>
             <TextBox Text="{Binding EnteredName, Mode=TwoWay}" />
             <Label Content="New address:"/>
@@ -49,7 +48,10 @@
             <Label Content="New salary:"/>
             <TextBox Text="{Binding EnteredSalary, Mode=TwoWay}"
                 PreviewTextInput="PositiveDoubleTextBox_PreviewTextInput"/>
-            <Button Content="Update profile" Click="UpdateButton_Click"/>
+            <Button
+                Content="Update profile"
+                Click="UpdateButton_Click"
+                Style="{StaticResource SmallButton}"/>
         </StackPanel>
 
     </Grid>

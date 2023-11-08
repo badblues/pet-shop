@@ -5,39 +5,48 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:controls="clr-namespace:GUI.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="720" d:DesignWidth="1130">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition  Width="13*"/>
-            <ColumnDefinition Width="37*"/>
+            <ColumnDefinition  Width="320"/>
+            <ColumnDefinition Width="800"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <StackPanel>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
             <TextBox Text="{Binding SearchText, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}"/>
-            <ItemsControl 
-                ItemsSource="{Binding FilteredCompetitions}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <DockPanel
-                            Background="Aqua"
-                            MouseLeftButtonDown="Competitions_MouseLeftButton">
-                            <Label Content="Client name: "/>
-                            <Label Content="{Binding Name}"/>
-                            <Label Content="Date: "/>
-                            <Label Content="{Binding Date}"/>
-                        </DockPanel>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </StackPanel>
+            <ScrollViewer
+                Grid.Row="1"
+                CanContentScroll="True"
+                VerticalScrollBarVisibility="Auto"
+                Height="Auto">
+                <ItemsControl 
+                    ItemsSource="{Binding FilteredCompetitions}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <DockPanel
+                                MouseLeftButtonDown="Competitions_MouseLeftButton">
+                                <TextBlock Style="{StaticResource ListText}" Text="Name:"/>
+                                <TextBlock Margin="10,0,0,0" Style="{StaticResource ListText}" Text="{Binding Name}"/>
+                                <TextBlock Margin="10,0,0,0" Style="{StaticResource ListText}" Text="Date:"/>
+                                <TextBlock Margin="10,0,0,0" Style="{StaticResource ListText}" Text="{Binding Date, StringFormat={}{0:yy-MM-dd}}"/>
+                            </DockPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
 
         <StackPanel
-            Grid.Row="1"
-            Background="BurlyWood">
+            Grid.Row="1">
             <Button 
+                Style="{StaticResource SmallButton}"
                 Content="ADD COMPETITION"
                 Command="{Binding AddCompetitionCommand}"/>
             <Label Content="*Name:"/>
@@ -48,57 +57,12 @@
             <DatePicker SelectedDate="{Binding EnteredDate, Mode=TwoWay}"/>
         </StackPanel>
 
-        <StackPanel
-            Background="HotPink"
-            Grid.Row="0"
-            Grid.Column="1">
-            <StackPanel.Style>
-                <Style TargetType="StackPanel">
-                    <Setter Property="Visibility" Value="Visible" />
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding SelectedCompetition}" Value="{x:Null}">
-                            <Setter Property="Visibility" Value="Hidden" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </StackPanel.Style>
-            <Label Content="Award:"/>
-            <TextBox Text="{Binding EnteredAward, Mode=TwoWay}"/>
-            <Label Content="Animal:"/>
-            <ComboBox 
-                ItemsSource="{Binding AvailableAnimals}"
-                DisplayMemberPath="Name"
-                SelectedItem="{Binding EnteredAnimal}"/>
-            <Button
-                Content="ADD PARTICIPATION"
-                Command="{Binding AddParticipationCommand}"/>
-
-            <Label Content="PARTICIPANTS:"/>
-            <ItemsControl 
-                ItemsSource="{Binding Participations}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <DockPanel
-                            Background="LawnGreen">
-                            <Label Content="Animal name:"/>
-                            <Label Content="{Binding Animal.Name}"/>
-                            <Label Content="Award:"/>
-                            <Label Content="{Binding Award}"/>
-                            <Button Content="DELETE"
-                                    Command="{Binding DataContext.DeleteParticipationCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
-                                    CommandParameter="{Binding}"/>
-                        </DockPanel>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </StackPanel>
-
         <controls:CompetitionProfile
+            Grid.Column="1"
+            Grid.Row="0"
             Competition="{Binding DataContext.SelectedCompetition, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
             DeleteCommand="{Binding DataContext.DeleteCompetitionCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
-            UpdateCommand="{Binding DataContext.UpdateCompetitionCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
-            Grid.Column="1"
-            Grid.Row="1">
+            UpdateCommand="{Binding DataContext.UpdateCompetitionCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
             <controls:CompetitionProfile.Style>
                 <Style TargetType="controls:CompetitionProfile">
                     <Setter Property="Visibility" Value="Visible" />
@@ -110,6 +74,59 @@
                 </Style>
             </controls:CompetitionProfile.Style>
         </controls:CompetitionProfile>
+
+        <Grid
+            Grid.Row="1"
+            Grid.Column="1"
+            Width="400"
+            HorizontalAlignment="Left">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.Style>
+                <Style TargetType="Grid">
+                    <Setter Property="Visibility" Value="Visible" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding SelectedCompetition}" Value="{x:Null}">
+                            <Setter Property="Visibility" Value="Hidden" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Style>
+            <StackPanel>
+                <Label Content="Award:"/>
+                <TextBox Text="{Binding EnteredAward, Mode=TwoWay}"/>
+                <Label Content="Animal:"/>
+                <ComboBox 
+                    ItemsSource="{Binding AvailableAnimals}"
+                    DisplayMemberPath="Name"
+                    SelectedItem="{Binding EnteredAnimal}"/>
+                <Button
+                    Style="{StaticResource SmallButton}"
+                    Content="ADD PARTICIPATION"
+                    Command="{Binding AddParticipationCommand}"/>
+            </StackPanel>
+            <ItemsControl
+                Grid.Row="1"
+                ItemsSource="{Binding Participations}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <DockPanel>
+                            <TextBlock Style="{StaticResource ListText}" Text="Animal name:"/>
+                            <TextBlock Margin="10,0,0,0" Style="{StaticResource ListText}" Text="{Binding Animal.Name}"/>
+                            <TextBlock Margin="10,0,0,0" Style="{StaticResource ListText}" Text="Award:"/>
+                            <TextBlock Margin="10,0,0,0" Style="{StaticResource ListText}" Text="{Binding Award}"/>
+                            <Button
+                                Style="{StaticResource SmallButton}"
+                                Content="DELETE"
+                                Command="{Binding DataContext.DeleteParticipationCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                CommandParameter="{Binding}"/>
+                        </DockPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </Grid>
 
     </Grid>
 </UserControl>

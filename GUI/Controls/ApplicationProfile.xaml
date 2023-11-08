@@ -8,52 +8,52 @@
     <UserControl.DataContext>
         <Binding RelativeSource="{RelativeSource Self}" />
     </UserControl.DataContext>
-    <Grid
-        Background="DarkKhaki">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="211*"/>
-            <RowDefinition Height="0*"/>
-            <RowDefinition Height="14*"/>
-        </Grid.RowDefinitions>
 
         <StackPanel DataContext="{Binding Application}">
             <DockPanel>
-                <TextBlock Text="Client name: "/>
-                <TextBlock Text="{Binding Client.Name}"/>
+                <TextBlock Style="{StaticResource ProfileText}" Text="Client name: "/>
+                <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Client.Name}"/>
             </DockPanel>
             <DockPanel>
-                <TextBlock Text="Client address: "/>
-                <TextBlock Text="{Binding Client.Address}"/>
+                <TextBlock Style="{StaticResource ProfileText}" Text="Client address: "/>
+                <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Client.Address}"/>
             </DockPanel>
             <DockPanel>
-                <TextBlock Text="Employee: "/>
-                <TextBlock Text="{Binding Employee.Name}"/>
+                <TextBlock Style="{StaticResource ProfileText}" Text="Employee: "/>
+                <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Employee.Name}"/>
             </DockPanel>
             <DockPanel>
-                <TextBlock Text="Breed: "/>
-                <TextBlock Text="{Binding Breed.Name}"/>
+                <TextBlock Style="{StaticResource ProfileText}" Text="Breed: "/>
+                <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Breed.Name}"/>
             </DockPanel>
             <DockPanel>
-                <TextBlock Text="Gender: "/>
-                <TextBlock Text="{Binding Gender}"/>
+                <TextBlock Style="{StaticResource ProfileText}" Text="Gender: "/>
+                <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Gender}"/>
             </DockPanel>
             <DockPanel>
-                <TextBlock Text="Date: "/>
-                <TextBlock Text="{Binding ApplicationDate}"/>
+                <TextBlock Style="{StaticResource ProfileText}" Text="Date: "/>
+                <TextBlock Style="{StaticResource ProfileText}" Text="{Binding ApplicationDate}"/>
             </DockPanel>
             <DockPanel>
-                <TextBlock Text="Completed: "/>
-                <TextBlock Text="{Binding Completed}"/>
+                <TextBlock Style="{StaticResource ProfileText}" Text="Completed: "/>
+                <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Completed}"/>
             </DockPanel>
         </StackPanel>
 
         <StackPanel Grid.Column="1">
-            <Button Content="DELETE" Click="DeleteButton_Click"/>
-            <Button Content="CHANGE STATUS" Click="ChangeStatusButton_Click"/>
+            <Button
+                Content="DELETE"
+                Click="DeleteButton_Click"
+                Style="{StaticResource SmallButton}"/>
+            <Button
+                Content="CHANGE STATUS"
+                Click="ChangeStatusButton_Click"
+                Style="{StaticResource SmallButton}"/>
             <Label Content="New employee:"/>
             <ComboBox ItemsSource="{Binding Employees}"
                 DisplayMemberPath="Name"
@@ -65,7 +65,10 @@
             <ComboBox ItemsSource="{Binding Breeds}"
                 DisplayMemberPath="Name"
                 SelectedItem="{Binding EnteredBreed, Mode=TwoWay}" />
-            <Button Content="Update profile" Click="UpdateButton_Click"/>
+            <Button
+                Content="Update profile"
+                Click="UpdateButton_Click"
+                Style="{StaticResource SmallButton}"/>
         </StackPanel>
 
     </Grid>

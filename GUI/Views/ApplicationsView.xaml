@@ -5,45 +5,53 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:controls="clr-namespace:GUI.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="720" d:DesignWidth="1130">
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition  Width="13*"/>
-            <ColumnDefinition Width="37*"/>
+            <ColumnDefinition  Width="330"/>
+            <ColumnDefinition Width="800"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <StackPanel>
-            <TextBox Text="{Binding SearchText, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}"/>
-            <DockPanel>
-                <Label Content="Filter completed"/>
-                <CheckBox IsChecked="{Binding FilterCompleted, Mode=TwoWay}"/>
-            </DockPanel>
-            <ItemsControl 
-                ItemsSource="{Binding FilteredApplications}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <DockPanel
-                            Background="Aqua"
-                            MouseLeftButtonDown="Applications_MouseLeftButton">
-                            <Label Content="Client name: "/>
-                            <Label Content="{Binding Client.Name}"/>
-                            <Label Content="Breed: "/>
-                            <Label Content="{Binding Breed.Name}"/>
-                            <Label Content="Completed: "/>
-                            <Label Content="{Binding Completed}"/>
-                        </DockPanel>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </StackPanel>
-
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackPanel>
+                <TextBox Text="{Binding SearchText, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}"/>
+                <DockPanel>
+                    <Label Content="Filter completed"/>
+                    <CheckBox IsChecked="{Binding FilterCompleted, Mode=TwoWay}"/>
+                </DockPanel>
+            </StackPanel>
+            <ScrollViewer
+                Grid.Row="1"
+                CanContentScroll="True"
+                VerticalScrollBarVisibility="Auto"
+                Height="Auto">
+                <ItemsControl 
+                    ItemsSource="{Binding FilteredApplications}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <DockPanel
+                                MouseLeftButtonDown="Applications_MouseLeftButton">
+                                <TextBlock Style="{StaticResource ListText}" Text="Client:"/>
+                                <TextBlock Margin="10,0,0,0" Style="{StaticResource ListText}" Text="{Binding Client.Name}"/>
+                                <TextBlock Margin="10,0,0,0" Style="{StaticResource ListText}" Text="Breed:"/>
+                                <TextBlock Margin="10,0,0,0" Style="{StaticResource ListText}" Text="{Binding Breed.Name}"/>
+                            </DockPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
         <StackPanel
-            Background="FloralWhite"
             Grid.Row="1">
             <Button 
+                Style="{StaticResource SmallButton}"
                 Content="ADD APPLICATION"
                 Command="{Binding AddApplicationCommand}"/>
             <Label Content="*Client:"/>
@@ -62,16 +70,16 @@
             <ComboBox ItemsSource="{Binding Genders}"
                 SelectedItem="{Binding EnteredGender, Mode=TwoWay}" />
         </StackPanel>
-        
+
         <controls:ApplicationProfile
+            Grid.Column="1"
+            Grid.Row="0"
             Application="{Binding DataContext.SelectedApplication, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
             DeleteCommand="{Binding DataContext.DeleteApplicationCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
             UpdateCommand="{Binding DataContext.UpdateApplicationCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
             ChangeStatusCommand="{Binding DataContext.ChangeApplicationStatusCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
             Employees="{Binding DataContext.Employees, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
-            Breeds="{Binding DataContext.Breeds, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
-            Grid.Column="1"
-            Grid.Row="1">
+            Breeds="{Binding DataContext.Breeds, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}">
             <controls:ApplicationProfile.Style>
                 <Style TargetType="controls:ApplicationProfile">
                     <Setter Property="Visibility" Value="Visible" />

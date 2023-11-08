@@ -8,42 +8,42 @@
     <UserControl.DataContext>
         <Binding RelativeSource="{RelativeSource Self}" />
     </UserControl.DataContext>
-    <Grid
-         Background="DarkKhaki">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="211*"/>
-            <RowDefinition Height="0*"/>
-            <RowDefinition Height="14*"/>
-        </Grid.RowDefinitions>
 
         <StackPanel DataContext="{Binding Competition}">
             <DockPanel>
-                <TextBlock Text="Name: "/>
-                <TextBlock Text="{Binding Name}"/>
+                <TextBlock Style="{StaticResource ProfileText}" Text="Name: "/>
+                <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Name}"/>
             </DockPanel>
             <DockPanel>
-                <TextBlock Text="Location: "/>
-                <TextBlock Text="{Binding Location}"/>
+                <TextBlock Style="{StaticResource ProfileText}" Text="Location: "/>
+                <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Location}"/>
             </DockPanel>
             <DockPanel>
-                <TextBlock Text="Date: "/>
-                <TextBlock Text="{Binding Date}"/>
+                <TextBlock Style="{StaticResource ProfileText}" Text="Date: "/>
+                <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Date, StringFormat={}{0:yy-MM-dd}}"/>
             </DockPanel>
         </StackPanel>
 
         <StackPanel Grid.Column="1">
-            <Button Content="DELETE" Click="DeleteButton_Click"/>
+            <Button
+                Content="DELETE"
+                Click="DeleteButton_Click"
+                Style="{StaticResource SmallButton}"/>
             <Label Content="New name:"/>
             <TextBox Text="{Binding EnteredName, Mode=TwoWay}" />
             <Label Content="New location:"/>
             <TextBox Text="{Binding EnteredLocation, Mode=TwoWay}" />
             <Label Content="New date:"/>
             <DatePicker SelectedDate="{Binding EnteredDate, Mode=TwoWay}"/>
-            <Button Content="Update profile" Click="UpdateButton_Click"/>
+            <Button
+                Content="Update profile"
+                Click="UpdateButton_Click"
+                Style="{StaticResource SmallButton}"/>
         </StackPanel>
 
     </Grid>

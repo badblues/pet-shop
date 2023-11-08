@@ -5,40 +5,49 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:controls="clr-namespace:GUI.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="ForestGreen">
+             d:DesignHeight="720" d:DesignWidth="1130">
+    <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition  Width="13*"/>
-            <ColumnDefinition Width="37*"/>
+            <ColumnDefinition  Width="320"/>
+            <ColumnDefinition Width="800"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <StackPanel>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
             <TextBox Text="{Binding SearchText, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}"/>
-            <ItemsControl
-                ItemsSource="{Binding FilteredBreeds}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <DockPanel
-                            Background="Aqua"
-                            MouseLeftButtonDown="Breeds_MouseLeftButton">
-                            <Label Content="Name: "/>
-                            <Label Content="{Binding Name}"/>
-                        </DockPanel>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </StackPanel>
+            <ScrollViewer
+                Grid.Row="1"
+                CanContentScroll="True"
+                VerticalScrollBarVisibility="Auto"
+                Height="Auto">
+                <ItemsControl
+                    ItemsSource="{Binding FilteredBreeds}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <DockPanel
+                                MouseLeftButtonDown="Breeds_MouseLeftButton">
+                                <TextBlock Style="{StaticResource ListText}" Text="Name: "/>
+                                <TextBlock Style="{StaticResource ListText}" Text="{Binding Name}"/>
+                            </DockPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
 
         <StackPanel
-            Grid.Row="1"
-            Background="DarkCyan">
+            Grid.Row="2">
             <Button 
-                 Content="ADD BREED"
-                 Command="{Binding AddBreedCommand}"/>
+                Style="{StaticResource SmallButton}"
+                Content="ADD BREED"
+                Command="{Binding AddBreedCommand}"/>
             <Label Content="*Name:"/>
             <TextBox Text="{Binding EnteredName, Mode=TwoWay}" />
         </StackPanel>

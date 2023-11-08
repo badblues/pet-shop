@@ -4,34 +4,40 @@
              xmlns:viewModels="clr-namespace:GUI.ViewModels"
              xmlns:views="clr-namespace:GUI.Views">
     <Application.Resources>
+        <ResourceDictionary>
 
-        <DataTemplate DataType="{x:Type viewModels:HomeViewModel}">
-            <views:HomeView/>
-        </DataTemplate>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Views/Styles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
 
-        <DataTemplate DataType="{x:Type viewModels:ClientsViewModel}">
-            <views:ClientsView/>
-        </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:HomeViewModel}">
+                <views:HomeView/>
+            </DataTemplate>
 
-        <DataTemplate DataType="{x:Type viewModels:BreedsViewModel}">
-            <views:BreedsView/>
-        </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:ClientsViewModel}">
+                <views:ClientsView/>
+            </DataTemplate>
 
-        <DataTemplate DataType="{x:Type viewModels:EmployeesViewModel}">
-            <views:EmployeesView/>
-        </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:BreedsViewModel}">
+                <views:BreedsView/>
+            </DataTemplate>
 
-        <DataTemplate DataType="{x:Type viewModels:ApplicationsViewModel}">
-            <views:ApplicationsView/>
-        </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:EmployeesViewModel}">
+                <views:EmployeesView/>
+            </DataTemplate>
 
-        <DataTemplate DataType="{x:Type viewModels:AnimalsViewModel}">
-            <views:AnimalsView/>
-        </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:ApplicationsViewModel}">
+                <views:ApplicationsView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModels:AnimalsViewModel}">
+                <views:AnimalsView/>
+            </DataTemplate>
         
-        <DataTemplate DataType="{x:Type viewModels:CompetitionsViewModel}">
-            <views:CompetitionsView/>
-        </DataTemplate>
+            <DataTemplate DataType="{x:Type viewModels:CompetitionsViewModel}">
+                <views:CompetitionsView/>
+            </DataTemplate>
 
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

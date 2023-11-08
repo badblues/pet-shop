@@ -8,30 +8,29 @@
     <UserControl.DataContext>
         <Binding RelativeSource="{RelativeSource Self}" />
     </UserControl.DataContext>
-    <Grid
-        RenderTransformOrigin="0.5,0.495"
-        Background="Bisque">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="247*"/>
-            <RowDefinition Height="145*"/>
-            <RowDefinition Height="108*"/>
-        </Grid.RowDefinitions>
 
         <StackPanel DataContext="{Binding Breed}">
             <DockPanel Grid.Column="0" Grid.Row="0">
-                <TextBlock Text="Name: "/>
-                <TextBlock Text="{Binding Name}"/>
+                <TextBlock Style="{StaticResource ProfileText}" Text="Name: "/>
+                <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Name}"/>
             </DockPanel>
         </StackPanel>
         <StackPanel Grid.Column="1">
-            <Button Content="DELETE" Click="DeleteButton_Click"/>
+            <Button
+                Content="DELETE"
+                Click="DeleteButton_Click"
+                Style="{StaticResource SmallButton}"/>
             <Label Content="New name:"/>
             <TextBox Text="{Binding EnteredName, Mode=TwoWay}" />
-            <Button Content="Update profile" Click="UpdateButton_Click"/>
+            <Button
+                Content="Update profile"
+                Click="UpdateButton_Click"
+                Style="{StaticResource SmallButton}"/>
         </StackPanel>
     </Grid>
 </UserControl>

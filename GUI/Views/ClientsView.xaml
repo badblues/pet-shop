@@ -5,92 +5,54 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:controls="clr-namespace:GUI.Controls"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid Background="Azure">
+             d:DesignHeight="720" d:DesignWidth="1130">
+    <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition  Width="13*"/>
-            <ColumnDefinition Width="37*"/>
+            <ColumnDefinition  Width="320"/>
+            <ColumnDefinition Width="800"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <StackPanel>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
             <TextBox Text="{Binding SearchText, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}"/>
-            <ItemsControl 
-                ItemsSource="{Binding FilteredClients}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <DockPanel
-                            Background="Aqua"
-                            MouseLeftButtonDown="Clients_MouseLeftButton">
-                            <Label Content="Name: "/>
-                            <Label Content="{Binding Name}"/>
-                            <Label Content="Address: "/>
-                            <Label Content="{Binding Address}"/>
-                        </DockPanel>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </StackPanel>
+            <ScrollViewer
+                Grid.Row="1"
+                CanContentScroll="True"
+                VerticalScrollBarVisibility="Auto"
+                Height="Auto">
+                <ItemsControl 
+                    ItemsSource="{Binding FilteredClients}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <DockPanel
+                                MouseLeftButtonDown="Clients_MouseLeftButton">
+                                <TextBlock Style="{StaticResource ListText}" Text="Name:"/>
+                                <TextBlock Margin="10,0,0,0" Style="{StaticResource ListText}" Text="{Binding Name}"/>
+                                <TextBlock Margin="10,0,0,0" Style="{StaticResource ListText}" Text="Address:"/>
+                                <TextBlock Margin="10,0,0,0" Style="{StaticResource ListText}" Text="{Binding Address}"/>
+                            </DockPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
 
         <StackPanel
-            Grid.Row="1"
-            Background="BurlyWood">
+            Grid.Row="1">
             <Button 
+                Style="{StaticResource SmallButton}"
                 Content="ADD CLIENT"
                 Command="{Binding AddClientCommand}"/>
             <Label Content="*Name:"/>
             <TextBox Text="{Binding EnteredName, Mode=TwoWay}" />
             <Label Content="*Address:"/>
             <TextBox Text="{Binding EnteredAddress, Mode=TwoWay}" />
-        </StackPanel>
-
-        <StackPanel
-            Background="HotPink"
-            Grid.Column="1"
-            Grid.Row="1">
-            <StackPanel.Style>
-                <Style TargetType="StackPanel">
-                    <Setter Property="Visibility" Value="Visible" />
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding SelectedClient}" Value="{x:Null}">
-                            <Setter Property="Visibility" Value="Hidden" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </StackPanel.Style>
-            <Label Content="ANIMALS:"/>
-            <ItemsControl 
-                ItemsSource="{Binding SelectedClient.Animals}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <DockPanel
-                            Background="LawnGreen">
-                            <Label Content="Name:"/>
-                            <Label Content="{Binding Name}"/>
-                            <Label Content="Breed:"/>
-                            <Label Content="{Binding Breed.Name}"/>
-                        </DockPanel>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-
-            <Label Content="APPLICATIONS:"/>
-            <ItemsControl 
-                ItemsSource="{Binding SelectedClient.Applications}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <DockPanel
-                            Background="LawnGreen">
-                            <Label Content="Breed:"/>
-                            <Label Content="{Binding Breed.Name}"/>
-                            <Label Content="Gender:"/>
-                            <Label Content="{Binding Gender}"/>
-                        </DockPanel>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
         </StackPanel>
 
         <controls:ClientProfile
@@ -109,5 +71,56 @@
                 </Style>
             </controls:ClientProfile.Style>
         </controls:ClientProfile>
+
+        <ScrollViewer
+            Grid.Column="1"
+            Grid.Row="1"
+            CanContentScroll="True"
+            VerticalScrollBarVisibility="Visible"
+            Height="Auto">
+            <StackPanel
+                Width="400"
+                HorizontalAlignment="Left">
+                <StackPanel.Style>
+                    <Style TargetType="StackPanel">
+                        <Setter Property="Visibility" Value="Visible" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SelectedClient}" Value="{x:Null}">
+                                <Setter Property="Visibility" Value="Hidden" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </StackPanel.Style>
+                <Label Content="ANIMALS:"/>
+                <ItemsControl 
+                    ItemsSource="{Binding SelectedClient.Animals}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <DockPanel>
+                                <Label Content="Name:"/>
+                                <Label Content="{Binding Name}"/>
+                                <Label Content="Breed:"/>
+                                <Label Content="{Binding Breed.Name}"/>
+                            </DockPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <Label Content="APPLICATIONS:"/>
+                <ItemsControl 
+                    ItemsSource="{Binding SelectedClient.Applications}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <DockPanel>
+                                <Label Content="Breed:"/>
+                                <Label Content="{Binding Breed.Name}"/>
+                                <Label Content="Gender:"/>
+                                <Label Content="{Binding Gender}"/>
+                            </DockPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </UserControl>

@@ -8,37 +8,36 @@
     <UserControl.DataContext>
         <Binding RelativeSource="{RelativeSource Self}" />
     </UserControl.DataContext>
-    <Grid
-        RenderTransformOrigin="0.5,0.495"
-        Background="Bisque">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="247*"/>
-            <RowDefinition Height="145*"/>
-            <RowDefinition Height="108*"/>
-        </Grid.RowDefinitions>
 
         <StackPanel DataContext="{Binding Client}">
             <DockPanel>
-                <TextBlock Text="Name: "/>
-                <TextBlock Text="{Binding Name}"/>
+                <TextBlock Style="{StaticResource ProfileText}" Text="Name: "/>
+                <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Name}"/>
             </DockPanel>
             <DockPanel>
-                <TextBlock Text="Address: "/>
-                <TextBlock Text="{Binding Address}"/>
+                <TextBlock Style="{StaticResource ProfileText}" Text="Address: "/>
+                <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Address}"/>
             </DockPanel>
         </StackPanel>
         
         <StackPanel Grid.Column="1">
-            <Button Content="DELETE" Click="DeleteButton_Click"/>
+            <Button
+                Style="{StaticResource SmallButton}"
+                Content="DELETE"
+                Click="DeleteButton_Click"/>
             <Label Content="New name:"/>
             <TextBox Text="{Binding EnteredName, Mode=TwoWay}" />
             <Label Content="New address:"/>
             <TextBox Text="{Binding EnteredAddress, Mode=TwoWay}" />
-            <Button Content="Update profile" Click="UpdateButton_Click"/>
+            <Button
+                Style="{StaticResource SmallButton}"
+                Content="Update profile"
+                Click="UpdateButton_Click"/>
         </StackPanel>
     </Grid>
 </UserControl>

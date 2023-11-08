@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         Title="MainWindow" Height="720" Width="1280" ResizeMode="NoResize">
-    <Grid>
+
+    <Grid Background="#DDE6ED">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="150"/>
             <ColumnDefinition/>
@@ -14,36 +15,47 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.RowSpan="2">
+        <StackPanel Grid.RowSpan="2"
+                    HorizontalAlignment="Stretch" VerticalAlignment="Center">
             <Button Content="Home"
                     Height="30"
-                    Margin="0,5,0,5"
-                    Command="{Binding NavigateToHomeCommand}"/>
+                    Margin="0,0,0,25"
+                    Command="{Binding NavigateToHomeCommand}"
+                    Style="{StaticResource BigButton}"/>
             <Button Content="Clients"
                     Height="30"
-                    Margin="0,5,0,5"
-                    Command="{Binding NavigateToClientsCommand}"/>
+                    Margin="0,25,0,25"
+                    Command="{Binding NavigateToClientsCommand}"
+                    Style="{StaticResource BigButton}"/>
             <Button Content="Employees"
                     Height="30"
-                    Margin="0,5,0,5"
-                    Command="{Binding NavigateToEmployeesCommand}"/>
+                    Margin="0,25,0,25"
+                    Command="{Binding NavigateToEmployeesCommand}"
+                    Style="{StaticResource BigButton}"/>
             <Button Content="Animals"
                     Height="30"
-                    Margin="0,5,0,5"
-                    Command="{Binding NavigateToAnimalsCommand}"/>
+                    Margin="0,25,0,25"
+                    Command="{Binding NavigateToAnimalsCommand}"
+                    Style="{StaticResource BigButton}"/>
             <Button Content="Applications"
                     Height="30"
-                    Margin="0,5,0,5"
-                    Command="{Binding NavigateToApplicationsCommand}"/>
+                    Margin="0,25,0,25"
+                    Command="{Binding NavigateToApplicationsCommand}"
+                    Style="{StaticResource BigButton}"/>
             <Button Content="Competitions"
                     Height="30"
-                    Margin="0,5,0,5"
-                    Command="{Binding NavigateToCompetitionsCommand}"/>
+                    Margin="0,25,0,25"
+                    Command="{Binding NavigateToCompetitionsCommand}"
+                    Style="{StaticResource BigButton}"/>
             <Button Content="Breeds"
                     Height="30"
-                    Margin="0,5,0,5"
-                    Command="{Binding NavigateToBreedsCommand}"/>
+                    Margin="0,25,0,0"
+                    Command="{Binding NavigateToBreedsCommand}"
+                    Style="{StaticResource BigButton}"/>
         </StackPanel>
-        <ContentControl Grid.Column="1"  Grid.RowSpan="2" Content="{Binding NavigationService.CurrentView}"/>
+        <ContentControl
+            Grid.Column="1"
+            Grid.RowSpan="2"
+            Content="{Binding NavigationService.CurrentView}"/>
     </Grid>
 </Window>

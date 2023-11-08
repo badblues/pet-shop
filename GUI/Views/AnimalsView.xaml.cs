@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using GUI.ViewModels;
 using Persistence.Models;
@@ -25,6 +26,18 @@ public partial class AnimalsView : UserControl
         if (!int.TryParse(e.Text, out _))
         {
             e.Handled = true;
+        }
+    }
+
+    private void AddAnimalButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (addAnimalPanel.Visibility == Visibility.Collapsed)
+        {
+            addAnimalPanel.Visibility = Visibility.Visible;
+        }
+        else
+        {
+            addAnimalPanel.Visibility = Visibility.Collapsed;
         }
     }
 }
