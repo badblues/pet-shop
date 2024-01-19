@@ -15,34 +15,40 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel DataContext="{Binding Competition}">
-            <DockPanel>
-                <TextBlock Style="{StaticResource ProfileText}" Text="Name: "/>
-                <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Name}"/>
-            </DockPanel>
-            <DockPanel>
-                <TextBlock Style="{StaticResource ProfileText}" Text="Location: "/>
-                <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Location}"/>
-            </DockPanel>
-            <DockPanel>
-                <TextBlock Style="{StaticResource ProfileText}" Text="Date: "/>
-                <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Date, StringFormat={}{0:yy-MM-dd}}"/>
-            </DockPanel>
+            <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Name, StringFormat='Name: {0}'}"/>
+            <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Location, StringFormat='Location: {0}'}"/>
+            <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Date, StringFormat='Date: {0:yyyy-MM-dd}'}"/>
         </StackPanel>
 
         <StackPanel Grid.Column="1">
             <Button
+                Margin="0,0,0,5"
                 Content="DELETE"
                 Click="DeleteButton_Click"
+                HorizontalAlignment="Center"
                 Style="{StaticResource SmallButton}"/>
-            <Label Content="New name:"/>
-            <TextBox Text="{Binding EnteredName, Mode=TwoWay}" />
-            <Label Content="New location:"/>
-            <TextBox Text="{Binding EnteredLocation, Mode=TwoWay}" />
-            <Label Content="New date:"/>
-            <DatePicker SelectedDate="{Binding EnteredDate, Mode=TwoWay}"/>
+            <Label
+                Content="New name:"
+                Style="{StaticResource DefaultLabel}"/>
+            <TextBox
+                Text="{Binding EnteredName, Mode=TwoWay}"
+                Style="{StaticResource InputTextBox}"/>
+            <Label
+                Content="New location:"
+                Style="{StaticResource DefaultLabel}"/>
+            <TextBox
+                Text="{Binding EnteredLocation, Mode=TwoWay}"
+                Style="{StaticResource InputTextBox}"/>
+            <Label
+                Content="New date:"
+                Style="{StaticResource DefaultLabel}"/>
+            <DatePicker
+                SelectedDate="{Binding EnteredDate, Mode=TwoWay}"/>
             <Button
-                Content="Update profile"
+                Margin="0,5,0,0"
+                Content="Update changed"
                 Click="UpdateButton_Click"
+                HorizontalAlignment="Center"
                 Style="{StaticResource SmallButton}"/>
         </StackPanel>
 

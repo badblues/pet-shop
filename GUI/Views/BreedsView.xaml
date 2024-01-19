@@ -16,24 +16,29 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Grid>
+        <Grid Margin="15, 15">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <TextBox Text="{Binding SearchText, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox
+                Text="{Binding SearchText, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}"
+                Margin="0, 0, 0, 10"
+                Style="{StaticResource SearchBar}"/>
             <ScrollViewer
                 Grid.Row="1"
                 CanContentScroll="True"
                 VerticalScrollBarVisibility="Auto"
                 Height="Auto">
+                <ScrollViewer.Resources>
+                    <Style TargetType="ScrollBar" BasedOn="{StaticResource ScrollViewerScrollBar}" />
+                </ScrollViewer.Resources>
                 <ItemsControl
                     ItemsSource="{Binding FilteredBreeds}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <DockPanel
                                 MouseLeftButtonDown="Breeds_MouseLeftButton">
-                                <TextBlock Style="{StaticResource ListText}" Text="Name: "/>
                                 <TextBlock Style="{StaticResource ListText}" Text="{Binding Name}"/>
                             </DockPanel>
                         </DataTemplate>
@@ -42,17 +47,38 @@
             </ScrollViewer>
         </Grid>
 
-        <StackPanel
+        <Grid
+            Margin="0, 15, 15, 0"
             Grid.Row="2">
-            <Button 
-                Style="{StaticResource SmallButton}"
-                Content="ADD BREED"
-                Command="{Binding AddBreedCommand}"/>
-            <Label Content="*Name:"/>
-            <TextBox Text="{Binding EnteredName, Mode=TwoWay}" />
-        </StackPanel>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock
+                Grid.Row="0"
+                Text="NEW BREED:"
+                HorizontalAlignment="Center"
+                Style="{StaticResource Header}"/>
+            <StackPanel
+                Margin="10, 0"
+                Grid.Row="1">
+                <Label
+                    Content="*Name:"
+                    Style="{StaticResource DefaultLabel}"/>
+                <TextBox
+                    Text="{Binding EnteredName, Mode=TwoWay}"
+                    Style="{StaticResource InputTextBox}"/>
+                <Button
+                    Margin="0,5,0,0"
+                    Style="{StaticResource SmallButton}"
+                    Content="ADD"
+                    HorizontalAlignment="Center"
+                    Command="{Binding AddBreedCommand}"/>
+            </StackPanel>
+        </Grid>
 
         <controls:BreedProfile
+            Margin="0,15,0,0"
             Breed="{Binding DataContext.SelectedBreed, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
             UpdateCommand="{Binding DataContext.UpdateBreedCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
             DeleteCommand="{Binding DataContext.DeleteBreedCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"

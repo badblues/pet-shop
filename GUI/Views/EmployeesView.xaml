@@ -6,36 +6,48 @@
              xmlns:controls="clr-namespace:GUI.Controls"
              mc:Ignorable="d" 
              d:DesignHeight="720" d:DesignWidth="1130">
-    <Grid >
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition  Width="320"/>
             <ColumnDefinition Width="800"/>
         </Grid.ColumnDefinitions>
+        
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid>
+        
+        <Grid Margin="15, 15">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <TextBox Text="{Binding SearchText, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox
+                Text="{Binding SearchText, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}"
+                Margin="0, 0, 0, 10"
+                Style="{StaticResource SearchBar}"/>
             <ScrollViewer
                 Grid.Row="1"
                 CanContentScroll="True"
                 VerticalScrollBarVisibility="Auto"
                 Height="Auto">
+                <ScrollViewer.Resources>
+                    <Style TargetType="ScrollBar" BasedOn="{StaticResource ScrollViewerScrollBar}" />
+                </ScrollViewer.Resources>
                 <ItemsControl 
                     ItemsSource="{Binding FilteredEmployees}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <DockPanel
                                 MouseLeftButtonDown="Employees_MouseLeftButton">
-                                <TextBlock Style="{StaticResource ListText}" Text="Name: "/>
-                                <TextBlock Margin="10,0,0,0" Style="{StaticResource ListText}" Text="{Binding Name}"/>
-                                <TextBlock Margin="10,0,0,0" Style="{StaticResource ListText}" Text="Position: "/>
-                                <TextBlock Margin="10,0,0,0" Style="{StaticResource ListText}" Text="{Binding Position}"/>
+                                <TextBlock Style="{StaticResource ListText}" >
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0}, {1}">
+                                            <Binding Path="Name" />
+                                            <Binding Path="Position" />
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
                             </DockPanel>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
@@ -43,24 +55,57 @@
             </ScrollViewer>
         </Grid>
 
-        <StackPanel
-            Grid.Row="1">
-            <Button 
-                Content="ADD EMPLOYEE"
-                Command="{Binding AddEmployeeCommand}"
-                Style="{StaticResource SmallButton}"/>
-            <Label Content="Name:"/>
-            <TextBox Text="{Binding EnteredName, Mode=TwoWay}" />
-            <Label Content="Address:"/>
-            <TextBox Text="{Binding EnteredAddress, Mode=TwoWay}" />
-            <Label Content="Position:"/>
-            <TextBox Text="{Binding EnteredPosition, Mode=TwoWay}" />
-            <Label Content="Salary:"/>
-            <TextBox Text="{Binding EnteredSalary, Mode=TwoWay}"
-                PreviewTextInput="PositiveDoubleTextBox_PreviewTextInput"/>
-        </StackPanel>
+        <Grid
+            Margin="0, 15, 15, 0"
+            Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock
+                Grid.Row="0"
+                Text="NEW EMPLOYEE:"
+                HorizontalAlignment="Center"
+                Style="{StaticResource Header}"/>
+            <StackPanel
+                Grid.Row="1"
+                Margin="10, 0">
+                <Label
+                    Content="Name:"
+                    Style="{StaticResource DefaultLabel}"/>
+                <TextBox
+                    Text="{Binding EnteredName, Mode=TwoWay}"
+                    Style="{StaticResource InputTextBox}"/>
+                <Label
+                    Content="Address:"
+                    Style="{StaticResource DefaultLabel}"/>
+                <TextBox
+                    Text="{Binding EnteredAddress, Mode=TwoWay}"
+                    Style="{StaticResource InputTextBox}"/>
+                <Label
+                    Content="Position:"
+                    Style="{StaticResource DefaultLabel}"/>
+                <TextBox
+                    Text="{Binding EnteredPosition, Mode=TwoWay}"
+                    Style="{StaticResource InputTextBox}"/>
+                <Label
+                    Content="Salary:"
+                    Style="{StaticResource DefaultLabel}"/>
+                <TextBox
+                    Text="{Binding EnteredSalary, Mode=TwoWay}"
+                    PreviewTextInput="PositiveDoubleTextBox_PreviewTextInput"
+                    Style="{StaticResource InputTextBox}"/>
+                <Button
+                    Margin="0,5,0,0"
+                    Content="ADD"
+                    Command="{Binding AddEmployeeCommand}"
+                    HorizontalAlignment="Center"
+                    Style="{StaticResource SmallButton}"/>
+            </StackPanel>
+        </Grid>
         
         <controls:EmployeeProfile
+            Margin="0,15,0,0"
             Employee="{Binding DataContext.SelectedEmployee, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
             DeleteCommand="{Binding DataContext.DeleteEmployeeCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
             UpdateCommand="{Binding DataContext.UpdateEmployeeCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
@@ -78,34 +123,48 @@
             </controls:EmployeeProfile.Style>
         </controls:EmployeeProfile>
 
-        <StackPanel
+        <ScrollViewer
             Grid.Column="1"
-            Grid.Row="1">
-            <StackPanel.Style>
-                <Style TargetType="StackPanel">
-                    <Setter Property="Visibility" Value="Visible" />
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding SelectedEmployee}" Value="{x:Null}">
-                            <Setter Property="Visibility" Value="Hidden" />
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </StackPanel.Style>
-            <Label Content="APPLICATIONS:"/>
-            <ItemsControl 
-                ItemsSource="{Binding SelectedEmployee.Applications}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <DockPanel>
-                            <TextBlock Style="{StaticResource ListText}" Text="Client:"/>
-                            <TextBlock Style="{StaticResource ListText}" Text="{Binding Client.Name}"/>
-                            <TextBlock Style="{StaticResource ListText}" Text="Breed:"/>
-                            <TextBlock Style="{StaticResource ListText}" Text="{Binding Breed.Name}"/>
-                        </DockPanel>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </StackPanel>
-
+            Grid.Row="1"
+            CanContentScroll="True"
+            VerticalScrollBarVisibility="Visible">
+            <ScrollViewer.Resources>
+                <Style TargetType="ScrollBar" BasedOn="{StaticResource ScrollViewerScrollBar}" />
+            </ScrollViewer.Resources>
+            <StackPanel
+                Width="400"
+                HorizontalAlignment="Left">
+                <StackPanel.Style>
+                    <Style TargetType="StackPanel">
+                        <Setter Property="Visibility" Value="Visible" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding SelectedEmployee}" Value="{x:Null}">
+                                <Setter Property="Visibility" Value="Hidden" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </StackPanel.Style>
+                <TextBlock
+                    Margin="5,0,0,0"
+                    Text="APPLICATIONS:"
+                    Style="{StaticResource Header}"/>
+                <ItemsControl 
+                    ItemsSource="{Binding SelectedEmployee.Applications}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock
+                                Style="{StaticResource ListText}">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0}, {1}">
+                                        <Binding Path="Client.Name"/>
+                                        <Binding Path="Breed.Name"/>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </UserControl>

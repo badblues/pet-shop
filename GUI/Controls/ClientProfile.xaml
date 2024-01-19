@@ -15,28 +15,34 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel DataContext="{Binding Client}">
-            <DockPanel>
-                <TextBlock Style="{StaticResource ProfileText}" Text="Name: "/>
-                <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Name}"/>
-            </DockPanel>
-            <DockPanel>
-                <TextBlock Style="{StaticResource ProfileText}" Text="Address: "/>
-                <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Address}"/>
-            </DockPanel>
+            <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Name, StringFormat='Name: {0}'}"/>
+            <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Address, StringFormat='Address: {0}'}"/>
         </StackPanel>
         
         <StackPanel Grid.Column="1">
             <Button
+                Margin="0,0,0,5"
                 Style="{StaticResource SmallButton}"
                 Content="DELETE"
+                HorizontalAlignment="Center"
                 Click="DeleteButton_Click"/>
-            <Label Content="New name:"/>
-            <TextBox Text="{Binding EnteredName, Mode=TwoWay}" />
-            <Label Content="New address:"/>
-            <TextBox Text="{Binding EnteredAddress, Mode=TwoWay}" />
+            <Label
+                Content="New name:"
+                Style="{StaticResource DefaultLabel}"/>
+            <TextBox
+                Text="{Binding EnteredName, Mode=TwoWay}"
+                Style="{StaticResource InputTextBox}"/>
+            <Label
+                Content="New address:"
+                Style="{StaticResource DefaultLabel}"/>
+            <TextBox
+                Text="{Binding EnteredAddress, Mode=TwoWay}"
+                Style="{StaticResource InputTextBox}"/>
             <Button
+                Margin="0,5,0,0"
                 Style="{StaticResource SmallButton}"
-                Content="Update profile"
+                Content="Update changed"
+                HorizontalAlignment="Center"
                 Click="UpdateButton_Click"/>
         </StackPanel>
     </Grid>

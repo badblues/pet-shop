@@ -15,21 +15,27 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel DataContext="{Binding Breed}">
-            <DockPanel Grid.Column="0" Grid.Row="0">
-                <TextBlock Style="{StaticResource ProfileText}" Text="Name: "/>
-                <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Name}"/>
-            </DockPanel>
+            <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Path=Name, StringFormat='Name: {0}'}"/>
         </StackPanel>
+        
         <StackPanel Grid.Column="1">
             <Button
+                Margin="0,0,0,5"
                 Content="DELETE"
                 Click="DeleteButton_Click"
+                HorizontalAlignment="Center"
                 Style="{StaticResource SmallButton}"/>
-            <Label Content="New name:"/>
-            <TextBox Text="{Binding EnteredName, Mode=TwoWay}" />
+            <Label
+                Content="New name:"
+                Style="{StaticResource DefaultLabel}"/>
+            <TextBox
+                Text="{Binding EnteredName, Mode=TwoWay}"
+                Style="{StaticResource InputTextBox}"/>
             <Button
-                Content="Update profile"
+                Margin="0,5,0,0"
+                Content="Update changed"
                 Click="UpdateButton_Click"
+                HorizontalAlignment="Center"
                 Style="{StaticResource SmallButton}"/>
         </StackPanel>
     </Grid>

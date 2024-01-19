@@ -9,7 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Icons\delete.png" />
     <None Remove="Views\dogs.jpg" />
+    <None Remove="Views\Montserrat-Light.ttf" />
+    <None Remove="Views\Montserrat-Regular.ttf" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,6 +25,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Persistence\Persistence.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Fonts\Montserrat-Light.ttf" />
+    <Resource Include="Resources\Fonts\Montserrat-Regular.ttf" />
+    <Resource Include="Resources\Icons\delete.png" />
   </ItemGroup>
 
 </Project>

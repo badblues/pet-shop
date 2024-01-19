@@ -11,77 +11,137 @@
             <ColumnDefinition  Width="330"/>
             <ColumnDefinition Width="800"/>
         </Grid.ColumnDefinitions>
+        
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid>
+        
+        <Grid Margin="15, 15">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <TextBox Text="{Binding SearchText, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox
+                Text="{Binding SearchText, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}"
+                Margin="0, 0, 0, 10"
+                Style="{StaticResource SearchBar}"/>
             <ScrollViewer
                 Grid.Row="1"
                 CanContentScroll="True"
                 VerticalScrollBarVisibility="Auto"
                 Height="Auto">
+                <ScrollViewer.Resources>
+                    <Style TargetType="ScrollBar" BasedOn="{StaticResource ScrollViewerScrollBar}" />
+                </ScrollViewer.Resources>
                 <ItemsControl 
                     ItemsSource="{Binding FilteredAnimals}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <DockPanel
                                 MouseLeftButtonDown="Animals_MouseLeftButton">
-                                <TextBlock Style="{StaticResource ListText}" Text="{Binding Name}"/>
-                                <TextBlock Margin="10,0,0,0" Style="{StaticResource ListText}" Text="{Binding Breed.Name}"/>
+                                <TextBlock Style="{StaticResource ListText}" >
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0}, {1}">
+                                            <Binding Path="Name" />
+                                            <Binding Path="Breed.Name" />
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
                             </DockPanel>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
         </Grid>
-
-        <ScrollViewer
-            Grid.Row="2"
-            CanContentScroll="True"
-            VerticalScrollBarVisibility="Visible"
-            Height="Auto">
-            <StackPanel
-                x:Name="addAnimalPanel"
-                Grid.Row="2">
-                <Label Content="*Name:"/>
-                <TextBox Text="{Binding EnteredName, Mode=TwoWay}" />
-                <Label Content="Age:"/>
-                <TextBox Text="{Binding EnteredAge, Mode=TwoWay}"
-                    PreviewTextInput="PositiveIntegerTextBox_PreviewTextInput"/>
-                <Label Content="*Gender:"/>
-                <ComboBox ItemsSource="{Binding Genders}"
-                    SelectedItem="{Binding EnteredGender, Mode=TwoWay}" />
-                <Label Content="*Breed:"/>
-                <ComboBox ItemsSource="{Binding Breeds}"
-                    DisplayMemberPath="Name"
-                    SelectedItem="{Binding EnteredBreed, Mode=TwoWay}" />
-                <Label Content="Exterior:"/>
-                <TextBox Text="{Binding EnteredExteriorDescription, Mode=TwoWay}" />
-                <Label Content="Pedigree:"/>
-                <TextBox Text="{Binding EnteredPedigree, Mode=TwoWay}" />
-                <Label Content="Veterinarian:"/>
-                <TextBox Text="{Binding EnteredVeterinarian, Mode=TwoWay}" />
-                <Label Content="Owner:"/>
-                <ComboBox ItemsSource="{Binding Clients}"
-                    DisplayMemberPath="Name"
-                    SelectedItem="{Binding EnteredOwner, Mode=TwoWay}" />
-                <Button 
-                    Style="{StaticResource SmallButton}"
-                    Content="ADD ANIMAL"
-                    Command="{Binding AddAnimalCommand}"/>
-            </StackPanel>
-        </ScrollViewer>
+        
+        <Grid
+            Margin="0, 15, 15, 0"
+            Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock
+                Grid.Row="0"
+                Text="NEW ANIMAL:"
+                HorizontalAlignment="Center"
+                Style="{StaticResource Header}"/>
+            <ScrollViewer
+                Grid.Row="1"
+                CanContentScroll="True"
+                VerticalScrollBarVisibility="Visible">
+                <ScrollViewer.Resources>
+                    <Style TargetType="ScrollBar" BasedOn="{StaticResource ScrollViewerScrollBar}" />
+                </ScrollViewer.Resources>
+                <StackPanel
+                    Margin="10, 0">
+                    <Label
+                        Content="*Name:"
+                        Style="{StaticResource DefaultLabel}"/>
+                    <TextBox
+                        Text="{Binding EnteredName, Mode=TwoWay}"
+                        Style="{StaticResource InputTextBox}"/>
+                    <Label
+                        Content="Age:"
+                        Style="{StaticResource DefaultLabel}"/>
+                    <TextBox
+                        Text="{Binding EnteredAge, Mode=TwoWay}"
+                        PreviewTextInput="PositiveIntegerTextBox_PreviewTextInput"
+                        Style="{StaticResource InputTextBox}"/>
+                    <Label
+                        Content="*Gender:"
+                        Style="{StaticResource DefaultLabel}"/>
+                    <ComboBox ItemsSource="{Binding Genders}"
+                        SelectedItem="{Binding EnteredGender, Mode=TwoWay}"
+                        Style="{StaticResource InputComboBox}"/>
+                    <Label
+                        Content="*Breed:"
+                        Style="{StaticResource DefaultLabel}"/>
+                    <ComboBox ItemsSource="{Binding Breeds}"
+                        DisplayMemberPath="Name"
+                        SelectedItem="{Binding EnteredBreed, Mode=TwoWay}"
+                        Style="{StaticResource InputComboBox}"/>
+                    <Label
+                        Content="Exterior:"
+                        Style="{StaticResource DefaultLabel}"/>
+                    <TextBox
+                        Text="{Binding EnteredExteriorDescription, Mode=TwoWay}"
+                        Style="{StaticResource InputTextBox}"/>
+                    <Label
+                        Content="Pedigree:"
+                        Style="{StaticResource DefaultLabel}"/>
+                    <TextBox
+                        Text="{Binding EnteredPedigree, Mode=TwoWay}"
+                        Style="{StaticResource InputTextBox}"/>
+                    <Label
+                        Content="Veterinarian:"
+                        Style="{StaticResource DefaultLabel}"/>
+                    <TextBox
+                        Text="{Binding EnteredVeterinarian, Mode=TwoWay}"
+                        Style="{StaticResource InputTextBox}"/>
+                    <Label
+                        Content="Owner:"
+                        Style="{StaticResource DefaultLabel}"/>
+                    <ComboBox ItemsSource="{Binding Clients}"
+                        DisplayMemberPath="Name"
+                        SelectedItem="{Binding EnteredOwner, Mode=TwoWay}"
+                        Style="{StaticResource InputComboBox}"/>
+                    <Button
+                        Margin="0,5,0,0"
+                        Content="ADD"
+                        Style="{StaticResource SmallButton}"
+                        HorizontalAlignment="Center"
+                        Command="{Binding AddAnimalCommand}"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
         
 
         <controls:AnimalProfile
             Grid.Column="1"
             Grid.Row="0"
+            Margin="0,15,0,0"
             Animal="{Binding DataContext.SelectedAnimal, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
             DeleteCommand="{Binding DataContext.DeleteAnimalCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
             UpdateCommand="{Binding DataContext.UpdateAnimalCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
@@ -102,12 +162,12 @@
         <Grid
             Grid.Row="1"
             Grid.Column="1"
-            Width="400"
+            Margin="0,15,0,0"
             HorizontalAlignment="Left">
-            <Grid.RowDefinitions>
-                <RowDefinition/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
             <Grid.Style>
                 <Style TargetType="Grid">
                     <Setter Property="Visibility" Value="Visible" />
@@ -118,40 +178,73 @@
                     </Style.Triggers>
                 </Style>
             </Grid.Style>
-            <StackPanel>
-                <Label Content="Award:"/>
-                <TextBox Text="{Binding EnteredAward, Mode=TwoWay}"/>
-                <Label Content="Competition:"/>
+            <StackPanel
+                Width="250">
+                <Label
+                    Content="Competition:"
+                    Style="{StaticResource DefaultLabel}"/>
                 <ComboBox 
                     ItemsSource="{Binding AvailableCompetitions}"
                     DisplayMemberPath="Name"
-                    SelectedItem="{Binding EnteredCompetition}"/>
+                    SelectedItem="{Binding EnteredCompetition}"
+                    Style="{StaticResource InputComboBox}"/>
+                <Label
+                    Content="Award:"
+                    Style="{StaticResource DefaultLabel}"/>
+                <TextBox
+                    Text="{Binding EnteredAward, Mode=TwoWay}"
+                    Style="{StaticResource InputTextBox}"/>
                 <Button
                     Style="{StaticResource SmallButton}"
                     Content="ADD PARTICIPATION"
+                    HorizontalAlignment="Center"
                     Command="{Binding AddParticipationCommand}"/>
             </StackPanel>
-            <ItemsControl
-                Grid.Row="1"
-                ItemsSource="{Binding Participations}">
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <DockPanel>
-                            <TextBlock Style="{StaticResource ListText}" Text="Competition:"/>
-                            <TextBlock Margin="10,0,0,0" Style="{StaticResource ListText}" Text="{Binding Competition.Name}"/>
-                            <TextBlock Margin="10,0,0,0" Style="{StaticResource ListText}" Text="Award:"/>
-                            <TextBlock Margin="10,0,0,0" Style="{StaticResource ListText}" Text="{Binding Award}"/>
-                            <Button
-                                Style="{StaticResource SmallButton}"
-                                Width="25"
-                                HorizontalAlignment="Right"
-                                Content="X"
-                                Command="{Binding DataContext.DeleteParticipationCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
-                                CommandParameter="{Binding}"/>
-                        </DockPanel>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+            <ScrollViewer
+                HorizontalAlignment="Right"
+                Margin="10,0,0,0"
+                Grid.Column="1"
+                CanContentScroll="True"
+                VerticalScrollBarVisibility="Auto">
+                <ScrollViewer.Resources>
+                    <Style TargetType="ScrollBar" BasedOn="{StaticResource ScrollViewerScrollBar}" />
+                </ScrollViewer.Resources>
+                <StackPanel>
+                    <TextBlock
+                        Margin="5,0,0,0"
+                        Text="Competitions:"
+                        Style="{StaticResource Header}"/>
+                    <ItemsControl
+                        ItemsSource="{Binding Participations}">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <DockPanel>
+                                    <TextBlock Style="{StaticResource ListText}">
+                                        <TextBlock.Text>
+                                            <MultiBinding StringFormat="{}{0}, {1}">
+                                                <Binding Path="Competition.Name" />
+                                                <Binding Path="Award" />
+                                            </MultiBinding>
+                                        </TextBlock.Text>
+                                    </TextBlock>
+                                    <Button
+                                        Margin="20,0,0,0"
+                                        Style="{StaticResource ButtonWithIcon}"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Right"
+                                        Command="{Binding DataContext.DeleteParticipationCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
+                                        CommandParameter="{Binding}">
+                                        <Image
+                                            Width="15"
+                                            Height="15"
+                                            Source="/Resources/Icons/delete.png"/>
+                                    </Button>
+                                </DockPanel>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </StackPanel>
+            </ScrollViewer>
         </Grid>
 
     </Grid>

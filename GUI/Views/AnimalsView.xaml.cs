@@ -28,16 +28,4 @@ public partial class AnimalsView : UserControl
             e.Handled = true;
         }
     }
-
-    private void AddAnimalButton_Click(object sender, RoutedEventArgs e)
-    {
-        if (addAnimalPanel.Visibility == Visibility.Collapsed)
-        {
-            addAnimalPanel.Visibility = Visibility.Visible;
-        }
-        else
-        {
-            addAnimalPanel.Visibility = Visibility.Collapsed;
-        }
-    }
 }

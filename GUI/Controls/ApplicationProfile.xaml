@@ -15,59 +15,58 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel DataContext="{Binding Application}">
-            <DockPanel>
-                <TextBlock Style="{StaticResource ProfileText}" Text="Client name: "/>
-                <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Client.Name}"/>
-            </DockPanel>
-            <DockPanel>
-                <TextBlock Style="{StaticResource ProfileText}" Text="Client address: "/>
-                <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Client.Address}"/>
-            </DockPanel>
-            <DockPanel>
-                <TextBlock Style="{StaticResource ProfileText}" Text="Employee: "/>
-                <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Employee.Name}"/>
-            </DockPanel>
-            <DockPanel>
-                <TextBlock Style="{StaticResource ProfileText}" Text="Breed: "/>
-                <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Breed.Name}"/>
-            </DockPanel>
-            <DockPanel>
-                <TextBlock Style="{StaticResource ProfileText}" Text="Gender: "/>
-                <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Gender}"/>
-            </DockPanel>
-            <DockPanel>
-                <TextBlock Style="{StaticResource ProfileText}" Text="Date: "/>
-                <TextBlock Style="{StaticResource ProfileText}" Text="{Binding ApplicationDate}"/>
-            </DockPanel>
-            <DockPanel>
-                <TextBlock Style="{StaticResource ProfileText}" Text="Completed: "/>
-                <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Completed}"/>
-            </DockPanel>
+            <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Path=Client.Name, StringFormat='Client name: {0}'}"/>
+            <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Path=Client.Address, StringFormat='Client address: {0}'}"/>
+            <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Path=Employee.Name, StringFormat='Employee: {0}'}"/>
+            <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Path=Breed.Name, StringFormat='Breed: {0}'}"/>
+            <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Path=Gender, StringFormat='Gender: {0}'}"/>
+            <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Path=ApplicationDate, StringFormat='Date: {0:yyyy-MM-dd}'}"/>
+            <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Path=Completed, StringFormat='Completed: {0}'}"/>
         </StackPanel>
 
-        <StackPanel Grid.Column="1">
+        <StackPanel
+            Margin="15, 0"
+            Grid.Column="1"
+            >
             <Button
+                Margin="0,0,0,5"
                 Content="DELETE"
                 Click="DeleteButton_Click"
+                HorizontalAlignment="Center"
                 Style="{StaticResource SmallButton}"/>
             <Button
                 Content="CHANGE STATUS"
                 Click="ChangeStatusButton_Click"
+                HorizontalAlignment="Center"
                 Style="{StaticResource SmallButton}"/>
-            <Label Content="New employee:"/>
-            <ComboBox ItemsSource="{Binding Employees}"
+            <Label
+                Content="New employee:"
+                Style="{StaticResource DefaultLabel}"/>
+            <ComboBox
+                ItemsSource="{Binding Employees}"
                 DisplayMemberPath="Name"
-                SelectedItem="{Binding EnteredEmployee, Mode=TwoWay}" />
-            <Label Content="New gender:"/>
-            <ComboBox ItemsSource="{Binding Genders}"
-                SelectedItem="{Binding EnteredGender, Mode=TwoWay}" />
-            <Label Content="New breed:"/>
-            <ComboBox ItemsSource="{Binding Breeds}"
+                SelectedItem="{Binding EnteredEmployee, Mode=TwoWay}"
+                Style="{StaticResource InputComboBox}"/>
+            <Label
+                Content="New gender:"
+                Style="{StaticResource DefaultLabel}"/>
+            <ComboBox
+                ItemsSource="{Binding Genders}"
+                SelectedItem="{Binding EnteredGender, Mode=TwoWay}"
+                Style="{StaticResource InputComboBox}"/>
+            <Label
+                Content="New breed:"
+                Style="{StaticResource DefaultLabel}"/>
+            <ComboBox
+                ItemsSource="{Binding Breeds}"
                 DisplayMemberPath="Name"
-                SelectedItem="{Binding EnteredBreed, Mode=TwoWay}" />
+                SelectedItem="{Binding EnteredBreed, Mode=TwoWay}"
+                Style="{StaticResource InputComboBox}"/>
             <Button
-                Content="Update profile"
+                Margin="0,5,0,0"
+                Content="Update changed"
                 Click="UpdateButton_Click"
+                HorizontalAlignment="Center"
                 Style="{StaticResource SmallButton}"/>
         </StackPanel>
 

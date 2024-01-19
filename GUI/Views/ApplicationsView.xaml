@@ -11,20 +11,27 @@
             <ColumnDefinition  Width="330"/>
             <ColumnDefinition Width="800"/>
         </Grid.ColumnDefinitions>
+        
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid>
+        
+        <Grid Margin="15, 15">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <StackPanel>
-                <TextBox Text="{Binding SearchText, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}"/>
+                <TextBox
+                    Text="{Binding SearchText, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}"
+                    Margin="0, 0, 0, 10"
+                    Style="{StaticResource SearchBar}"/>
                 <DockPanel>
-                    <Label Content="Filter completed"/>
-                    <CheckBox IsChecked="{Binding FilterCompleted, Mode=TwoWay}"/>
+                    <Label
+                        Content="Hide completed"
+                        Style="{StaticResource DefaultLabel}"/>
+                    <CheckBox IsChecked="{Binding FilterNotCompleted, Mode=TwoWay}"/>
                 </DockPanel>
             </StackPanel>
             <ScrollViewer
@@ -32,48 +39,96 @@
                 CanContentScroll="True"
                 VerticalScrollBarVisibility="Auto"
                 Height="Auto">
+                <ScrollViewer.Resources>
+                    <Style TargetType="ScrollBar" BasedOn="{StaticResource ScrollViewerScrollBar}" />
+                </ScrollViewer.Resources>
                 <ItemsControl 
                     ItemsSource="{Binding FilteredApplications}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <DockPanel
                                 MouseLeftButtonDown="Applications_MouseLeftButton">
-                                <TextBlock Style="{StaticResource ListText}" Text="Client:"/>
-                                <TextBlock Margin="10,0,0,0" Style="{StaticResource ListText}" Text="{Binding Client.Name}"/>
-                                <TextBlock Margin="10,0,0,0" Style="{StaticResource ListText}" Text="Breed:"/>
-                                <TextBlock Margin="10,0,0,0" Style="{StaticResource ListText}" Text="{Binding Breed.Name}"/>
+                                <TextBlock Style="{StaticResource ListText}" >
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0}, breed:{1}">
+                                            <Binding Path="Client.Name" />
+                                            <Binding Path="Breed.Name" />
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
                             </DockPanel>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </ScrollViewer>
         </Grid>
-        <StackPanel
+        
+        <Grid
+            Margin="0, 15, 15, 0"
             Grid.Row="1">
-            <Button 
-                Style="{StaticResource SmallButton}"
-                Content="ADD APPLICATION"
-                Command="{Binding AddApplicationCommand}"/>
-            <Label Content="*Client:"/>
-            <ComboBox ItemsSource="{Binding Clients}"
-                DisplayMemberPath="Name"
-                SelectedItem="{Binding EnteredClient, Mode=TwoWay}" />
-            <Label Content="*Employee:"/>
-            <ComboBox ItemsSource="{Binding Employees}"
-                DisplayMemberPath="Name"
-                SelectedItem="{Binding EnteredEmployee, Mode=TwoWay}" />
-            <Label Content="*Breed:"/>
-            <ComboBox ItemsSource="{Binding Breeds}"
-                DisplayMemberPath="Name"
-                SelectedItem="{Binding EnteredBreed, Mode=TwoWay}" />
-            <Label Content="Gender:"/>
-            <ComboBox ItemsSource="{Binding Genders}"
-                SelectedItem="{Binding EnteredGender, Mode=TwoWay}" />
-        </StackPanel>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock
+                Grid.Row="0"
+                Text="NEW APPLICATION:"
+                HorizontalAlignment="Center"
+                Style="{StaticResource Header}"/>
+            <ScrollViewer
+                Grid.Row="1"
+                CanContentScroll="True"
+                VerticalScrollBarVisibility="Visible">
+                <ScrollViewer.Resources>
+                    <Style TargetType="ScrollBar" BasedOn="{StaticResource ScrollViewerScrollBar}" />
+                </ScrollViewer.Resources>
+                <StackPanel
+                    Margin="10, 0">
+                    <Label
+                        Content="*Client:"
+                        Style="{StaticResource DefaultLabel}"/>
+                    <ComboBox
+                        ItemsSource="{Binding Clients}"
+                        DisplayMemberPath="Name"
+                        SelectedItem="{Binding EnteredClient, Mode=TwoWay}"
+                        Style="{StaticResource InputComboBox}"/>
+                    <Label
+                        Content="*Employee:"
+                        Style="{StaticResource DefaultLabel}"/>
+                    <ComboBox
+                        ItemsSource="{Binding Employees}"
+                        DisplayMemberPath="Name"
+                        SelectedItem="{Binding EnteredEmployee, Mode=TwoWay}"
+                        Style="{StaticResource InputComboBox}"/>
+                    <Label
+                        Content="*Breed:"
+                        Style="{StaticResource DefaultLabel}"/>
+                    <ComboBox
+                        ItemsSource="{Binding Breeds}"
+                        DisplayMemberPath="Name"
+                        SelectedItem="{Binding EnteredBreed, Mode=TwoWay}"
+                        Style="{StaticResource InputComboBox}"/>
+                    <Label
+                        Content="Gender:"
+                        Style="{StaticResource DefaultLabel}"/>
+                    <ComboBox
+                        ItemsSource="{Binding Genders}"
+                        SelectedItem="{Binding EnteredGender, Mode=TwoWay}"
+                        Style="{StaticResource InputComboBox}"/>
+                    <Button 
+                        Margin="0,5,0,0"
+                        Style="{StaticResource SmallButton}"
+                        Content="ADD"
+                        HorizontalAlignment="Center"
+                        Command="{Binding AddApplicationCommand}"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
 
         <controls:ApplicationProfile
             Grid.Column="1"
             Grid.Row="0"
+            Margin="0,15,0,0"
             Application="{Binding DataContext.SelectedApplication, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
             DeleteCommand="{Binding DataContext.DeleteApplicationCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
             UpdateCommand="{Binding DataContext.UpdateApplicationCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"

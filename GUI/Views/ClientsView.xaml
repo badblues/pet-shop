@@ -15,27 +15,37 @@
             <RowDefinition/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid>
+        <Grid Margin="15, 15">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <TextBox Text="{Binding SearchText, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox
+                Text="{Binding SearchText, Mode=TwoWay,  UpdateSourceTrigger=PropertyChanged}"
+                Margin="0, 0, 0, 10"
+                Style="{StaticResource SearchBar}"/>
             <ScrollViewer
                 Grid.Row="1"
                 CanContentScroll="True"
                 VerticalScrollBarVisibility="Auto"
                 Height="Auto">
+                <ScrollViewer.Resources>
+                    <Style TargetType="ScrollBar" BasedOn="{StaticResource ScrollViewerScrollBar}" />
+                </ScrollViewer.Resources>
                 <ItemsControl 
                     ItemsSource="{Binding FilteredClients}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <DockPanel
                                 MouseLeftButtonDown="Clients_MouseLeftButton">
-                                <TextBlock Style="{StaticResource ListText}" Text="Name:"/>
-                                <TextBlock Margin="10,0,0,0" Style="{StaticResource ListText}" Text="{Binding Name}"/>
-                                <TextBlock Margin="10,0,0,0" Style="{StaticResource ListText}" Text="Address:"/>
-                                <TextBlock Margin="10,0,0,0" Style="{StaticResource ListText}" Text="{Binding Address}"/>
+                                <TextBlock Style="{StaticResource ListText}">
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0}, {1}">
+                                            <Binding Path="Name" />
+                                            <Binding Path="Address" />
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
                             </DockPanel>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
@@ -43,19 +53,44 @@
             </ScrollViewer>
         </Grid>
 
-        <StackPanel
-            Grid.Row="1">
-            <Button 
-                Style="{StaticResource SmallButton}"
-                Content="ADD CLIENT"
-                Command="{Binding AddClientCommand}"/>
-            <Label Content="*Name:"/>
-            <TextBox Text="{Binding EnteredName, Mode=TwoWay}" />
-            <Label Content="*Address:"/>
-            <TextBox Text="{Binding EnteredAddress, Mode=TwoWay}" />
-        </StackPanel>
+        <Grid
+            Margin="0, 15, 15, 0"
+            Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock
+                Grid.Row="0"
+                Text="NEW CLIENT:"
+                HorizontalAlignment="Center"
+                Style="{StaticResource Header}"/>
+            <StackPanel
+                Margin="10, 0"
+                Grid.Row="1">
+                <Label
+                    Content="*Name:"
+                    Style="{StaticResource DefaultLabel}"/>
+                <TextBox
+                    Text="{Binding EnteredName, Mode=TwoWay}"
+                    Style="{StaticResource InputTextBox}"/>
+                <Label
+                    Content="*Address:"
+                    Style="{StaticResource DefaultLabel}"/>
+                <TextBox
+                    Text="{Binding EnteredAddress, Mode=TwoWay}"
+                    Style="{StaticResource InputTextBox}"/>
+                <Button 
+                    Margin="0,5,0,0"
+                    Style="{StaticResource SmallButton}"
+                    Content="ADD"
+                    HorizontalAlignment="Center"
+                    Command="{Binding AddClientCommand}"/>
+            </StackPanel>
+        </Grid>
 
         <controls:ClientProfile
+            Margin="0,15,0,0"
             Client="{Binding DataContext.SelectedClient, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
             UpdateCommand="{Binding DataContext.UpdateClientCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
             DeleteCommand="{Binding DataContext.DeleteClientCommand, RelativeSource={RelativeSource AncestorType={x:Type UserControl}}}"
@@ -76,8 +111,10 @@
             Grid.Column="1"
             Grid.Row="1"
             CanContentScroll="True"
-            VerticalScrollBarVisibility="Visible"
-            Height="Auto">
+            VerticalScrollBarVisibility="Visible">
+            <ScrollViewer.Resources>
+                <Style TargetType="ScrollBar" BasedOn="{StaticResource ScrollViewerScrollBar}" />
+            </ScrollViewer.Resources>
             <StackPanel
                 Width="400"
                 HorizontalAlignment="Left">
@@ -91,32 +128,44 @@
                         </Style.Triggers>
                     </Style>
                 </StackPanel.Style>
-                <Label Content="ANIMALS:"/>
+                <TextBlock
+                    Margin="5,0,0,0"
+                    Text="ANIMALS:"
+                    Style="{StaticResource Header}"/>
                 <ItemsControl 
                     ItemsSource="{Binding SelectedClient.Animals}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <DockPanel>
-                                <Label Content="Name:"/>
-                                <Label Content="{Binding Name}"/>
-                                <Label Content="Breed:"/>
-                                <Label Content="{Binding Breed.Name}"/>
-                            </DockPanel>
+                            <TextBlock
+                                Style="{StaticResource ListText}">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0}, {1}">
+                                        <Binding Path="Name"/>
+                                        <Binding Path="Breed.Name"/>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
 
-                <Label Content="APPLICATIONS:"/>
+                <TextBlock
+                    Margin="5,0,0,0"
+                    Text="APPLICATIONS:"
+                    Style="{StaticResource Header}"/>
                 <ItemsControl 
                     ItemsSource="{Binding SelectedClient.Applications}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <DockPanel>
-                                <Label Content="Breed:"/>
-                                <Label Content="{Binding Breed.Name}"/>
-                                <Label Content="Gender:"/>
-                                <Label Content="{Binding Gender}"/>
-                            </DockPanel>
+                            <TextBlock
+                                Style="{StaticResource ListText}">
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0}, {1}">
+                                        <Binding Path="Name"/>
+                                        <Binding Path="Gender"/>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>

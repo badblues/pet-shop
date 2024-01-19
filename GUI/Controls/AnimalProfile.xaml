@@ -15,74 +15,92 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel DataContext="{Binding Animal}">
-            <DockPanel>
-                <TextBlock Style="{StaticResource ProfileText}" Text="Name: "/>
-                <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Name}"/>
-            </DockPanel>
-            <DockPanel>
-                <TextBlock Style="{StaticResource ProfileText}" Text="Age: "/>
-                <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Age}"/>
-            </DockPanel>
-            <DockPanel>
-                <TextBlock Style="{StaticResource ProfileText}" Text="Gender: "/>
-                <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Gender}"/>
-            </DockPanel>
-            <DockPanel>
-                <TextBlock Style="{StaticResource ProfileText}" Text="Breed: "/>
-                <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Breed.Name}"/>
-            </DockPanel>
-            <DockPanel>
-                <TextBlock Style="{StaticResource ProfileText}" Text="Exterior: "/>
-                <TextBlock Style="{StaticResource ProfileText}" Text="{Binding ExteriorDescription}"/>
-            </DockPanel>
-            <DockPanel>
-                <TextBlock Style="{StaticResource ProfileText}" Text="Pedigree: "/>
-                <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Pedigree}"/>
-            </DockPanel>
-            <DockPanel>
-                <TextBlock Style="{StaticResource ProfileText}" Text="Veterinarian: "/>
-                <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Veterinarian}"/>
-            </DockPanel>
-            <DockPanel>
-                <TextBlock Style="{StaticResource ProfileText}" Text="Owner: "/>
-                <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Client.Name}"/>
-            </DockPanel>
+            <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Path=Name, StringFormat='Name: {0}'}"/>
+            <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Path=Age, StringFormat='Age: {0}'}"/>
+            <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Path=Gender, StringFormat='Gender: {0}'}"/>
+            <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Path=Breed.Name, StringFormat='Breed: {0}'}"/>
+            <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Path=ExteriorDescription, StringFormat='Exterior: {0}'}"/>
+            <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Path=Pedigree, StringFormat='Pedigree: {0}'}"/>
+            <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Path=Veterinarian, StringFormat='Veterinarian: {0}'}"/>
+            <TextBlock Style="{StaticResource ProfileText}" Text="{Binding Path=Client.Name, StringFormat='Owner: {0}'}"/>
         </StackPanel>
 
         <ScrollViewer
+            Margin="15, 0"
             Grid.Column="1"
             CanContentScroll="True"
             VerticalScrollBarVisibility="Visible"
             Height="Auto">
-            <StackPanel>
+            <ScrollViewer.Resources>
+                <Style TargetType="ScrollBar" BasedOn="{StaticResource ScrollViewerScrollBar}" />
+            </ScrollViewer.Resources>
+            <StackPanel
+                Margin="5, 0">
                 <Button
-                    Content="DELETE" Click="DeleteButton_Click"
+                    Margin="0,0,0,5"
+                    Content="DELETE"
+                    Click="DeleteButton_Click"
+                    HorizontalAlignment="Center"
                     Style="{StaticResource SmallButton}"/>
-                <Label Content="New name:"/>
-                <TextBox Text="{Binding EnteredName, Mode=TwoWay}" />
-                <Label Content="New age:"/>
-                <TextBox Text="{Binding EnteredAge, Mode=TwoWay}"
-                    PreviewTextInput="PositiveIntegerTextBox_PreviewTextInput"/>
-                <Label Content="New gender:"/>
-                <ComboBox ItemsSource="{Binding Genders}"
-                    SelectedItem="{Binding EnteredGender, Mode=TwoWay}" />
-                <Label Content="New breed:"/>
-                <ComboBox ItemsSource="{Binding Breeds}"
-                      DisplayMemberPath="Name"
-                      SelectedItem="{Binding EnteredBreed, Mode=TwoWay}" />
-                <Label Content="New exterior:"/>
-                <TextBox Text="{Binding EnteredExteriorDescription, Mode=TwoWay}" />
-                <Label Content="New pedigree:"/>
-                <TextBox Text="{Binding EnteredPedigree, Mode=TwoWay}" />
-                <Label Content="New Veterinarian:"/>
-                <TextBox Text="{Binding EnteredVeterinarian, Mode=TwoWay}" />
-                <Label Content="New owner:"/>
-                <ComboBox ItemsSource="{Binding Clients}"
-                      DisplayMemberPath="Name"
-                      SelectedItem="{Binding EnteredOwner, Mode=TwoWay}" />
+                <Label
+                    Content="New name:"
+                    Style="{StaticResource DefaultLabel}"/>
+                <TextBox
+                    Text="{Binding EnteredName, Mode=TwoWay}"
+                    Style="{StaticResource InputTextBox}"/>
+                <Label
+                    Content="New age:"
+                    Style="{StaticResource DefaultLabel}"/>
+                <TextBox
+                    Text="{Binding EnteredAge, Mode=TwoWay}"
+                    PreviewTextInput="PositiveIntegerTextBox_PreviewTextInput"
+                    Style="{StaticResource InputTextBox}"/>
+                <Label
+                    Content="New gender:"
+                    Style="{StaticResource DefaultLabel}"/>
+                <ComboBox
+                    ItemsSource="{Binding Genders}"
+                    SelectedItem="{Binding EnteredGender, Mode=TwoWay}" 
+                    Style="{StaticResource InputComboBox}"/>
+                <Label
+                    Content="New breed:"
+                    Style="{StaticResource DefaultLabel}"/>
+                <ComboBox
+                    ItemsSource="{Binding Breeds}"
+                    DisplayMemberPath="Name"
+                    SelectedItem="{Binding EnteredBreed, Mode=TwoWay}"
+                    Style="{StaticResource InputComboBox}"/>
+                <Label
+                    Content="New exterior:"
+                    Style="{StaticResource DefaultLabel}"/>
+                <TextBox
+                    Text="{Binding EnteredExteriorDescription, Mode=TwoWay}"
+                    Style="{StaticResource InputTextBox}"/>
+                <Label
+                    Content="New pedigree:"
+                    Style="{StaticResource DefaultLabel}"/>
+                <TextBox
+                    Text="{Binding EnteredPedigree, Mode=TwoWay}"
+                    Style="{StaticResource InputTextBox}"/>
+                <Label
+                    Content="New Veterinarian:"
+                    Style="{StaticResource DefaultLabel}"/>
+                <TextBox
+                    Text="{Binding EnteredVeterinarian, Mode=TwoWay}"
+                    Style="{StaticResource InputTextBox}"/>
+                <Label
+                    Content="New owner:"
+                    Style="{StaticResource DefaultLabel}"/>
+                <ComboBox
+                    ItemsSource="{Binding Clients}"
+                    DisplayMemberPath="Name"
+                    SelectedItem="{Binding EnteredOwner, Mode=TwoWay}"
+                    Style="{StaticResource InputComboBox}"/>
                 <Button
-                    Content="Update profile"
+                    Margin="0,5,0,0"
+                    Content="Update changed"
                     Click="UpdateButton_Click"
+                    HorizontalAlignment="Center"
                     Style="{StaticResource SmallButton}"/>
             </StackPanel>
         </ScrollViewer>
