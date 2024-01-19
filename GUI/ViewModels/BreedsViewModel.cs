@@ -115,7 +115,7 @@ public class BreedsViewModel : ViewModel
                 Breeds = _breedRepository.GetAll();
                 SelectedBreed = null;
             }
-            catch(Exception e)
+            catch(Exception)
             {
                 string message = "Could not delete breed. There are animals or applications with that breed.";
                 MessageBox.Show(message, "Error", MessageBoxButton.OK, MessageBoxImage.Warning);

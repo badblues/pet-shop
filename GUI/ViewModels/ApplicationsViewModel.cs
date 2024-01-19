@@ -17,7 +17,7 @@ internal class ApplicationsViewModel : ViewModel
     private ICollection<Application> _filteredApplications = new List<Application>();
     private Application? _selectedApplication;
     private string _searchText;
-    private bool _filterCompleted = false;
+    private bool _filterNotCompleted = false;
 
     public ICommand AddApplicationCommand { get; set; }
     public ICommand UpdateApplicationCommand { get; set; }
@@ -79,15 +79,15 @@ internal class ApplicationsViewModel : ViewModel
         }
     }
 
-    public bool FilterCompleted
+    public bool FilterNotCompleted
     {
-        get => _filterCompleted;
+        get => _filterNotCompleted;
         set
         {
-            if (_filterCompleted != value)
+            if (_filterNotCompleted != value)
             {
-                _filterCompleted = value;
-                OnPropertyChanged(nameof(FilterCompleted));
+                _filterNotCompleted = value;
+                OnPropertyChanged(nameof(FilterNotCompleted));
                 FilterApplications();
             }
         }
@@ -185,7 +185,7 @@ internal class ApplicationsViewModel : ViewModel
         {
             foreach (Application application in Applications)
             {
-                if (FilterCompleted && application.Completed || !FilterCompleted)
+                if (FilterNotCompleted && !application.Completed || !FilterNotCompleted)
                     filteredApplications.Add(application);
             }
         }
@@ -195,7 +195,7 @@ internal class ApplicationsViewModel : ViewModel
             foreach (Application application in Applications)
             {
                 if (application.Breed.Name.ToLower().Contains(searchTextLower)
-                    && (FilterCompleted && application.Completed || !FilterCompleted))
+                    && (FilterNotCompleted && !application.Completed || !FilterNotCompleted))
                 {
                     filteredApplications.Add(application);
                 }

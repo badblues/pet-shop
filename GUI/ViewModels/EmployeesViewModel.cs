@@ -128,7 +128,7 @@ public class EmployeesViewModel : ViewModel
                 Employees = _employeeRepository.GetAll();
                 SelectedEmployee = null;
             }
-            catch(Exception e)
+            catch(Exception)
             {
                 string message = "Could not delete employee. There are applications with that employee.";
                 MessageBox.Show(message, "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
